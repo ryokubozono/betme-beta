@@ -1,9 +1,12 @@
 import React from 'react';
+import AppLayout from 'components/commons/layout/AppLayout';
 
 const Root = (props) => {
   return (
     <>
-      <p>root</p>
+      <AppLayout>
+        <p>root</p>
+      </AppLayout>
     </>
   )
 }

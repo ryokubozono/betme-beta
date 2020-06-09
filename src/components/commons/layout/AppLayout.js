@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,6 +21,11 @@ import blueGrey from '@material-ui/core/colors/blueGrey';
 import { Container, Menu, MenuItem, Badge } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import AppAlert from 'components/commons/atoms/AppAlert';
+import { AuthContext } from "hooks/Auth";
+import { auth } from "FirebaseConfig";
+import { useHistory } from 'react-router-dom';
+import paths from 'paths';
 
 const drawerWidth = 240;
 
@@ -55,7 +60,8 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    paddingTop: theme.spacing(2),
+    
     backgroundColor: blueGrey[50],
     minHeight: '100vh',
   },
@@ -66,16 +72,27 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     position: 'absolute',
     bottom: 0,
-    margin: 'auto'
+    margin: 'auto',
+    paddingLeft: '2em',
+    paddingRight: '2em',
   },
 }));
 
 const AppLayout = (props) => {
 
+  const { currentUser } = useContext(AuthContext);
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const history = useHistory();
+
+  const handleSignout = () => {
+    // console.log('click logout')
+    // logout button
+    // すぐにサインアウトしないため/loginに遷移させることができない。
+    auth.signOut()
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -170,6 +187,12 @@ const AppLayout = (props) => {
             >
               <MenuItem onClick={handleClose}>Profile</MenuItem>
               <MenuItem onClick={handleClose}>My account</MenuItem>
+              { currentUser ? (
+                <MenuItem onClick={handleSignout}>Sign Out</MenuItem>
+              ):(
+                <MenuItem onClick={() => history.push({pathname: `${paths.signin}`})}>Sign In</MenuItem>
+              )
+              }
             </Menu>
           </div>
         </Toolbar>
@@ -212,6 +235,7 @@ const AppLayout = (props) => {
           {props.children}
           </Container>
         </>
+        <AppAlert />
         <div className={classes.footer} >
           <p>&copy; 2020 Signal & Company</p>
         </div>

@@ -13,6 +13,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
 import green from '@material-ui/core/colors/green';
 import { AuthProvider } from 'hooks/Auth';
+import indigo from '@material-ui/core/colors/indigo';
 
 const theme = createMuiTheme({
   palette: {
@@ -26,8 +27,11 @@ const theme = createMuiTheme({
       main: pink[200],
       dark: pink[300],
     },
-    // plane: '#fff',
-    matcha: '#69f0ae',
+    info: {
+      light: indigo[700],
+      main: indigo[800],
+      dark: indigo[900],
+    },
   },
   status: {
     danger: 'orange',

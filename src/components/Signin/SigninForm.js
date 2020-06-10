@@ -78,7 +78,7 @@ const SigninForm = (props) => {
         >
           <TextValidator
             label='Email'
-            id="component-simple"
+            id="email"
             name='email'
             color='primary'
             fullWidth
@@ -90,7 +90,7 @@ const SigninForm = (props) => {
           />
           <TextValidator
             label='Password'
-            id="component-simple"
+            id="password"
             name='password'
             type="password"
             color='primary'

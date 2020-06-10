@@ -32,6 +32,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    position: 'relative',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -61,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
     
     backgroundColor: blueGrey[50],
     minHeight: '100vh',
@@ -71,10 +73,15 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     position: 'absolute',
-    bottom: 0,
-    margin: 'auto',
-    paddingLeft: '2em',
-    paddingRight: '2em',
+    bottom: '0',
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100vw',
+    },
+    textAlign: 'center',
+    // borderTop: '1px solid #ccc'
   },
 }));
 
@@ -236,11 +243,10 @@ const AppLayout = (props) => {
           </Container>
         </>
         <AppAlert />
-        <div className={classes.footer} >
-          <p>&copy; 2020 Signal & Company</p>
-        </div>
+        <footer className={classes.footer} >
+          &copy; 2020 Signal & Company
+        </footer>
       </main>
-
     </div>
   )
 }

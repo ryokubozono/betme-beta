@@ -193,7 +193,7 @@ const AppLayout = (props) => {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={() => history.push(`${paths.myaccount}`)}>My account</MenuItem>
               { currentUser ? (
                 <MenuItem onClick={handleSignout}>Sign Out</MenuItem>
               ):(

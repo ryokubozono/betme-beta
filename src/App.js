@@ -14,6 +14,11 @@ import { AuthProvider } from 'hooks/Auth';
 import indigo from '@material-ui/core/colors/indigo';
 import MyAccount from 'components/MyAccount';
 import AddMailToAccount from 'components/MyAccount/AddMailToAccount';
+import { CertsProvider } from 'hooks/Certs';
+import { ExamsProvider } from 'hooks/Exams';
+import { UsersProvider } from 'hooks/Users';
+import { UserProvider } from 'hooks/User';
+import CertDetail from 'components/cert/CertDetail';
 
 const theme = createMuiTheme({
   palette: {
@@ -44,7 +49,12 @@ function App() {
       <Router>
         <Switch>
         <AuthProvider>
+        <UsersProvider>
+        <UserProvider>
+        <CertsProvider>
+        <ExamsProvider>
         <ThemeProvider theme={theme}>
+          <Route exact path={paths.certdetail} component={CertDetail} key='certdetail' />
           <Route exact path={paths.addmailtoaccount} component={AddMailToAccount} key='addmail' />
           <Route exact path={paths.myaccount} component={MyAccount} key='myaccount' />
           <Route exact path={paths.nopagefound} component={NoPageFound} key='nopagefound' />
@@ -52,6 +62,10 @@ function App() {
           <Route exact path={paths.root} component={Root} key='root' />
           {/* <Route component={NoPageFound} key='nopagefound1' /> */}
         </ThemeProvider>
+        </ExamsProvider>
+        </CertsProvider>
+        </UserProvider>
+        </UsersProvider>
         </AuthProvider>
         </Switch>
       </Router>

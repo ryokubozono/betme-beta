@@ -23,6 +23,7 @@ const AppAlert = (props) => {
 
   const handleClose = () => {
     history.push({
+      search: location.search,
       state: {text: '', type: ''}
     })
   }
@@ -30,6 +31,7 @@ const AppAlert = (props) => {
   useEffect(() => {
     if (location.state) {
       history.push({
+        search: location.search,
         state: {
           text: location.state.text, 
           type: location.state.type

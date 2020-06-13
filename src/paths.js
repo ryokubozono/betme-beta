@@ -8,7 +8,8 @@ const paths = {
   // my account
   myaccount: '/myaccount',
   addmailtoaccount: '/addmail',
-  
+  // cert
+  certdetail: '/cert/detail/:uid',
 };
 
 export default paths;

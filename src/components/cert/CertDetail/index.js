@@ -17,6 +17,7 @@ import CertAboutStudy from "components/cert/CertDetail/CertAboutStudy";
 import CertNews from "components/cert/CertDetail/CertNews";
 import CertAfterPass from "components/cert/CertDetail/CertAfterPass";
 import CertSelectExam from "./CertSelectExam";
+import { AuthContext } from "hooks/Auth";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -61,6 +62,7 @@ const CertDetail = (props) => {
   const { certs } = useContext(CertsContext); 
   const [expanded, setExpanded] = useState('panel1');
   const [open, setOpen] = useState(false);
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     if (location.pathname) {
@@ -91,14 +93,17 @@ const CertDetail = (props) => {
         <Box bgcolor='white' p={2} m={0}>
           <h2>{cert.name}</h2>
           <p>{cert.desc}</p>
-          <Button
-            color='secondary'
-            fullWidth
-            variant="contained"
-            onClick={handleOpen}
-          >
-            My試験に登録する
-          </Button>
+          { currentUser &&
+            <Button
+              color='secondary'
+              fullWidth
+              variant="contained"
+              onClick={handleOpen}
+            >
+              My試験に登録する
+            </Button>
+          }
+
           <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"

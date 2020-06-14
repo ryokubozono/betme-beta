@@ -46,7 +46,7 @@ const ExamList = (props) => {
 
       </ListItemIcon>
       <ListItemText>
-        {exam.name}
+        {exam.examName}
       </ListItemText>
       <ListItemSecondaryAction 
         onClick={() => handleExamTarget(exam)}

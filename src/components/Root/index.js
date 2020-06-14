@@ -10,12 +10,15 @@ import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 import { ExamFindFilter } from 'components/commons/filters/ExamFindFilter';
 import { ExamsContext } from "hooks/Exams";
+import { UserContext } from 'hooks/User';
 
 const Root = (props) => {
   const { currentUser } = useContext(AuthContext);
   const [examTarget, setExamTarget] = useState('')
   const location = useLocation();
   const { exams } = useContext(ExamsContext);
+  const { user } = useContext(UserContext);
+  const [frag, setFrag] = useState(false);
 
   useEffect(() => {
     if (exams && queryString.parse(location.search).examId) {
@@ -25,6 +28,12 @@ const Root = (props) => {
       }
     };
   }, [exams, location.search])
+
+  useEffect(() => {
+    if (user.myExam && user.myExam.length) {
+      setFrag(true)
+    }
+  }, [user.myExam])
 
   return (
     <>
@@ -37,10 +46,14 @@ const Root = (props) => {
             <TopBread />
             <MyItem
               setExamTarget={setExamTarget} 
+              frag={frag}
             />
-            <ExamTabs 
-              examTarget={examTarget} 
-            />
+            {frag && examTarget &&
+              <ExamTabs 
+                examTarget={examTarget} 
+              />
+            }
+
           </>
         }
         <SearchItem />

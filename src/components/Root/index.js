@@ -45,6 +45,7 @@ const Root = (props) => {
           <>
             <TopBread />
             <MyItem
+              examTarget={examTarget} 
               setExamTarget={setExamTarget} 
               frag={frag}
             />

@@ -45,9 +45,7 @@ const ExamTabs = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-
-
+  
   return (
     <>
       <Paper square className={classes.root}>

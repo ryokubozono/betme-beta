@@ -8,6 +8,7 @@ import firebase, { db } from "FirebaseConfig";
 import StepConnector from '@material-ui/core/StepConnector';
 import clsx from 'clsx';
 import Check from '@material-ui/icons/Check';
+import HighlightOff from '@material-ui/icons/HighlightOff';
 import PropTypes from 'prop-types';
 import { Button, Modal } from "@material-ui/core";
 import Spacer from "components/commons/atoms/Spacer";
@@ -31,7 +32,7 @@ const QontoConnector = withStyles({
   },
   line: {
     borderColor: '#eaeaf0',
-    borderTopWidth: 3,
+    borderLeftWidth: 3,
     borderRadius: 1,
   },
 })(StepConnector);
@@ -57,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
     maxWidth: 500,
+    width: '80vw',
     margin: 'auto',
     alignItems: 'center',
     justifyContent: 'center',
@@ -66,10 +68,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4),
   },
   stepper: {
-    padding: 0,
+    margin: 'auto',
   },
   stepLabelText: {
     // fontSize: '10px',
+  },
+  closeButton: {
+    textAlign: 'right',
   }
 }));
 
@@ -79,6 +84,7 @@ const useQontoStepIconStyles = makeStyles({
     display: 'flex',
     height: 22,
     alignItems: 'center',
+    marginLeft: 10,
   },
   active: {
     color: '#784af4',
@@ -129,10 +135,10 @@ const ExamInfoTab = (props) => {
   useEffect(() => {
     if (today && props.examTarget.examDate) {
       let dateRef = props.examTarget.examDate.seconds - today.seconds
-      if (dateRef <= 0) {
+      if (dateRef < 1) {
         setDate(0)
       } else {
-        setDate(Math.round(dateRef / 86400))
+        setDate(Math.floor(dateRef / 86400))
       }
     }
   }, [props.examTarget.examDate])
@@ -207,20 +213,25 @@ const ExamInfoTab = (props) => {
       <h4>{props.examTarget.examName}</h4>
       <Stepper
         activeStep={todayNumber} 
-        alternativeLabel
+        // alternativeLabel
         nonLinear
         connector={<QontoConnector />}
+        orientation="vertical"
         className={classes.stepper}
       >
         { data && data.map(data => (
           <Step>
-            <StepLabel StepIconComponent={QontoStepIcon} >
-              <p className={classes.stepLabelText}>
+            <StepLabel
+              StepIconComponent={QontoStepIcon} 
+            >
+              <b className={classes.stepLabelText}>
                 {data.date && <GetYearMonthDate timestamp={data.date} />}
-              </p>
-              <p className={classes.stepLabelText}>
+              </b>
+              &nbsp;
+              &nbsp;
+              <b className={classes.stepLabelText}>
                 {data.label}
-              </p>
+              </b>
             </StepLabel>
           </Step>
         ))}
@@ -260,6 +271,13 @@ const ExamInfoTab = (props) => {
             onClose={handleClose}
           >
             <div className={classes.paper}>
+              <div
+                className={classes.closeButton}              
+              >
+                <HighlightOff 
+                  onClick={handleClose}
+                />
+              </div>
               <AboutBetMe />
             </div>
           </Modal>

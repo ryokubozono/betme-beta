@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 const ExamList = (props) => {
   const { exams } = useContext(ExamsContext);
   const [exam, setExam] = useState('')
+  const [frag, setFrag] = useState(false);
   const classes = useStyles();
   const history = useHistory('');
 
@@ -33,6 +34,16 @@ const ExamList = (props) => {
       }
     }
   }, [exams, props.examId])
+
+  useEffect(() => {
+    if (props.examId && props.examTarget) {
+      if (String(props.examId) === String(props.examTarget.docId)) {
+        setFrag(true)
+      } else {
+        setFrag(false)
+      }
+    }
+  }, [props.examId, props.examTarget])
 
   const handleExamTarget = (exam) => {
     history.push({
@@ -52,7 +63,16 @@ const ExamList = (props) => {
         onClick={() => handleExamTarget(exam)}
       >
         <IconButton edge="end" aria-label="comments">
-          <Edit />
+        { frag ?
+          (
+            <Edit 
+              color='primary'
+            />
+          ):(
+            <Edit 
+            />
+          )
+        }
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>

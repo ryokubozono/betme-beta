@@ -7,13 +7,6 @@ import ExamList from "components/commons/card/ExamList";
 
 const MyItem = (props) => {
   const { user } = useContext(UserContext);
-  // const [frag, setFrag] = useState(false);
-
-  // useEffect(() => {
-  //   if (user.myExam && user.myExam.length) {
-  //     setFrag(true)
-  //   }
-  // }, [user.myExam])
 
   return (
     <>
@@ -21,7 +14,11 @@ const MyItem = (props) => {
         <p>受験する資格試験</p>
         <List>
           {props.frag && user.myExam.map(examId => (
-            <ExamList examId={examId} setExamTarget={props.setExamTarget} />
+            <ExamList 
+              examId={examId}
+              examTarget={props.examTarget}
+              setExamTarget={props.setExamTarget} 
+            />
           ))}
           {!props.frag &&
             <p>受験する資格試験はありません</p>

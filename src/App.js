@@ -20,6 +20,7 @@ import { UsersProvider } from 'hooks/Users';
 import { UserProvider } from 'hooks/User';
 import { BooksProvider } from 'hooks/Books';
 import CertDetail from 'components/cert/CertDetail';
+import { EventsProvider } from 'hooks/Events';
 
 const theme = createMuiTheme({
   palette: {
@@ -54,6 +55,7 @@ function App() {
         <UserProvider>
         <CertsProvider>
         <ExamsProvider>
+        <EventsProvider>        
         <BooksProvider>        
         <ThemeProvider theme={theme}>
           <Route exact path={paths.certdetail} component={CertDetail} key='certdetail' />
@@ -64,7 +66,8 @@ function App() {
           <Route exact path={paths.root} component={Root} key='root' />
           {/* <Route component={NoPageFound} key='nopagefound1' /> */}
         </ThemeProvider>
-        </BooksProvider>        
+        </BooksProvider>  
+        </EventsProvider>
         </ExamsProvider>
         </CertsProvider>
         </UserProvider>

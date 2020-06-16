@@ -74,7 +74,7 @@ const SearchItem = (props) => {
           name='category'
           id="category"
           multiple
-          options={categories}
+          options={categories.sort((a, b) => -b.group.localeCompare(a.group))}
           groupBy={(option) => option.group}
           getOptionLabel={(option) => option.title}
           style={{ width: 250 }}

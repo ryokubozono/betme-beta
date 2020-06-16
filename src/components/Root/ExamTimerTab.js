@@ -13,6 +13,16 @@ import HighlightOff from '@material-ui/icons/HighlightOff';
 import AddMyBook from "components/Root/AddMyBook";
 import NewMyBook from "components/Root/NewMyBook";
 import Spacer from "components/commons/atoms/Spacer";
+import { BooksContext } from 'hooks/Books';
+import { AuthContext } from "hooks/Auth";
+import { UserContext } from 'hooks/User';
+import { MyBookListFilter } from "components/commons/filters/MyBookListFilter";
+import { hours } from 'components/commons/consts/hours';
+import { mins } from 'components/commons/consts/mins';
+import { useHistory } from 'react-router-dom';
+import firebase, { db } from "FirebaseConfig";
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -60,26 +70,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const hours = [
-  { value: 0 },
-  { value: 1 },
-  { value: 2 },
-  { value: 3 },
-  { value: 4 },
-  { value: 5 },
-  { value: 6 },
-  { value: 7 },
-  { value: 8 },
-  { value: 9 },
-]
-
-const mins = [
-  { value: 0 },
-  { value: 15 },
-  { value: 30 },
-  { value: 45 },
-]
-
 const today = GetDefaultDate(new Date())
 
 const ExamTimerTab = (props) => {
@@ -91,9 +81,23 @@ const ExamTimerTab = (props) => {
   const [book, setBook] = useState('');
   const [openAdd, setOpenAdd] = useState(false);
   const [openNew, setOpenNew] = useState(false);
-  const [studyPage, setStudyPage] = useState('');
+  const [studyPage, setStudyPage] = useState(0);
   const [studyNote, setStudyNote] = useState('');
+  const [studyTime, setStudyTime] = useState(0);
+  const { books } = useContext(BooksContext);
+  const { currentUser } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
+  const history = useHistory();
+  const location = useLocation();
 
+  const handleResetState = () => {
+    setStudyDate(today)
+    setBook('')
+    setStudyPage(0)
+    setStudyNote('')
+    setHour(0)
+    setMin(0)
+  }
   const handleChange = (event) => {
     console.log(event.target)
     switch (event.target.name) {
@@ -116,6 +120,13 @@ const ExamTimerTab = (props) => {
         console.log('no key match')
     }
   };
+
+  useEffect(() => {
+    if (books) {
+      let booksRef = MyBookListFilter(books, currentUser.uid, user.myBook);
+      setBooksList(booksRef)
+    }
+  }, [books, currentUser, user]);
   
   const handleOpenNew = () => {
     setOpenNew(true);
@@ -129,6 +140,66 @@ const ExamTimerTab = (props) => {
     setOpenNew(false);
     setOpenAdd(false);
   };
+
+  useEffect(() => {
+    let studyTimeRef = 0;
+    studyTimeRef = hour * 60 + min;
+    setStudyTime(studyTimeRef)
+  }, [hour, min])
+
+  const clickAddEvent = () => {
+    if (!studyTime) {
+      history.push({
+        search: location.search,
+        state: {
+          text: '学習時間を入力して下さい',
+          type: 'error'
+        }
+      })
+    } else {
+      let docId = db.collection('event').doc().id;
+      let fullYear = studyDate.substr(0, 4);
+      let month = studyDate.substr(5, 2);
+      let date = studyDate.substr(-2);
+      let bookId = '';
+      if (book) {
+        bookId = book.docId
+      }
+      console.log(fullYear, month, date)
+      let studyDateRef = new Date(fullYear, month - 1, date);
+      console.log(studyDateRef)
+      db.collection('event').doc(docId).set({
+        uid: docId,
+        docId: docId,
+        studyDate: firebase.firestore.Timestamp.fromDate(studyDateRef),
+        studyTime: studyTime,
+        studyNote: studyNote,
+        studyPage: studyPage,
+        bookId: bookId,
+        userId: currentUser.uid,
+        examId: queryString.parse(location.search).examId,
+      })
+      .then(() => {
+        handleResetState()
+        history.push({
+          search: location.search,
+          state: {
+            text: '学習時間を記録しました',
+            type: 'success'
+          }
+        })
+      })
+      .catch((error) => {
+        history.push({
+          search: location.search,
+          state: {
+            text: error.message,
+            type: 'error'        
+          }
+        });
+      })
+    }
+  }
 
   return (
     <>
@@ -156,8 +227,9 @@ const ExamTimerTab = (props) => {
       <AutoComplete
         name='book'
         id="book"
-        options={booksList}
+        options={booksList.sort((a, b) => -b.group.localeCompare(a.group))}
         getOptionLabel={(option) => option.title}
+        groupBy={(option) => option.group}
         className={classes.autoComplete}
         style={{ width: 220 }}
         onChange={(event, newValue) => {
@@ -177,7 +249,7 @@ const ExamTimerTab = (props) => {
           variant="outlined"
           size='small'
         >
-          リストから登録
+          リストを編集
         </Button>
         &nbsp;
         <Button
@@ -202,7 +274,9 @@ const ExamTimerTab = (props) => {
               onClick={handleClose}
             />
           </div>
-          <AddMyBook />
+          <AddMyBook 
+            handleClose={handleClose}          
+          />
         </div>
       </Modal>
       <Modal
@@ -218,7 +292,9 @@ const ExamTimerTab = (props) => {
               onClick={handleClose}
             />
           </div>
-          <NewMyBook />
+          <NewMyBook 
+            handleClose={handleClose}
+          />
         </div>
       </Modal>
       <p className={classes.inputLabel}>
@@ -264,10 +340,12 @@ const ExamTimerTab = (props) => {
           id='studyPage' 
           name='studyPage'
           label="学習量" 
-          style={{ width: 200 }}
+          type='number'
+          style={{ width: 60 }}
           onChange={handleChange} 
           value={studyPage}
           className={classes.textFeild}
+          helperText='ページ'
         />
       </FormControl>
       <br />
@@ -291,6 +369,7 @@ const ExamTimerTab = (props) => {
         <Button
           color='primary'
           variant="contained"
+          onClick={clickAddEvent}
         >
           学習を記録
         </Button>

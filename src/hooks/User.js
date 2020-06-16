@@ -12,11 +12,8 @@ const UserProvider = ({ children }) => {
   
   useEffect(() => {
     if (users && currentUser) {
-      console.log(users)
-      console.log(currentUser.uid)
       let userRef = users.find(u => u.docId === currentUser.uid)
       if (userRef) {
-        console.log(userRef)
         setUser(userRef)
       }
     }

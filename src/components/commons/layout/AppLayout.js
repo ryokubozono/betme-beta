@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,6 +7,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import HomeIcon from '@material-ui/icons/Home';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -26,6 +27,12 @@ import { AuthContext } from "hooks/Auth";
 import { auth } from "FirebaseConfig";
 import { useHistory } from 'react-router-dom';
 import paths from 'paths';
+import { UserContext } from 'hooks/User';
+import ExamNavList from '../card/ExamNavList';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import AdminNav from './AdminNav';
 
 const drawerWidth = 240;
 
@@ -93,6 +100,19 @@ const AppLayout = (props) => {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const history = useHistory();
+  const { user } = useContext(UserContext);
+  const [openList, setOpenList] = useState(false);
+  const [adminFrag, setAdminFrag] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      if (user.admin) {
+        setAdminFrag(true)
+      } else {
+        setAdminFrag(false)
+      }
+    }
+  }, [user])
 
   const handleSignout = () => {
     // console.log('click logout')
@@ -105,32 +125,42 @@ const AppLayout = (props) => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleClick = () => {
+    setOpenList(!openList);
+  };
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <ListItem button key={'Inbox'}>
-          <ListItemIcon><InboxIcon /></ListItemIcon>
-          <ListItemText primary={'Inbox'} />
+        <ListItem
+          button 
+          key={'Inbox'}
+          onClick={() => history.push(`${paths.root}`)}
+        >
+          <ListItemIcon><HomeIcon /></ListItemIcon>
+          <ListItemText primary={'HOME'} />
         </ListItem>
-
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button onClick={handleClick}>
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="My Exam" />
+            {openList ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={openList} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            {user.myExam && user.myExam.length && user.myExam.map(examId => (
+              <ExamNavList examId={examId} />
+            ))}
+          </List>
+        </Collapse>
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      {currentUser && adminFrag &&
+        <AdminNav />
+      }
     </div>
   );
 

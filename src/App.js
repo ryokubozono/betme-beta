@@ -21,6 +21,17 @@ import { UserProvider } from 'hooks/User';
 import { BooksProvider } from 'hooks/Books';
 import CertDetail from 'components/cert/CertDetail';
 import { EventsProvider } from 'hooks/Events';
+import CertIndex from 'components/commons/admin/cert';
+import CertEdit from 'components/commons/admin/cert/CertEdit';
+import CertNew from 'components/commons/admin/cert/CertNew';
+import ExamIndex from 'components/commons/admin/exam';
+import ExamEdit from 'components/commons/admin/exam/ExamEdit';
+import ExamNew from 'components/commons/admin/exam/ExamNew';
+import BookIndex from 'components/commons/admin/book';
+import BookNew from 'components/commons/admin/book/BookNew';
+import BookEdit from 'components/commons/admin/book/BookEdit';
+import UserIndex from 'components/commons/admin/user';
+import UserEdit from 'components/commons/admin/user/UserEdit';
 
 const theme = createMuiTheme({
   palette: {
@@ -58,6 +69,17 @@ function App() {
         <EventsProvider>        
         <BooksProvider>        
         <ThemeProvider theme={theme}>
+          <Route exact path={paths.useredit} component={UserEdit} key='useredit' />
+          <Route exact path={paths.userindex} component={UserIndex} key='userindex' />
+          <Route exact path={paths.bookedit} component={BookEdit} key='bookedit' />
+          <Route exact path={paths.booknew} component={BookNew} key='booknew' />
+          <Route exact path={paths.bookindex} component={BookIndex} key='bookindex' />
+          <Route exact path={paths.examnew} component={ExamNew} key='examnew' />
+          <Route exact path={paths.examedit} component={ExamEdit} key='examedit' />
+          <Route exact path={paths.examindex} component={ExamIndex} key='examindex' />
+          <Route exact path={paths.certnew} component={CertNew} key='certnew' />
+          <Route exact path={paths.certedit} component={CertEdit} key='certedit' />
+          <Route exact path={paths.certindex} component={CertIndex} key='certindex' />
           <Route exact path={paths.certdetail} component={CertDetail} key='certdetail' />
           <Route exact path={paths.addmailtoaccount} component={AddMailToAccount} key='addmail' />
           <Route exact path={paths.myaccount} component={MyAccount} key='myaccount' />

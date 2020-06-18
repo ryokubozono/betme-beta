@@ -10,6 +10,23 @@ const paths = {
   addmailtoaccount: '/addmail',
   // cert
   certdetail: '/cert/detail/:uid',
+  // admin
+  // admin cert
+  certindex: '/admin/cert/index',
+  certedit: '/admin/cert/edit/:uid',
+  certnew: '/admin/cert/new',
+  // admin exam
+  examindex: '/admin/exam/index',
+  examedit: '/admin/exam/edit/:uid',
+  examnew: '/admin/exam/new',
+  // admn book
+  bookindex: '/admin/book/index',
+  booknew: '/admin/book/new',
+  bookedit: '/admin/book/edit/:uid',
+  // admin user
+  userindex: '/admin/user/index',
+  useredit: '/admin/user/edit/:uid',
+  
 };
 
 export default paths;

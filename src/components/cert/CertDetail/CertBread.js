@@ -9,25 +9,25 @@ import paths from 'paths';
 import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
+import { CertsContext } from "hooks/Certs";
+import { CertFindFilter } from 'components/commons/filters/CertFindFilter';
 
-const TopBread = (props) => {
-  const { exams } = useContext(ExamsContext);
+const CertBread = (props) => {
+  const { certs } = useContext(CertsContext); 
   const history = useHistory();
-  const [exam, setExam] = useState('');
+  const [cert, setCert] = useState('');
   const location = useLocation();
 
   useEffect(() => {
-    if (exams) {
-      // if (exams && queryString.parse(location.search).examId) {
-        let examRef = ExamFindFilter(exams, queryString.parse(location.search).examId)
-        if (examRef) {
-          setExam(examRef);
-        } else {
-          setExam('')
-        }
-      // }
+    if (location.pathname) {
+      let certRef = CertFindFilter(certs, location.pathname.substr(-20))
+      if (certRef) {
+        setCert(certRef)
+      }
+    } else {
+      console.log('no iud')
     }
-  }, [exams, location.search])
+  }, [certs, location.pathname])
 
   return (
     <Breadcrumbs
@@ -48,14 +48,13 @@ const TopBread = (props) => {
       <Link
         color="inherit" 
         onClick={() => history.push({
-          pathName: `${paths.root}`,
-          search: `examId=${exam.docId}`,
+          pathName: `/cert/detail/${cert.name}`,
         })}
       >
-        {exam.examName}
+        {cert.name}
       </Link>
     </Breadcrumbs>
   )
 }
 
-export default TopBread;
+export default CertBread;

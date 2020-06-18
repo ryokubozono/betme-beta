@@ -18,6 +18,7 @@ import CertNews from "components/cert/CertDetail/CertNews";
 import CertAfterPass from "components/cert/CertDetail/CertAfterPass";
 import CertSelectExam from "./CertSelectExam";
 import { AuthContext } from "hooks/Auth";
+import CertBread from 'components/cert/CertDetail/CertBread';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -90,6 +91,7 @@ const CertDetail = (props) => {
   return (
     <>
       <AppLayout>
+        <CertBread />
         <Box bgcolor='white' p={2} m={0}>
           <h2>{cert.name}</h2>
           <p>{cert.desc}</p>

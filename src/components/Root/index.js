@@ -21,12 +21,17 @@ const Root = (props) => {
   const [frag, setFrag] = useState(false);
 
   useEffect(() => {
-    if (exams && queryString.parse(location.search).examId) {
-      let examRef = ExamFindFilter(exams, queryString.parse(location.search).examId)
-      if (examRef) {
-        setExamTarget(examRef);
+    if (exams) {
+      if (exams && queryString.parse(location.search).examId) {
+        let examRef = ExamFindFilter(exams, queryString.parse(location.search).examId)
+        if (examRef) {
+          setExamTarget(examRef);
+        }
+      } else {
+        setExamTarget('');
       }
-    };
+    }
+
   }, [exams, location.search])
 
   useEffect(() => {

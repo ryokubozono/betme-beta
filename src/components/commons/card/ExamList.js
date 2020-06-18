@@ -42,6 +42,8 @@ const ExamList = (props) => {
       } else {
         setFrag(false)
       }
+    } else {
+      setFrag(false)
     }
   }, [props.examId, props.examTarget])
 

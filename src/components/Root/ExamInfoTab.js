@@ -66,6 +66,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(4),
+    height: 400,
+    overflow: 'scroll',
   },
   stepper: {
     margin: 'auto',

@@ -29,10 +29,10 @@ const ExamNavList = (props) => {
   }, [exams, props.examId])
 
   return (
-    <>
-      <ListItem 
+
+      <ListItem
         button 
-        key={exam.docId}
+        key={props.examId}
         className={classes.nested}
         onClick={() => history.push({
           pathname: `${paths.root}`,
@@ -41,7 +41,7 @@ const ExamNavList = (props) => {
       >
         <ListItemText primary={exam.examName} />
       </ListItem>
-    </>
+
   )
 }
 

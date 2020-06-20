@@ -136,13 +136,17 @@ const AppLayout = (props) => {
       <List>
         <ListItem
           button 
-          key={'Inbox'}
+          key={'Home'}
           onClick={() => history.push(`${paths.root}`)}
         >
           <ListItemIcon><HomeIcon /></ListItemIcon>
           <ListItemText primary={'HOME'} />
         </ListItem>
-        <ListItem button onClick={handleClick}>
+        <ListItem 
+          button 
+          onClick={handleClick}
+          key={'MyExam'}
+        >
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>

@@ -21,17 +21,17 @@ import { UserProvider } from 'hooks/User';
 import { BooksProvider } from 'hooks/Books';
 import CertDetail from 'components/cert/CertDetail';
 import { EventsProvider } from 'hooks/Events';
-import CertIndex from 'components/commons/admin/cert';
-import CertEdit from 'components/commons/admin/cert/CertEdit';
-import CertNew from 'components/commons/admin/cert/CertNew';
-import ExamIndex from 'components/commons/admin/exam';
-import ExamEdit from 'components/commons/admin/exam/ExamEdit';
-import ExamNew from 'components/commons/admin/exam/ExamNew';
-import BookIndex from 'components/commons/admin/book';
-import BookNew from 'components/commons/admin/book/BookNew';
-import BookEdit from 'components/commons/admin/book/BookEdit';
-import UserIndex from 'components/commons/admin/user';
-import UserEdit from 'components/commons/admin/user/UserEdit';
+import CertIndex from 'components/admin/cert';
+import CertEdit from 'components/admin/cert/CertEdit';
+import CertNew from 'components/admin/cert/CertNew';
+import ExamIndex from 'components/admin/exam';
+import ExamEdit from 'components/admin/exam/ExamEdit';
+import ExamNew from 'components/admin/exam/ExamNew';
+import BookIndex from 'components/admin/book';
+import BookNew from 'components/admin/book/BookNew';
+import BookEdit from 'components/admin/book/BookEdit';
+import UserIndex from 'components/admin/user';
+import UserEdit from 'components/admin/user/UserEdit';
 
 const theme = createMuiTheme({
   palette: {

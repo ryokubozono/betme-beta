@@ -48,6 +48,13 @@ const AddMyBook = (props) => {
           }
         }
       })
+      booksRef = booksRef.filter(row => {
+        if (row.isDisable) {
+          return false;
+        } else {
+          return row;
+        }
+      })
       setBooksList(booksRef)
     }
   }, [books, currentUser, user]);

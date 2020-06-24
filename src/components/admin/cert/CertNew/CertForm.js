@@ -8,6 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import AutoComplete from '@material-ui/lab/Autocomplete';
 import { categories } from 'components/commons/consts/categories';
+import { divisions } from 'components/commons/consts/divisions';
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const useStyles = makeStyles((theme) => ({
   textFeild: {
@@ -54,6 +59,30 @@ const AntSwitch = withStyles((theme) => ({
 
 const CertForm = (props) => {
   const classes = useStyles();
+  const location = useLocation();
+  const [categoryInput, setCategoryInput] = useState([]);
+  const history = useHistory();
+
+  useEffect(() => {
+    history.push(0)
+  }, [])
+
+  useEffect(() => {
+    if (props.category) {
+      let catRef = categories;
+      catRef = catRef.filter(cat => {
+        console.log(cat);
+        console.log(props.category)
+        if (props.category.indexOf(cat.title) !== -1) {
+          return cat;
+        } else {
+          return false; 
+        }
+      })
+      console.log(catRef)
+      setCategoryInput(catRef)
+    }
+  }, [props.category, location])
 
   return (
     <>
@@ -90,7 +119,23 @@ const CertForm = (props) => {
           errorMessages={['this field is required']}
         />
         <br />
+        <TextValidator
+          label='資格の説明'
+          id="desc"
+          name='desc'
+          color='primary'
+          style={{ width: 250 }}
+          multiline
+          rows={3}
+          margin="normal"
+          value={props.desc}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
         <AutoComplete
+          value={categoryInput}
           name='category'
           id="category"
           multiple
@@ -104,9 +149,205 @@ const CertForm = (props) => {
           renderInput={(params) => 
             <TextField 
               {...params} 
-              label="カテゴリー" 
+              label="カテゴリー"
             />
           }
+        />
+        <br />
+        <InputLabel id='divisionLabel'>資格区分</InputLabel>
+        <Select
+          labelId='divisionLabel'
+          native
+          name='division'
+          id='division'
+          value={props.division}
+          onChange={props.handleChange}
+        >
+          {divisions.map(div => (
+            <option value={div}>{div}</option>
+          ))}
+        </Select>
+        <br />
+        <TextValidator
+          label='主催者'
+          id="sponsor"
+          name='sponsor'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.sponsor}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='受験資格'
+          id="qual"
+          name='qual'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.qual}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='試験頻度'
+          id="freq"
+          name='freq'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.freq}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='目安勉強時間'
+          id="studyTime"
+          name='studyTime'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.studyTime}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='試験時間'
+          id="examTime"
+          name='examTime'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.examTime}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='出題形式'
+          id="format"
+          name='format'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.format}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='申込方法'
+          id="applyMethod"
+          name='applyMethod'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.applyMethod}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='受験料'
+          id="fee"
+          name='fee'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.fee}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='試験会場'
+          id="testCenter"
+          name='testCenter'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.testCenter}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='難易度'
+          id="difficulty"
+          name='difficulty'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.difficulty}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='合格率'
+          id="passRate"
+          name='passRate'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.passRate}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='合格点'
+          id="passMark"
+          name='passMark'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.passMark}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='問合せ先'
+          id="refOrg"
+          name='refOrg'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.refOrg}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
+        <TextValidator
+          label='WEB'
+          id="refWeb"
+          name='refWeb'
+          color='primary'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.refWeb}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
         />
         <br />
         <Typography component="div">

@@ -14,6 +14,7 @@ const paths = {
   // admin cert
   certindex: '/admin/cert/index',
   certedit: '/admin/cert/edit/:uid',
+  certedittext: '/admin/cert/edittext/:uid',
   certnew: '/admin/cert/new',
   // admin exam
   examindex: '/admin/exam/index',

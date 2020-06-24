@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Box, TextField, Button, Grid } from "@material-ui/core";
 import AutoComplete from '@material-ui/lab/Autocomplete';
 import indigo from '@material-ui/core/colors/indigo';
@@ -36,6 +36,15 @@ const SearchItem = (props) => {
 
   const handleSerach = () => {
     let tmpCerts = certs;
+    
+    tmpCerts = tmpCerts.filter(row => {
+      if (row.isDisable) {
+        return false;
+      } else {
+        return row;
+      }
+    })
+
     if (category.length) {
       tmpCerts = tmpCerts.filter(row => {
         let frag = false;
@@ -62,6 +71,18 @@ const SearchItem = (props) => {
     }
     setSearchedCerts(tmpCerts)
   }
+
+  useEffect(() => {
+    let tmpCerts = certs;
+    tmpCerts = tmpCerts.filter(row => {
+      if (row.isDisable) {
+        return false;
+      } else {
+        return row;
+      }
+    })
+    setSearchedCerts(tmpCerts)
+  }, [certs])
 
   return (
     <>

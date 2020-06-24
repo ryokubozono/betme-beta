@@ -19,6 +19,22 @@ const CertNew = (props) => {
   const classes = useStyles();
   const [name, setName] = useState('');
   const [note, setNote] = useState('');
+  const [desc, setDesc] = useState('');
+  const [division, setDivision] = useState('');
+  const [sponsor, setSponsor] = useState('');
+  const [qual, setQual] = useState('');
+  const [freq, setFreq] = useState('');
+  const [studyTime, setStudyTime] = useState('');
+  const [examTime, setExamTime] = useState('');
+  const [format, setFormat] = useState('');
+  const [applyMethod, setApplyMethod] = useState('');
+  const [fee, setFee] = useState('');
+  const [testCenter, setTestCenter] = useState('');
+  const [difficulty, setDifficulty] = useState('');
+  const [passRate, setPassRate] = useState('');
+  const [passMark, setPassMark] = useState('');
+  const [refOrg, setRefOrg] = useState('');
+  const [refWeb, setRefWeb] = useState('');
   const [isDisable, setIsDisable] = useState(false);
   const [categoryRef, setCategoryRef] = useState([])
   const [category, setCategory] = useState([]);
@@ -32,6 +48,54 @@ const CertNew = (props) => {
       case 'note':
         setNote(event.target.value)
         break;
+      case 'desc':
+        setDesc(event.target.value)
+        break;
+      case 'division':
+        setDivision(event.target.value)
+        break;
+      case 'sponsor':
+        setSponsor(event.target.value)
+        break;
+      case 'qual':
+        setQual(event.target.value)
+        break;
+      case 'freq':
+        setFreq(event.target.value)
+        break;
+      case 'studyTime':
+        setStudyTime(event.target.value)
+        break;
+      case 'examTime':
+        setExamTime(event.target.value)
+        break;
+      case 'format':
+        setFormat(event.target.value)
+        break;
+      case 'applyMethod':
+        setApplyMethod(event.target.value)
+        break;
+      case 'fee':
+        setFee(event.target.value)
+        break;
+      case 'testCenter':
+        setTestCenter(event.target.value)
+        break;
+      case 'difficulty':
+        setDifficulty(event.target.value)
+        break;
+      case 'passRate':
+        setPassRate(event.target.value)
+        break;
+      case 'passMark':
+        setPassMark(event.target.value)
+        break;
+      case 'refOrg':
+        setRefOrg(event.target.value)
+        break;
+      case 'refWeb':
+        setRefWeb(event.target.value)
+        break;
       case 'isDisable':
         setIsDisable(!isDisable)
         break;
@@ -42,7 +106,7 @@ const CertNew = (props) => {
   }
 
   useEffect(() => {
-    if (categoryRef) {
+    if (categoryRef && categoryRef.length) {
       let catRef = [];
       categoryRef.forEach(cat => {
         catRef.push(
@@ -59,6 +123,22 @@ const CertNew = (props) => {
     db.collection('cert').doc(docId).set({
       name: name,
       note: note,
+      desc: desc,
+      division: division,
+      sponsor: sponsor,
+      qual: qual,
+      freq: freq,
+      studyTime: studyTime,
+      examTime: examTime,
+      format: format,
+      applyMethod: applyMethod,
+      fee: fee,
+      testCenter: testCenter,
+      difficulty: difficulty,
+      passRate: passRate,
+      passMark: passMark,
+      refOrg: refOrg,
+      refWeb: refWeb,
       category: category,
       isDisable: isDisable,
       uid: docId,
@@ -93,7 +173,24 @@ const CertNew = (props) => {
             handleSubmit={handleSubmit}
             name={name}
             note={note}
+            desc={desc}
+            division={division}
+            sponsor={sponsor}
+            qual={qual}
+            freq={freq}
+            studyTime={studyTime}
+            examTime={examTime}
+            format={format}
+            applyMethod={applyMethod}
+            fee={fee}
+            testCenter={testCenter}
+            difficulty={difficulty}
+            passRate={passRate}
+            passMark={passMark}
+            refOrg={refOrg}
+            refWeb={refWeb}
             isDisable={isDisable}
+            category={category}
             setCategoryRef={setCategoryRef}
           />
           <Spacer />

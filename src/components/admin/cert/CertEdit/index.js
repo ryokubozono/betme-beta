@@ -23,7 +23,23 @@ const CertEdit = (props) => {
   const classes = useStyles();
   const [name, setName] = useState('');
   const [note, setNote] = useState('');
+  const [desc, setDesc] = useState('');
   const [cert, setCert] = useState('');
+  const [division, setDivision] = useState('');
+  const [sponsor, setSponsor] = useState('');
+  const [qual, setQual] = useState('');
+  const [freq, setFreq] = useState('');
+  const [studyTime, setStudyTime] = useState('');
+  const [examTime, setExamTime] = useState('');
+  const [format, setFormat] = useState('');
+  const [applyMethod, setApplyMethod] = useState('');
+  const [fee, setFee] = useState('');
+  const [testCenter, setTestCenter] = useState('');
+  const [difficulty, setDifficulty] = useState('');
+  const [passRate, setPassRate] = useState('');
+  const [passMark, setPassMark] = useState('');
+  const [refOrg, setRefOrg] = useState('');
+  const [refWeb, setRefWeb] = useState('');
   const [isDisable, setIsDisable] = useState(false);
   const [categoryRef, setCategoryRef] = useState([])
   const [category, setCategory] = useState([]);
@@ -39,8 +55,56 @@ const CertEdit = (props) => {
       case 'note':
         setNote(event.target.value)
         break;
+      case 'desc':
+        setDesc(event.target.value)
+        break;
       case 'isDisable':
         setIsDisable(!isDisable)
+        break;
+      case 'division':
+        setDivision(event.target.value)
+        break;
+      case 'sponsor':
+        setSponsor(event.target.value)
+        break;
+      case 'qual':
+        setQual(event.target.value)
+        break;
+      case 'freq':
+        setFreq(event.target.value)
+        break;
+      case 'studyTime':
+        setStudyTime(event.target.value)
+        break;
+      case 'examTime':
+        setExamTime(event.target.value)
+        break;
+      case 'format':
+        setFormat(event.target.value)
+        break;
+      case 'applyMethod':
+        setApplyMethod(event.target.value)
+        break;
+      case 'fee':
+        setFee(event.target.value)
+        break;
+      case 'testCenter':
+        setTestCenter(event.target.value)
+        break;
+      case 'difficulty':
+        setDifficulty(event.target.value)
+        break;
+      case 'passRate':
+        setPassRate(event.target.value)
+        break;
+      case 'passMark':
+        setPassMark(event.target.value)
+        break;
+      case 'refOrg':
+        setRefOrg(event.target.value)
+        break;
+      case 'refWeb':
+        setRefWeb(event.target.value)
         break;
       default:
         console.log('no key match')
@@ -55,11 +119,27 @@ const CertEdit = (props) => {
         setCert(certRef)
         setName(certRef.name)
         setNote(certRef.note)
+        setDesc(certRef.desc)
+        setDivision(certRef.division)
+        setSponsor(certRef.sponsor)
+        setQual(certRef.qual)
+        setFreq(certRef.freq)
+        setStudyTime(certRef.studyTime)
+        setExamTime(certRef.examTime)
+        setFormat(certRef.format)
+        setApplyMethod(certRef.applyMethod)
+        setFee(certRef.fee)
+        setTestCenter(certRef.testCenter)
+        setDifficulty(certRef.difficulty)
+        setPassRate(certRef.passRate)
+        setPassMark(certRef.passMark)
+        setRefOrg(certRef.refOrg)
+        setRefWeb(certRef.refWeb)
         setIsDisable(certRef.isDisable)
         setCategory(certRef.category)
       }
     }
-  }, [certs, location.pathname])
+  }, [certs, location])
 
   useEffect(() => {
     if (categoryRef) {
@@ -78,6 +158,22 @@ const CertEdit = (props) => {
     db.collection('cert').doc(cert.docId).set({
       name: name,
       note: note,
+      desc: desc,
+      division: division,
+      sponsor: sponsor,
+      qual: qual,
+      freq: freq,
+      studyTime: studyTime,
+      examTime: examTime,
+      format: format,
+      applyMethod: applyMethod,
+      fee: fee,
+      testCenter: testCenter,
+      difficulty: difficulty,
+      passRate: passRate,
+      passMark: passMark,
+      refOrg: refOrg,
+      refWeb: refWeb,
       category: category,
       isDisable: isDisable,
     }, {merge: true})
@@ -85,7 +181,7 @@ const CertEdit = (props) => {
       history.push({
         pathname: `/admin/cert/edit/${cert.docId}`,
         state: {
-          text: '新しい資格を登録しました',
+          text: '資格を更新しました',
           type: 'success'
         }
       })
@@ -111,9 +207,36 @@ const CertEdit = (props) => {
             handleSubmit={handleSubmit}
             name={name}
             note={note}
+            desc={desc}
+            division={division}
+            sponsor={sponsor}
+            qual={qual}
+            freq={freq}
+            studyTime={studyTime}
+            examTime={examTime}
+            format={format}
+            applyMethod={applyMethod}
+            fee={fee}
+            testCenter={testCenter}
+            difficulty={difficulty}
+            passRate={passRate}
+            passMark={passMark}
+            refOrg={refOrg}
+            refWeb={refWeb}
             isDisable={isDisable}
+            category={category}
             setCategoryRef={setCategoryRef}
           />
+          <Spacer />
+          <div className={classes.buttonAlign}>
+            <Button
+              variant="outlined"
+              color='secondary'
+              onClick={() => history.push(`/admin/cert/edittext/${cert.docId}`)}
+            >
+              文章の編集
+            </Button>
+          </div>
           <Spacer />
           <div className={classes.buttonAlign}>
             <Button

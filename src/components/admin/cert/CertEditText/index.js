@@ -9,6 +9,7 @@ import paths from 'paths';
 import { CertsContext } from "hooks/Certs";
 import { useLocation } from 'react-router-dom';
 import { CertFindFilter } from 'components/commons/filters/CertFindFilter';
+import EditTextForm from './EditTextForm';
 
 const useStyles = makeStyles((theme) => ({
   buttonAlign: {
@@ -36,7 +37,9 @@ const CertEditText = (props) => {
     <>
       <AppLayout>
         <AdminGate>
-          <p>edit text</p>
+          <EditTextForm 
+            cert={cert}
+          />
           <Spacer />
           <div className={classes.buttonAlign}>
             <Button

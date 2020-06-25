@@ -58,6 +58,13 @@ const ExamDateTable = (props) => {
           return false;
         }
       })
+      tmpExams = tmpExams.filter(row => {
+        if (row.isDisable) {
+          return false
+        } else {
+          return row
+        }
+      })
       tmpExams.sort(function(a,b){
         if(a.examDate.seconds < b.examDate.seconds) return -1;
         if(a.examDate.seconds > b.examDate.seconds) return 1;

@@ -71,15 +71,12 @@ const CertForm = (props) => {
     if (props.category) {
       let catRef = categories;
       catRef = catRef.filter(cat => {
-        console.log(cat);
-        console.log(props.category)
         if (props.category.indexOf(cat.title) !== -1) {
           return cat;
         } else {
           return false; 
         }
       })
-      console.log(catRef)
       setCategoryInput(catRef)
     }
   }, [props.category, location])

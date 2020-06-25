@@ -105,10 +105,7 @@ const CertSelectExam = (props) => {
   }, [exams, props.cert, user])
 
   const handleMyExam = (exam) => {
-    console.log(currentUser.uid)
-    console.log(exam)
     if (window.confirm('Add To My Exam ?')) {
-      console.log('confirmed add to my exam')
 
       db.collection('user').doc(currentUser.uid).set({
         uid: currentUser.uid,
@@ -137,8 +134,6 @@ const CertSelectExam = (props) => {
       })
     }
   }
-
-  console.log(filteredExams)
 
   return (
     <TableContainer component={Paper}>

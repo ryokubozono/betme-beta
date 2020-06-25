@@ -71,7 +71,6 @@ const MyAccount = (props) => {
 
   useEffect(() => {
     if (currentUser) {
-      console.log(currentUser.providerData)
       currentUser.providerData.forEach(row => {
         switch (row.providerId) {
           case 'twitter.com':

@@ -109,7 +109,6 @@ const CertEdit = (props) => {
       default:
         console.log('no key match')
     }
-    console.log('click book change')
   }
 
   useEffect(() => {
@@ -154,7 +153,6 @@ const CertEdit = (props) => {
   }, [categoryRef])
 
   const handleSubmit = () => {
-    console.log('click book submit')
     db.collection('cert').doc(cert.docId).set({
       name: name,
       note: note,

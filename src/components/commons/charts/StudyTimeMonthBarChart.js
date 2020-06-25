@@ -11,14 +11,16 @@ import {
 import { AuthContext } from "hooks/Auth";
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
-import { GetMondayToSunday } from 'components/commons/atoms/GetMondayToSunday';
-import { GetDefaultDate } from 'components/commons/atoms/GetDefaultDate';
 
-const StudyTimeBarChart = (props) => {
+import { GetDefaultDate } from 'components/commons/atoms/GetDefaultDate';
+import { GetMonthStartToEnd } from "../atoms/GetMonthStartToEnd";
+
+const StudyTimeMonthBarChart = (props) => {
   const { currentUser } = useContext(AuthContext);
   const [data, setData] = useState([]);
   const location = useLocation();
   const [weekSum, setWeekSum] = useState(0);
+  const [sum, setSum] = useState(0);
 
   useEffect(() => {
     if (props.events) {
@@ -33,7 +35,14 @@ const StudyTimeBarChart = (props) => {
           return row;
         }
       })
-      let thisWeek = GetMondayToSunday();
+      
+      let sumRef = 0;
+      eventRef.forEach(event=> {
+        sumRef += event.studyTime;
+      })
+      setSum(sumRef);
+
+      let thisWeek = GetMonthStartToEnd();
       let dataRef = [];
       let weekSumRef = 0;
       thisWeek.forEach(date => {
@@ -77,9 +86,10 @@ const StudyTimeBarChart = (props) => {
         {/* <Legend /> */}
         <Bar dataKey="studyTime" fill="#8884d8" />
       </BarChart>
-      <p>今週の合計勉強時間：{weekSum}分</p>
+      <p>今月の合計勉強時間：{weekSum}分</p>
+      <p>累計の勉強時間：{sum}分</p>
     </>
   )
 }
 
-export default StudyTimeBarChart;
+export default StudyTimeMonthBarChart;

@@ -85,7 +85,6 @@ const ExamNew = (props) => {
     let resultDateRef = GetTimestamp(resultDateTmp);
     let betmeApplyDateRef = GetTimestamp(betmeApplyDateTmp);
     let betmeResultDateRef = GetTimestamp(betmeResultDateTmp);
-    console.log(betmeResultDateRef)
     let docId = db.collection('exam').doc().id
     db.collection('exam').doc(docId).set({
       docId: docId,

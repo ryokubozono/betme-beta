@@ -32,11 +32,9 @@ const BookNew = (props) => {
       default:
         console.log('no key match')
     }
-    console.log('click book change')
   }
 
   const handleSubmit = () => {
-    console.log('click book submit')
     let docId = db.collection('book').doc().id;
     db.collection('book').doc(docId).set({
       title: title,

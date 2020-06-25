@@ -27,7 +27,6 @@ const SigninForm = (props) => {
   };
 
   const clickLoginAsUser = () => {
-    console.log('submit')
     setLoading(true); 
     auth.signInWithEmailAndPassword(
       email,

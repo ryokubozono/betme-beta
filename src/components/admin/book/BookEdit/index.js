@@ -38,7 +38,6 @@ const BookEdit = (props) => {
       default:
         console.log('no key match')
     }
-    console.log('click book change')
   }
 
   useEffect(() => {
@@ -53,7 +52,6 @@ const BookEdit = (props) => {
   }, [books, location.pathname])
 
   const handleSubmit = () => {
-    console.log('click book submit')
     db.collection('book').doc(book.docId).set({
       title: title,
       isDisable: isDisable,

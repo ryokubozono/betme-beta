@@ -24,11 +24,7 @@ const BookIndex = (props) => {
   const classes = useStyles();
   const { books } = useContext(BooksContext);
   const history = useHistory();
-
-  useEffect(() => {
-    console.log(books)
-  },[books])
-
+  
   return (
     <>
       <AppLayout>

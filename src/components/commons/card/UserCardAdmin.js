@@ -10,30 +10,31 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
-const CertCardAdmin = (props) => {
+const UserCardAdmin = (props) => {
   const [disableFrag, setDisableFrag] = useState(false);
   const history = useHistory();
-  const handleSelectCert = () => {
-    history.push(`/admin/cert/edit/${props.cert.docId}`)
+
+  const handleSelectUser = () => {
+    history.push(`/admin/user/edit/${props.user.docId}`)
   }
 
-
   useEffect(() => {
-    if (props.cert.isDisable) {
+    if (props.user.isDisable) {
       setDisableFrag(true)
     } else {
       setDisableFrag(false)
     }
-  }, [props.cert.isDisable])
+  }, [props.user.isDisable])
+
   return (
     <>
       <ListItem
-        onClick={handleSelectCert}
+        onClick={handleSelectUser}
         button
       >
 
         <ListItemText
-          primary={props.cert.name}
+          primary={props.user.docId}
           secondary={
             <React.Fragment>
               <Typography
@@ -41,7 +42,7 @@ const CertCardAdmin = (props) => {
                 variant="body2"
                 color="textPrimary"
               >
-                {props.cert.note}
+                {props.user.docId}
               </Typography>
             </React.Fragment>
           }
@@ -64,4 +65,4 @@ const CertCardAdmin = (props) => {
   )
 }
 
-export default CertCardAdmin;
+export default UserCardAdmin;

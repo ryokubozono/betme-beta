@@ -102,7 +102,6 @@ const CertNew = (props) => {
       default:
         console.log('no key match')
     }
-    console.log('click book change')
   }
 
   useEffect(() => {
@@ -118,7 +117,6 @@ const CertNew = (props) => {
   }, [categoryRef])
 
   const handleSubmit = () => {
-    console.log('click book submit')
     let docId = db.collection('cert').doc().id;
     db.collection('cert').doc(docId).set({
       name: name,

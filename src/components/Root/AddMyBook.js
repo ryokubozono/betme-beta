@@ -114,7 +114,6 @@ const AddMyBook = (props) => {
         }
       })
     } else {
-      console.log(removeBook)
       db.collection('user').doc(currentUser.uid).update({
         myBook: firebase.firestore.FieldValue.arrayRemove(removeBook.docId)
       })

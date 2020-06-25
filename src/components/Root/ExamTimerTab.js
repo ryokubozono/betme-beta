@@ -99,7 +99,6 @@ const ExamTimerTab = (props) => {
     setMin(0)
   }
   const handleChange = (event) => {
-    console.log(event.target)
     switch (event.target.name) {
       case 'hour':
         setHour(event.target.value);
@@ -165,9 +164,7 @@ const ExamTimerTab = (props) => {
       if (book) {
         bookId = book.docId
       }
-      console.log(fullYear, month, date)
       let studyDateRef = new Date(fullYear, month - 1, date);
-      console.log(studyDateRef)
       db.collection('event').doc(docId).set({
         uid: docId,
         docId: docId,

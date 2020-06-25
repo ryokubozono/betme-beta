@@ -47,7 +47,6 @@ const NewMyBook = (props) => {
       userId: currentUser.uid,
     })
     .then(() => {
-      console.log('location')
       props.handleClose();
       history.push({
         search: location.search,

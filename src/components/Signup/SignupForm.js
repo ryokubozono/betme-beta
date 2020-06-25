@@ -34,7 +34,6 @@ const SignupForm = (props) => {
   };
 
   const clickLogupAsUser = () => {
-    console.log('sign up as user')
     setLoading(true)
     auth.createUserWithEmailAndPassword(
       email,

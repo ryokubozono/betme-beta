@@ -33,6 +33,7 @@ import BookEdit from 'components/admin/book/BookEdit';
 import UserIndex from 'components/admin/user';
 import UserEdit from 'components/admin/user/UserEdit';
 import CertEditText from 'components/admin/cert/CertEditText';
+import Paypal from 'components/Paypal';
 
 const theme = createMuiTheme({
   palette: {
@@ -70,6 +71,7 @@ function App() {
         <EventsProvider>        
         <BooksProvider>        
         <ThemeProvider theme={theme}>
+          <Route exact path={paths.paypal} component={Paypal} key='paypal' />
           <Route exact path={paths.certedittext} component={CertEditText} key='certedittext' />
           <Route exact path={paths.useredit} component={UserEdit} key='useredit' />
           <Route exact path={paths.userindex} component={UserIndex} key='userindex' />

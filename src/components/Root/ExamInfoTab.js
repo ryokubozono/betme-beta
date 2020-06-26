@@ -13,6 +13,8 @@ import PropTypes from 'prop-types';
 import { Button, Modal } from "@material-ui/core";
 import Spacer from "components/commons/atoms/Spacer";
 import AboutBetMe from 'components/Root/AboutBetMe';
+import paths from "paths";
+import { useHistory } from 'react-router-dom';
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -133,6 +135,7 @@ const ExamInfoTab = (props) => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [todayNumber, setTodayNumber] = useState();
+  const history = useHistory();
 
   useEffect(() => {
     if (today && props.examTarget.examDate) {
@@ -210,6 +213,19 @@ const ExamInfoTab = (props) => {
     setOpen(false);
   };
 
+  const handlePaypal = () => {
+    history.push(`${paths.paypal}`)
+    .catch((error) => {
+      console.log(error);
+      history.push({
+        state: {
+          text: error.message,
+          type: 'error'        
+        }
+      });
+    })
+  }
+
   return (
     <div className={classes.root}>
       <h4>{props.examTarget.examName}</h4>
@@ -251,6 +267,7 @@ const ExamInfoTab = (props) => {
         　color='secondary'
           variant="contained"
           size='small'
+          onClick={handlePaypal}
         >
           BetMeに申し込む
         </Button>

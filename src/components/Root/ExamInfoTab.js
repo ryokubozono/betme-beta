@@ -136,6 +136,7 @@ const ExamInfoTab = (props) => {
   const [data, setData] = useState([]);
   const [todayNumber, setTodayNumber] = useState();
   const history = useHistory();
+  const [frag, setFrag] = useState(false);
 
   useEffect(() => {
     if (today && props.examTarget.examDate) {
@@ -217,6 +218,14 @@ const ExamInfoTab = (props) => {
     history.push(`/paypal/${props.examTarget.docId}`);
   }
 
+  useEffect(() => {
+    if (props.examTarget && props.examTarget.betAmount && props.examTarget.betAmount !== '0') {
+      setFrag(true)
+    } else {
+      setFrag(false)
+    }
+  }, [props.examTarget])
+
   return (
     <div className={classes.root}>
       <h4>{props.examTarget.examName}</h4>
@@ -259,7 +268,7 @@ const ExamInfoTab = (props) => {
           variant="contained"
           size='small'
           onClick={handlePaypal}
-          disabled={!props.examTarget.betAmount}
+          disabled={!frag}
         >
           BetMeに申し込む
         </Button>

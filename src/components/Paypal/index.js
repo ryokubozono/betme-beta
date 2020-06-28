@@ -28,6 +28,7 @@ const Paypal = (props) => {
   const { exams } = useContext(ExamsContext);
   const location = useLocation();
   const history = useHistory();
+  const [frag, setFrag] = useState(false);
 
   useEffect(() => {
     if (location.pathname) {
@@ -38,6 +39,14 @@ const Paypal = (props) => {
     }
   }, [exams, location.pathname])
 
+  useEffect(() => {
+    if (exam && exam.betAmount && exam.betAmount !== '0') {
+      setFrag(true)
+    } else {
+      setFrag(false)
+    }
+  }, [exam])
+
   return (
     <>
       <AppLayout>
@@ -47,7 +56,7 @@ const Paypal = (props) => {
             <Spacer />
           </Box>
         }
-        {currentUser && !exam.betAmount &&
+        {currentUser && !frag &&
           <Button
             variant='contained'
             onClick={() => history.push(`${paths.root}`)}
@@ -55,7 +64,7 @@ const Paypal = (props) => {
             My Pageに戻る
           </Button>
         }
-        {currentUser && exam.betAmount &&
+        {currentUser && frag &&
         <>
           <p>この試験のBET金額は{exam.betAmount}円です。</p>
           <p>下記ボタンからお支払いください。</p>

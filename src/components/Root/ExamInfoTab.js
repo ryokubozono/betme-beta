@@ -214,16 +214,7 @@ const ExamInfoTab = (props) => {
   };
 
   const handlePaypal = () => {
-    history.push(`${paths.paypal}`)
-    .catch((error) => {
-      console.log(error);
-      history.push({
-        state: {
-          text: error.message,
-          type: 'error'        
-        }
-      });
-    })
+    history.push(`/paypal/${props.examTarget.docId}`);
   }
 
   return (
@@ -268,6 +259,7 @@ const ExamInfoTab = (props) => {
           variant="contained"
           size='small'
           onClick={handlePaypal}
+          disabled={!props.examTarget.betAmount}
         >
           BetMeに申し込む
         </Button>
@@ -275,7 +267,7 @@ const ExamInfoTab = (props) => {
         &nbsp;
 
         <Button
-        　color='secondary'
+          color='secondary'
           variant="outlined"  
           size='small'
           onClick={handleOpen}

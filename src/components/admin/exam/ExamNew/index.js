@@ -43,6 +43,7 @@ const ExamNew = (props) => {
   const [betmeApplyDateTmp, setBetmeApplyDateTmp] = useState('');
   const [betmeResultDate, setBetmeResultDate] = useState('');
   const [betmeResultDateTmp, setBetmeResultDateTmp] = useState('');
+  const [betAmount, setBetAmount] = useState(0);
 
   const handleChange = (event) => {
     switch (event.target.name) {
@@ -72,6 +73,9 @@ const ExamNew = (props) => {
         break;
       case 'betmeResultDateTmp':
         setBetmeResultDateTmp(event.target.value)
+        break;
+      case 'betAmount':
+        setBetAmount(event.target.value)
         break;
       default:
         console.log('no key match')
@@ -161,6 +165,7 @@ const ExamNew = (props) => {
             resultDateTmp={resultDateTmp}
             betmeApplyDateTmp={betmeApplyDateTmp}
             betmeResultDateTmp={betmeResultDateTmp}
+            betAmount={betAmount}
           />
           <Spacer />
           <div className={classes.buttonAlign}>

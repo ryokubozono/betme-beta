@@ -188,6 +188,20 @@ const ExamForm = (props) => {
           />
         </FormControl>
         <br />
+        <TextValidator
+          label='BET金額[円]'
+          id="betAmount"
+          name='betAmount'
+          color='primary'
+          type='number'
+          style={{ width: 250 }}
+          margin="normal"
+          value={props.betAmount}
+          onChange={props.handleChange} 
+          validators={['required']}
+          errorMessages={['this field is required']}
+        />
+        <br />
         <Typography component="div">
           <Grid component="label" container alignItems="center" spacing={1}>
             <Grid item>非表示</Grid>

@@ -28,7 +28,7 @@ const paths = {
   userindex: '/admin/user/index',
   useredit: '/admin/user/edit/:uid',
   // paypal
-  paypal: '/paypal',
+  paypal: '/paypal/:uid',
   
 };
 

@@ -30,6 +30,7 @@ const ExamEdit = (props) => {
   const [name, setName] = useState('');
   const [examName, setExamName] = useState('');
   const [certId, setCertId] = useState('');
+  const [betAmount, setBetAmount] = useState(0);
   const [isDisable, setIsDisable] = useState(false);
   const [examDate, setExamDate] = useState('')
   const [examDateTmp, setExamDateTmp] = useState('');
@@ -71,6 +72,9 @@ const ExamEdit = (props) => {
       case 'betmeResultDateTmp':
         setBetmeResultDateTmp(event.target.value)
         break;
+      case 'betAmount':
+        setBetAmount(event.target.value)
+        break;
       default:
         console.log('no key match')
     }
@@ -90,6 +94,7 @@ const ExamEdit = (props) => {
         setResultDate(examRef.resultDate);
         setBetmeApplyDate(examRef.betmeApplyDate);
         setBetmeResultDate(examRef.betmeResultDate);
+        setBetAmount(examRef.betAmount);
       }
     }
   }, [exams, location.pathname])
@@ -112,7 +117,7 @@ const ExamEdit = (props) => {
       resultDate: firebase.firestore.Timestamp.fromDate(resultDateRef),
       betmeApplyDate: firebase.firestore.Timestamp.fromDate(betmeApplyDateRef),
       betmeResultDate: firebase.firestore.Timestamp.fromDate(betmeResultDateRef),
-
+      betAmount: betAmount,
     }, {merge: true})
     .then(() => {
       history.push({
@@ -176,6 +181,7 @@ const ExamEdit = (props) => {
             resultDateTmp={resultDateTmp}
             betmeApplyDateTmp={betmeApplyDateTmp}
             betmeResultDateTmp={betmeResultDateTmp}
+            betAmount={betAmount}
           />
           <Spacer />
           <div className={classes.buttonAlign}>

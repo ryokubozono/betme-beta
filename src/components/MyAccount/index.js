@@ -8,6 +8,8 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Twitter from '@material-ui/icons/Twitter';
 import { AuthContext } from "hooks/Auth";
+import AccountForm from "components/MyAccount/AccountForm";
+import BasicForm from 'components/MyAccount/BasicForm';
 
 const TwitterButton = withStyles((theme) => ({
   root: {
@@ -90,7 +92,7 @@ const MyAccount = (props) => {
     <>
       <AppLayout>
         <Box bgcolor='white' p={2} m={0}>
-          <p>My Account</p>
+          <p>認証</p>
           <div className={classes.alignCenter}>
             
             { !twitter &&
@@ -103,6 +105,10 @@ const MyAccount = (props) => {
               </TwitterButton>
             }
 
+            { twitter && 
+              <p>Twitterアカウント連携済み(アカウント名を表示させる)</p>
+            }
+
             { !mailPassword &&
               <MailButton
                 onClick={() => history.push(`${paths.addmailtoaccount}`)}
@@ -112,8 +118,23 @@ const MyAccount = (props) => {
               </MailButton>
             }
 
+            { mailPassword &&
+              <p>メールアドレス登録済み(メールアドレスを表示させる)</p>
+            }
+
           </div>
         </Box>
+
+        <Box bgcolor='white' p={2} m={0}>
+          <p>基本情報</p>
+          <BasicForm />
+        </Box>
+        
+        <Box bgcolor='white' p={2} m={0}>
+          <p>プロフィール</p>
+          <AccountForm />
+        </Box>
+
       </AppLayout>
     </>
   )

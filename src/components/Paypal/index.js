@@ -12,6 +12,7 @@ import { ExamFindFilter } from 'components/commons/filters/ExamFindFilter';
 import { Button } from '@material-ui/core';
 import paths from 'paths';
 import { useHistory } from 'react-router-dom';
+import AccountForm from "components/MyAccount/AccountForm";
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -29,6 +30,7 @@ const Paypal = (props) => {
   const location = useLocation();
   const history = useHistory();
   const [frag, setFrag] = useState(false);
+  const [filledFrag, setFilledFrag] = useState(false);
 
   useEffect(() => {
     if (location.pathname) {
@@ -64,7 +66,14 @@ const Paypal = (props) => {
             My Pageに戻る
           </Button>
         }
-        {currentUser && frag &&
+
+        { currentUser && frag && !filledFrag &&
+          <>
+            <p>まずは、アカウント情報を入力してください</p>
+            <AccountForm />
+          </>
+        }
+        {currentUser && frag && filledFrag &&
         <>
           <p>この試験のBET金額は{exam.betAmount}円です。</p>
           <p>下記ボタンからお支払いください。</p>

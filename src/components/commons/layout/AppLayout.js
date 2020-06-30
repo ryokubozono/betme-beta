@@ -160,6 +160,16 @@ const AppLayout = (props) => {
             ))}
           </List>
         </Collapse>
+        <ListItem
+          button 
+          key={'MyAccount'}
+          onClick={() => history.push(`${paths.myaccount}`)}
+        >
+          <ListItemIcon>
+            <AccountCircle />
+          </ListItemIcon>
+          <ListItemText primary={'My Account'} />
+        </ListItem>
       </List>
       <Divider />
       {currentUser && adminFrag &&
@@ -226,7 +236,6 @@ const AppLayout = (props) => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
               <MenuItem onClick={() => history.push(`${paths.myaccount}`)}>My account</MenuItem>
               { currentUser ? (
                 <MenuItem onClick={handleSignout}>Sign Out</MenuItem>

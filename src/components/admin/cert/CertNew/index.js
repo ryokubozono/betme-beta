@@ -36,7 +36,7 @@ const CertNew = (props) => {
   const [refOrg, setRefOrg] = useState('');
   const [refWeb, setRefWeb] = useState('');
   const [isDisable, setIsDisable] = useState(false);
-  const [categoryRef, setCategoryRef] = useState([])
+  const [categoryRef, setCategoryRef] = useState([]);
   const [category, setCategory] = useState([]);
   const history = useHistory();
 
@@ -105,7 +105,7 @@ const CertNew = (props) => {
   }
 
   useEffect(() => {
-    if (categoryRef && categoryRef.length) {
+    if (categoryRef) {
       let catRef = [];
       categoryRef.forEach(cat => {
         catRef.push(

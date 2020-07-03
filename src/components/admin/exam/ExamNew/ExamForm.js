@@ -11,6 +11,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import FormControl from '@material-ui/core/FormControl';
 import firebase from "FirebaseConfig";
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
   textFeild: {
@@ -82,48 +83,55 @@ const ExamForm = (props) => {
         onSubmit={props.handleSubmit}
         onError={errors => console.log(errors)}
       >
-        <InputLabel id='certIdLabel'>資格</InputLabel>
-        <Select
-          labelId='certIdLabel'
-          native
-          name='certId'
-          id='certId'
-          value={props.certId}
-          onChange={props.handleChange}
-        >
-          {certsOption.map(cert => (
-            <option value={cert.docId}>{cert.name}</option>
-          ))}
-        </Select>
+        <FormControl　className={classes.formControl}>
+          <InputLabel id='certIdLabel'>資格</InputLabel>
+          <Select
+            labelId='certIdLabel'
+            // native
+            name='certId'
+            id='certId'
+            value={props.certId}
+            onChange={props.handleChange}
+          >
+            <MenuItem value="">None</MenuItem>
+            {certsOption.map(cert => (
+              <MenuItem value={cert.docId}>{cert.name}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <br />
-        <TextValidator
-          label='試験の名前(短)'
-          id="name"
-          name='name'
-          color='primary'
-          style={{ width: 250 }}
-          margin="normal"
-          value={props.name}
-          onChange={props.handleChange} 
-          validators={['required']}
-          errorMessages={['this field is required']}
-        />
+        <FormControl　className={classes.formControl}>
+          <TextValidator
+            label='試験の名前(短)'
+            id="name"
+            name='name'
+            color='primary'
+            style={{ width: 250 }}
+            margin="normal"
+            value={props.name}
+            onChange={props.handleChange} 
+            validators={['required']}
+            errorMessages={['this field is required']}
+          />
+        </FormControl>
         <br />
-        <TextValidator
-          label='試験の名前(長)'
-          id="examName"
-          name='examName'
-          color='primary'
-          style={{ width: 250 }}
-          margin="normal"
-          value={props.examName}
-          onChange={props.handleChange} 
-          validators={['required']}
-          errorMessages={['this field is required']}
-        />
+        <FormControl　className={classes.formControl}>
+          <TextValidator
+            label='試験の名前(長)'
+            id="examName"
+            name='examName'
+            color='primary'
+            style={{ width: 250 }}
+            margin="normal"
+            value={props.examName}
+            onChange={props.handleChange} 
+            validators={['required']}
+            errorMessages={['this field is required']}
+          />
+        </FormControl>
         <br />
         <FormControl 
-          className={classes.container} 
+          className={classes.formControl} 
           noValidate
         >
           <TextField
@@ -138,6 +146,12 @@ const ExamForm = (props) => {
               shrink: true,
             }}
           />
+        </FormControl>
+        <br />
+        <FormControl 
+          className={classes.formControl} 
+          noValidate
+        >
           <TextField
             id="examDateTmp"
             name='examDateTmp'
@@ -150,6 +164,12 @@ const ExamForm = (props) => {
               shrink: true,
             }}
           />
+        </FormControl>
+        <br />
+        <FormControl 
+          className={classes.formControl} 
+          noValidate
+        >
           <TextField
             id="resultDateTmp"
             name='resultDateTmp'
@@ -162,6 +182,12 @@ const ExamForm = (props) => {
               shrink: true,
             }}
           />
+        </FormControl>
+        <br />
+        <FormControl 
+          className={classes.formControl} 
+          noValidate
+        >
           <TextField
             id="betmeApplyDateTmp"
             name='betmeApplyDateTmp'
@@ -174,6 +200,12 @@ const ExamForm = (props) => {
               shrink: true,
             }}
           />
+        </FormControl>
+        <br />
+        <FormControl 
+          className={classes.formControl} 
+          noValidate
+        >
           <TextField
             id="betmeResultDateTmp"
             name='betmeResultDateTmp'
@@ -188,28 +220,32 @@ const ExamForm = (props) => {
           />
         </FormControl>
         <br />
-        <TextValidator
-          label='BET金額[円]'
-          id="betAmount"
-          name='betAmount'
-          color='primary'
-          type='number'
-          style={{ width: 250 }}
-          margin="normal"
-          value={props.betAmount}
-          onChange={props.handleChange} 
-          validators={['required']}
-          errorMessages={['this field is required']}
-        />
+        <FormControl　className={classes.formControl}>
+          <TextValidator
+            label='BET金額[円]'
+            id="betAmount"
+            name='betAmount'
+            color='primary'
+            type='number'
+            style={{ width: 250 }}
+            margin="normal"
+            value={props.betAmount}
+            onChange={props.handleChange} 
+            validators={['required']}
+            errorMessages={['this field is required']}
+          />
+        </FormControl>
         <br />
-        <Typography component="div">
-          <Grid component="label" container alignItems="center" spacing={1}>
-            <Grid item>非表示</Grid>
-            <Grid item>
-            <AntSwitch checked={props.isDisable} onChange={props.handleChange} name="isDisable" />
+        <FormControl　className={classes.formControl}>
+          <Typography component="div">
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>非表示</Grid>
+              <Grid item>
+                <AntSwitch checked={props.isDisable} onChange={props.handleChange} name="isDisable" />
+              </Grid>
             </Grid>
-          </Grid>
-        </Typography>
+          </Typography>
+        </FormControl>
         <br />
         <div className={classes.buttonAlign}>
           <Button 

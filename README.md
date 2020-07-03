@@ -1,3 +1,15 @@
+```.env```
+`
+REACT_APP_API_KEY=AIzaSyB3c0qvsY8X9qtI8u6mK1R2U_Fr9pSW-hM
+REACT_APP_AUTH_DOMAIN=betme-beta.firebaseapp.com
+REACT_APP_DATABASE_URL=https://betme-beta.firebaseio.com
+REACT_APP_PROJECT_ID=betme-beta
+REACT_APP_STORAGE_BUCKET=betme-beta.appspot.com
+REACT_APP_MESSAGING_SENDER_ID=652434058147
+REACT_APP_APP_ID=1:652434058147:web:992a1b92732508c2e3c816
+REACT_APP_MEASUREMENT_ID=G-WBN4G2EYG8
+`
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

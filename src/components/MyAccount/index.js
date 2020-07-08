@@ -109,7 +109,7 @@ const MyAccount = (props) => {
               <p>Twitterアカウント連携済み(アカウント名を表示させる)</p>
             }
 
-            { !mailPassword &&
+            {/* { !mailPassword &&
               <MailButton
                 onClick={() => history.push(`${paths.addmailtoaccount}`)}
                 variant="contained"
@@ -120,7 +120,7 @@ const MyAccount = (props) => {
 
             { mailPassword &&
               <p>メールアドレス登録済み(メールアドレスを表示させる)</p>
-            }
+            } */}
 
           </div>
         </Box>

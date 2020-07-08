@@ -34,6 +34,8 @@ import UserIndex from 'components/admin/user';
 import UserEdit from 'components/admin/user/UserEdit';
 import CertEditText from 'components/admin/cert/CertEditText';
 import Paypal from 'components/Paypal';
+import Signup from 'components/Signup';
+import PasswordReset from 'components/PasswordReset';
 
 const theme = createMuiTheme({
   palette: {
@@ -85,10 +87,12 @@ function App() {
           <Route exact path={paths.certedit} component={CertEdit} key='certedit' />
           <Route exact path={paths.certindex} component={CertIndex} key='certindex' />
           <Route exact path={paths.certdetail} component={CertDetail} key='certdetail' />
-          <Route exact path={paths.addmailtoaccount} component={AddMailToAccount} key='addmail' />
+          {/* <Route exact path={paths.addmailtoaccount} component={AddMailToAccount} key='addmail' /> */}
           <Route exact path={paths.myaccount} component={MyAccount} key='myaccount' />
           <Route exact path={paths.nopagefound} component={NoPageFound} key='nopagefound' />
           <Route exact path={paths.signin} component={Signin} key='signin' />
+          <Route exact path={paths.signup} component={Signup} key='signup' />
+          <Route exact path={paths.passwordreset} component={PasswordReset} key='passwordreset' />
           <Route exact path={paths.root} component={Root} key='root' />
           {/* <Route component={NoPageFound} key='nopagefound1' /> */}
         </ThemeProvider>

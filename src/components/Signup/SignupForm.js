@@ -7,82 +7,24 @@ import { useHistory } from 'react-router-dom';
 import paths from 'paths';
 
 const SignupForm = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [loading, setLoading] = useState('');
+
   const history = useHistory();
-
-  const handleChange = (event) => {
-    switch (event.target.name) {
-      case 'email':
-        setEmail(event.target.value);
-        break;
-      case 'password':
-        setPassword(event.target.value);
-        break;
-      case 'passwordConfirm':
-        setPasswordConfirm(event.target.value);
-        break;
-      default:
-        console.log('key not found');
-    }
-  };
-
-  const handleClose = () => {
-    setLoading(false);
-  };
-
-  const clickLogupAsUser = () => {
-    setLoading(true)
-    auth.createUserWithEmailAndPassword(
-      email,
-      password
-    )
-    .then(() => {
-      auth.onAuthStateChanged(function(user) {
-        if (user) {
-          db.collection('user').doc(user.uid).set({
-            uid: user.uid,
-            docId: user.uid,
-          })
-        }
-      })
-      history.push({
-        pathname: `${paths.root}`,
-        state: {
-          text: 'サインアップしました',
-          type: 'success'        
-        }  
-      })
-    })
-    .catch((error) => {
-      setLoading(false);
-      history.push({
-        state: {
-          text: error.message,
-          type: 'error'        
-        }
-      });
-      history.go(0);
-    })
-  }
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
-      if (value !== password) {
+      if (value !== props.password) {
         return false;
       }
       return true;
     });
-  }, [password])
+  }, [props.password])
 
   return (
     <>
-    {loading && 
+    {props.loading && 
       <Dialog
-        open={loading}
-        onClose={handleClose}
+        open={props.loading}
+        onClose={props.handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -91,7 +33,7 @@ const SignupForm = (props) => {
     }
       <ValidatorForm
           useRef="form"
-          onSubmit={clickLogupAsUser}
+          onSubmit={props.handleNext}
           onError={errors => console.log(errors)}
         >
           <TextValidator
@@ -101,8 +43,8 @@ const SignupForm = (props) => {
             color='primary'
             fullWidth
             margin="normal"
-            value={email} 
-            onChange={handleChange} 
+            value={props.email} 
+            onChange={props.handleChange} 
             validators={['required', 'isEmail']}
             errorMessages={['this field is required', 'email is not valid']}
           />
@@ -114,8 +56,8 @@ const SignupForm = (props) => {
             color='primary'
             fullWidth
             margin="normal"
-            value={password} 
-            onChange={handleChange} 
+            value={props.password} 
+            onChange={props.handleChange} 
             validators={['required']}
             errorMessages={['this field is required']}
           />
@@ -127,19 +69,30 @@ const SignupForm = (props) => {
             color='primary'
             fullWidth
             margin="normal"
-            value={passwordConfirm} 
-            onChange={handleChange} 
+            value={props.passwordConfirm} 
+            onChange={props.handleChange} 
             validators={['required', 'isPasswordMatch']}
             errorMessages={['this field is required', 'password mismatch']}
           />
           <Spacer />
-          <Button 
-            type="submit"
-            color='primary'
-            variant="contained"
-          >
-            SIGN UP
-          </Button>
+
+          <div>
+            <Button 
+              disabled 
+              onClick={props.handleBack} 
+              color='primary'
+              variant="outlined"
+            >
+              Back
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Next
+            </Button>
+          </div>
         </ValidatorForm>
 
     </>

@@ -85,6 +85,8 @@ const MyAccount = (props) => {
             console.log('key not found')
         }
       })
+    } else {
+      history.push(`${paths.signin}`)
     }
   }, [currentUser])
 

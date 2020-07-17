@@ -161,7 +161,6 @@ const AccountForm = (props) => {
           <InputLabel id='genderLable'>性別</InputLabel>
           <Select
             labelId='genderLable'
-            // native
             name='gender'
             id='gender'
             value={gender}

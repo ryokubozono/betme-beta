@@ -7,6 +7,7 @@ import Spacer from "components/commons/atoms/Spacer";
 import { CertsContext } from "hooks/Certs";
 import CertCard from 'components/commons/card/CertCard';
 import { categories } from 'components/commons/consts/categories';
+import { makeStyles } from '@material-ui/core/styles';
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -18,11 +19,18 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
+const useStyles = makeStyles((theme) => ({
+  certCard: {
+
+  },
+}));
+
 const SearchItem = (props) => {
   const [searchWord, setSearchWord] = useState('');
   const [category, setCategory] = useState([]);
   const { certs } = useContext(CertsContext); 
   const [searchedCerts, setSearchedCerts] = useState(certs);
+  const classes = useStyles();
 
   const handleChange = (event) => {
     switch (event.target.name) {
@@ -69,6 +77,11 @@ const SearchItem = (props) => {
         }
       })
     }
+    tmpCerts.sort(function(a,b){
+      if (a.id < b.id) return -1;
+      if (a.id > b.id) return 1;
+      return 0;
+    });
     setSearchedCerts(tmpCerts)
   }
 
@@ -81,6 +94,11 @@ const SearchItem = (props) => {
         return row;
       }
     })
+    tmpCerts.sort(function(a,b){
+      if (a.id < b.id) return -1;
+      if (a.id > b.id) return 1;
+      return 0;
+    });
     setSearchedCerts(tmpCerts)
   }, [certs])
 
@@ -91,46 +109,49 @@ const SearchItem = (props) => {
           資格試験を探す
         </div>
         <Spacer />
-        <AutoComplete
-          name='category'
-          id="category"
-          multiple
-          options={categories.sort((a, b) => -b.group.localeCompare(a.group))}
-          groupBy={(option) => option.group}
-          getOptionLabel={(option) => option.title}
-          style={{ width: 250 }}
-          onChange={(event, newValue) => {
-            setCategory(newValue);
-          }}
-          renderInput={(params) => 
-            <TextField 
-              {...params} 
-              label="カテゴリー" 
-            />
-          }
-        />
-        <TextField
-          id="searchWord" 
-          name='searchWord'
-          label="キーワード" 
-          style={{ width: 250 }}
-          onChange={handleChange} 
-          value={searchWord} 
-        />
-        <Spacer />
-        <ColorButton
-          variant="contained"
-          fullWidth
-          onClick={handleSerach}
-        >
-          検索する
-        </ColorButton>
+        { !true &&
+        <>
+          <AutoComplete
+            name='category'
+            id="category"
+            multiple
+            options={categories.sort((a, b) => -b.group.localeCompare(a.group))}
+            groupBy={(option) => option.group}
+            getOptionLabel={(option) => option.title}
+            style={{ width: 250 }}
+            onChange={(event, newValue) => {
+              setCategory(newValue);
+            }}
+            renderInput={(params) => 
+              <TextField 
+                {...params} 
+                label="カテゴリー" 
+              />
+            }
+          />
+          <TextField
+            id="searchWord" 
+            name='searchWord'
+            label="キーワード" 
+            style={{ width: 250 }}
+            onChange={handleChange} 
+            value={searchWord} 
+          />
+          <Spacer />
+          <ColorButton
+            variant="contained"
+            fullWidth
+            onClick={handleSerach}
+          >
+            検索する
+          </ColorButton>
 
-        <Spacer />
-
+          <Spacer />
+        </>
+        }
         <Grid container spacing={3}>
           {searchedCerts.map(cert => (
-            <Grid item xs={12} sm={6} >
+            <Grid item xs={12} sm={6} className={classes.certCard} >
               <CertCard cert={cert} />
             </Grid>
           ))}

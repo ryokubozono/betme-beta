@@ -5,7 +5,7 @@ import { Box, Link, Button, Dialog, CircularProgress } from '@material-ui/core';
 import Spacer from 'components/commons/atoms/Spacer';
 import { useHistory } from 'react-router-dom';
 import paths from 'paths';
-import { auth, db } from "FirebaseConfig";
+import firebase, { auth, db } from "FirebaseConfig";
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import ProfileForm from 'components/Signup/ProfileForm';
 import ConfirmForm from 'components/Signup/ConfirmForm';
 import { regPurposes } from 'components/commons/consts/regPurposes';
+import { GetTimestamp } from 'components/commons/atoms/GetTimestamp';
 
 const useStyles = makeStyles((theme) => ({
   instructions: {
@@ -37,7 +38,7 @@ const Signup = (props) => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [loading, setLoading] = useState('');
   const [nickName, setNickName] = useState('');
-  const [firstName, setFirstName] = useState('');
+  const [birthday, setBirthday] = useState('');
   const [birthdayRef, setBirthdayRef] = useState('');
   const [job, setJob] = useState('');
   const [school, setSchool] = useState('');
@@ -87,10 +88,8 @@ const Signup = (props) => {
       case 'nickName':
         setNickName(event.target.value);
         break;
-      case 'firstName':
-        setFirstName(event.target.value);
-        break;
       case 'birthdayRef':
+        console.log(event.target.value)
         setBirthdayRef(event.target.value)
         break;
       case 'job':
@@ -120,6 +119,7 @@ const Signup = (props) => {
       default:
         console.log('key not found');
     }
+    console.log(birthdayRef)
   };
 
   const clickLogupAsUser = () => {
@@ -129,14 +129,29 @@ const Signup = (props) => {
       password,
     )
     .then(() => {
+
+      let birthdayTmp = GetTimestamp(birthdayRef);
+
       auth.onAuthStateChanged(function(user) {
         if (user) {
           db.collection('user').doc(user.uid).set({
             uid: user.uid,
             docId: user.uid,
+            nickName: nickName,
+            birthday: firebase.firestore.Timestamp.fromDate(birthdayTmp),
+            job: job,
+            school: school,
+            biz: biz,
+            gender: gender,
+            pref: pref,
+            educ: educ,
+            highSchool: highSchool,
+            college: college,
+            regPurpose: regPurpose,
           })
         }
       })
+
       history.push({
         pathname: `${paths.root}`,
         state: {
@@ -239,6 +254,7 @@ const Signup = (props) => {
                 educ={educ}
                 highSchool={highSchool}
                 college={college}
+                regPurpose={regPurpose}
               />
             }
             </div>

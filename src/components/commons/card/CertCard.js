@@ -13,6 +13,7 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 288,
     height: 250,
+    margin: 'auto',
   },
   container: {
   },
@@ -20,11 +21,17 @@ const useStyles = makeStyles({
     height: 100,
   },
 });
-
+ 
 const CertCard = (props) => {
 
   const classes = useStyles();
   const history = useHistory();
+
+  const handleClick = () => {
+    if (props.cert.desc) {
+      history.push(`cert/detail/${props.cert.docId}`)
+    }
+  }
 
   return (
     <>
@@ -33,7 +40,8 @@ const CertCard = (props) => {
     >
       <CardActionArea
         className={classes.container}
-        onClick={() => history.push(`cert/detail/${props.cert.docId}`)}
+        // onClick={() => history.push(`cert/detail/${props.cert.docId}`)}
+        onClick={handleClick}
       >
         <CardMedia
           className={classes.media}

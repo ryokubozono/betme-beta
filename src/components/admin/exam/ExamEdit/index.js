@@ -26,7 +26,6 @@ const ExamEdit = (props) => {
   const { exams } = useContext(ExamsContext);
   const location = useLocation();
   const history = useHistory();
-
   const [name, setName] = useState('');
   const [examName, setExamName] = useState('');
   const [certId, setCertId] = useState('');

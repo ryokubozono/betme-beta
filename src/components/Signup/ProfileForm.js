@@ -44,16 +44,16 @@ const ProfileForm = (props) => {
   const handleRegPurpose = (option) => {
     console.log(option)
     console.log(props.regPurpose)
-    // if (!props.regPurpose.length) {
-    let ref = props.regPurpose
-    ref.push(option)
-    props.setRegPurpose(ref)
-      // props.setRegPurpose(props.regPurpose.push(option))
-    // } else {
-      // if ((props.regPurpose).indexOf(option) === -1) {
-      //   props.setRegPurpose(props.regPurpose.push(option))
-      // }  
-    // }
+    if (!props.regPurpose.length) {
+      let ref = props.regPurpose
+      ref.push(option)
+      props.setRegPurpose(ref)
+      props.setRegPurpose(props.regPurpose.push(option))
+    } else {
+      if ((props.regPurpose).indexOf(option) === -1) {
+        props.setRegPurpose(props.regPurpose.push(option))
+      }  
+    }
 
     console.log(props.regPurpose)
   }
@@ -223,10 +223,10 @@ const ProfileForm = (props) => {
             {regPurposes.map(option => (
               <FormControlLabel
                 control={
-                  <Checkbox 
-                    // checked={(props.regPurpose).indexOf(option) !== -1}
+                  <Checkbox
+                    checked={props.regPurpose.length && (props.regPurpose).indexOf(option) !== -1}
                     onChange={() => handleRegPurpose(option)}
-                    name={option} 
+                    name={option}
                   />
                 }
                 label={option}

@@ -164,6 +164,7 @@ const CertDetail = (props) => {
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
+          {!true &&
           <ExpansionPanel square expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
@@ -178,6 +179,7 @@ const CertDetail = (props) => {
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
+          }
         </div>
       </AppLayout>
     </>

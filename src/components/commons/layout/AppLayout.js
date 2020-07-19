@@ -33,6 +33,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AdminNav from './AdminNav';
+import BetMeLogo from 'assets/betme9.png';
 
 const drawerWidth = 240;
 
@@ -203,9 +204,9 @@ const AppLayout = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            BetMe
-          </Typography>
+          {/* <Typography variant="h6" noWrap> */}
+            <img src={BetMeLogo} height='40' />
+          {/* </Typography> */}
           <div className={classes.menuButtonRight}>
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">

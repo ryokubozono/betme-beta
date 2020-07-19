@@ -16,6 +16,7 @@ import { bizs } from 'components/commons/consts/bizs';
 import { genders } from 'components/commons/consts/genders';
 import { prefs } from 'components/commons/consts/prefs';
 import { educs } from 'components/commons/consts/educs'; 
+import FormLabel from '@material-ui/core/FormLabel';
 
 const useStyles = makeStyles((theme) => ({
   textFeild: {
@@ -196,6 +197,10 @@ const ConfirmForm = (props) => {
               readOnly: true,
             }}
           />
+          <FormLabel component="legend">BetMeを利用する目的</FormLabel>
+            {props.regPurpose && props.regPurpose.map(item => (
+              <div>{item}</div>
+            ))}
           <Spacer />
 
         <div>

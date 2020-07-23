@@ -62,7 +62,9 @@ const Root = (props) => {
 
           </>
         }
-        <SearchItem />
+        {!examTarget &&
+          <SearchItem />
+        }
       </AppLayout>
     </>
   )

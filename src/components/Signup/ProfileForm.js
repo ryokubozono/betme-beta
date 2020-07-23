@@ -40,23 +40,40 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileForm = (props) => {
   const classes = useStyles();
+  // const [toGetMoney, setToGetMoney] = useState(false);
+  // const [toUseTimer, setToUseTimer] = useState(false);
+  // const [regPurposeRef, setRegPurposeRef] = useState([]);
 
-  const handleRegPurpose = (option) => {
-    console.log(option)
-    console.log(props.regPurpose)
-    if (!props.regPurpose.length) {
-      let ref = props.regPurpose
-      ref.push(option)
-      props.setRegPurpose(ref)
-      props.setRegPurpose(props.regPurpose.push(option))
-    } else {
-      if ((props.regPurpose).indexOf(option) === -1) {
-        props.setRegPurpose(props.regPurpose.push(option))
-      }  
-    }
+  // const removeFromArray = (item) => {
+  //   const index = regPurposeRef.indexOf(String(item))
+  //   if (index  !== -1) {
+  //     regPurposeRef.splice(index, 1)
+  //   } 
+  // }
 
-    console.log(props.regPurpose)
-  }
+  // const handleRegPurpose = (event) => {
+  //   switch (event.target.name) {
+  //     case 'toGetMoney':
+  //       if (!toGetMoney) {
+  //         regPurposeRef.push('toGetMoney');
+  //       } else {
+  //         removeFromArray('toGetMoney')
+  //       }
+  //       setToGetMoney(!toGetMoney);
+  //       break;
+  //     case 'toUseTimer':
+  //       if (!toUseTimer) {
+  //         regPurposeRef.push('toUseTimer');
+  //       } else {
+  //         removeFromArray('toUseTimer')
+  //       }
+  //       setToUseTimer(!toUseTimer);
+  //       break;
+  //     default:
+  //       console.log('no key match')
+  //   }
+  // }
+  // console.log(regPurposeRef);
 
   return (
     <>
@@ -66,6 +83,7 @@ const ProfileForm = (props) => {
         onError={errors => console.log(errors)}
       >
         <TextValidator
+          required
           label='nickName'
           id='nickName'
           name='nickName'
@@ -161,7 +179,10 @@ const ProfileForm = (props) => {
             ))}
           </Select>
         </FormControl>
-        <FormControl　className={classes.formControl}>
+        <FormControl　
+          required
+          className={classes.formControl}
+        >
           <InputLabel id='prefLabel'>都道府県</InputLabel>
           <Select
             labelId='prefLabel'
@@ -217,21 +238,38 @@ const ProfileForm = (props) => {
           onChange={props.handleChange} 
         />
         <br />
-        <FormControl component="fieldset" className={classes.formControl}>
+        {props.formType !== 'myAccount' &&
+        <>
+        <FormControl
+          required 
+          component="fieldset" 
+          className={classes.formControl}
+        >
           <FormLabel component="legend">BetMeを利用する目的</FormLabel>
           <FormGroup>
-            {regPurposes.map(option => (
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={props.regPurpose.length && (props.regPurpose).indexOf(option) !== -1}
-                    onChange={() => handleRegPurpose(option)}
-                    name={option}
-                  />
-                }
-                label={option}
-              />
-            ))}
+          
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name='toGetMoney'
+                  checked={props.toGetMoney}
+                  onChange={props.handleRegPurpose}
+                />
+              }
+              label='お金のため'
+            />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name='toUseTimer'
+                  checked={props.toUseTimer}
+                  onChange={props.handleRegPurpose}
+                />
+              }
+              label='時間管理のため'
+            />
+            
           </FormGroup>
         </FormControl>
         <Spacer />
@@ -251,6 +289,17 @@ const ProfileForm = (props) => {
             Next
           </Button>
         </div>
+        </>
+        }
+        {props.formType === 'myAccount' &&
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+          >
+            保存
+          </Button>
+        }
       </ValidatorForm>
     </>
   )

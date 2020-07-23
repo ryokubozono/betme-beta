@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState } from "react";
-import firebase, { auth } from "FirebaseConfig";
+import firebase, { auth, db } from "FirebaseConfig";
 import AppLayout from 'components/commons/layout/AppLayout';
 import { Button, Box } from '@material-ui/core';
 import { withStyles } from "@material-ui/styles";
@@ -10,6 +10,11 @@ import Twitter from '@material-ui/icons/Twitter';
 import { AuthContext } from "hooks/Auth";
 import AccountForm from "components/MyAccount/AccountForm";
 import BasicForm from 'components/MyAccount/BasicForm';
+import ProfileForm from 'components/Signup/ProfileForm';
+import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
+import { UsersContext } from "hooks/Users";
+import { GetDefaultDate } from "components/commons/atoms/GetDefaultDate";
+import { GetTimestamp } from 'components/commons/atoms/GetTimestamp';
 
 const TwitterButton = withStyles((theme) => ({
   root: {
@@ -47,6 +52,23 @@ const MyAccount = (props) => {
   const [twitter, setTwitter] = useState(false)
   const [mailPassword, setMailPassword] = useState(false)
   const { currentUser } = useContext(AuthContext);
+  const [nickName, setNickName] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [birthdayRef, setBirthdayRef] = useState('');
+  const [job, setJob] = useState('');
+  const [school, setSchool] = useState('');
+  const [biz, setBiz] = useState('');
+  const [gender, setGender] = useState('');
+  const [pref, setPref] = useState('');
+  const [educ, setEduc] = useState('');
+  const [highSchool, setHighSchool] = useState('');
+  const [college, setCollege] = useState('');
+  const [toGetMoney, setToGetMoney] = useState(false);
+  const [toUseTimer, setToUseTimer] = useState(false);
+  const [regPurposeRef, setRegPurposeRef] = useState([]);
+  const [user, setUser] = useState('');
+  const { users } = useContext(UsersContext);
+
   let provider = new firebase.auth.TwitterAuthProvider();
 
   const handleTwitter = () => {
@@ -89,6 +111,138 @@ const MyAccount = (props) => {
       history.push(`${paths.signin}`)
     }
   }, [currentUser])
+
+  useEffect(() => {
+    if (currentUser) {
+      let userRef = UserFindFilter(users, currentUser.uid)
+      if (userRef) {
+        setUser(userRef)
+        setNickName(userRef.nickName);
+        setBirthdayRef(userRef.birthdayRef);
+        setJob(userRef.job);
+        setSchool(userRef.school);
+        setBiz(userRef.biz);
+        setGender(userRef.gender);
+        setPref(userRef.pref);
+        setEduc(userRef.educ);
+        setHighSchool(userRef.highSchool);
+        setCollege(userRef.college);
+        setRegPurposeRef(userRef.regPurpose)
+      }
+    }
+  }, [currentUser])
+
+  useEffect(() => {
+    if (user) {
+      if (user.birthday) {
+        console.log(user.birthday)
+        let birthdayRef = GetDefaultDate(user.birthday.toDate())
+        setBirthdayRef(birthdayRef)
+      }
+    }
+  }, [user])
+
+  const handleChange = (event) => {
+    switch (event.target.name) {
+      case 'nickName':
+        setNickName(event.target.value);
+        break;
+      case 'birthdayRef':
+        setBirthdayRef(event.target.value)
+        break;
+      case 'job':
+        setJob(event.target.value)
+        break;
+      case 'school':
+        setSchool(event.target.value);
+        break;
+      case 'biz':
+        setBiz(event.target.value);
+        break;
+      case 'gender':
+        setGender(event.target.value);
+        break;
+      case 'pref':
+        setPref(event.target.value);
+        break;
+      case 'educ':
+        setEduc(event.target.value);
+        break;
+      case 'highSchool':
+        setHighSchool(event.target.value);
+        break;
+      case 'college':
+        setCollege(event.target.value);
+        break;
+      default:
+        console.log('key not found');
+    }
+  };
+
+  const removeFromArray = (item) => {
+    const index = regPurposeRef.indexOf(String(item))
+    if (index  !== -1) {
+      regPurposeRef.splice(index, 1)
+    } 
+  }
+
+  const handleRegPurpose = (event) => {
+    switch (event.target.name) {
+      case 'toGetMoney':
+        if (!toGetMoney) {
+          regPurposeRef.push('toGetMoney');
+        } else {
+          removeFromArray('toGetMoney')
+        }
+        setToGetMoney(!toGetMoney);
+        break;
+      case 'toUseTimer':
+        if (!toUseTimer) {
+          regPurposeRef.push('toUseTimer');
+        } else {
+          removeFromArray('toUseTimer')
+        }
+        setToUseTimer(!toUseTimer);
+        break;
+      default:
+        console.log('no key match')
+    }
+  }
+
+  const handleNext = () => {
+    let birthdayTmp = GetTimestamp(birthdayRef);
+    if (user) {
+      db.collection('user').doc(user.docId).set({
+        nickName: nickName,
+        birthday: firebase.firestore.Timestamp.fromDate(birthdayTmp),
+        job: job,
+        school: school,
+        biz: biz,
+        gender: gender,
+        pref: pref,
+        educ: educ,
+        highSchool: highSchool,
+        college: college,
+        regPurpose: regPurposeRef,
+      }, {merge: true})
+      .then(() => {
+        history.push({
+          state: {
+            text: 'プロフィールを保存しました。',
+            type: 'success',
+          }
+        })
+      })
+      .catch((error) => {
+        history.push({
+          state: {
+            text: error.message,
+            type: 'error'        
+          }
+        });
+      })
+    }
+  }
 
   return (
     <>
@@ -134,7 +288,25 @@ const MyAccount = (props) => {
         
         <Box bgcolor='white' p={2} m={0}>
           <p>プロフィール</p>
-          <AccountForm />
+          <ProfileForm 
+            handleChange={handleChange}
+            nickName={nickName}
+            birthdayRef={birthdayRef}
+            job={job}
+            school={school}
+            biz={biz}
+            gender={gender}
+            pref={pref}
+            educ={educ}
+            highSchool={highSchool}
+            college={college}
+            toGetMoney={toGetMoney}
+            toUseTimer={toUseTimer}
+            regPurposeRef={regPurposeRef}
+            handleRegPurpose={handleRegPurpose}
+            formType='myAccount'
+            handleNext={handleNext}
+          />
         </Box>
 
       </AppLayout>

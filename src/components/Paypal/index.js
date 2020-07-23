@@ -13,6 +13,8 @@ import { Button } from '@material-ui/core';
 import paths from 'paths';
 import { useHistory } from 'react-router-dom';
 import AccountForm from "components/MyAccount/AccountForm";
+import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
+import { UsersContext } from "hooks/Users";
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -31,6 +33,8 @@ const Paypal = (props) => {
   const history = useHistory();
   const [frag, setFrag] = useState(false);
   const [filledFrag, setFilledFrag] = useState(false);
+  const { users } = useContext(UsersContext);
+  const [user, setUser] = useState('');
 
   useEffect(() => {
     if (location.pathname) {
@@ -40,6 +44,17 @@ const Paypal = (props) => {
       }
     }
   }, [exams, location.pathname])
+
+  useEffect(() => {
+    if (currentUser) {
+      let userRef = UserFindFilter(users, currentUser.uid)
+      if (userRef) {
+        setUser(userRef)
+      }
+    }
+  })
+
+  console.log(user)
 
   useEffect(() => {
     if (exam && exam.betAmount && exam.betAmount !== '0') {

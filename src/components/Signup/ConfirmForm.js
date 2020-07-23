@@ -34,6 +34,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const handleItem = (item) => {
+  switch (item) {
+    case 'toGetMoney':
+      return 'お金のため';
+      break;
+    case 'toUseTimer':
+      return '時間管理のため';
+      break;
+    default:
+      console.log('no key match');
+  }
+}
+
 const ConfirmForm = (props) => {
 
   const classes = useStyles();
@@ -198,8 +211,8 @@ const ConfirmForm = (props) => {
             }}
           />
           <FormLabel component="legend">BetMeを利用する目的</FormLabel>
-            {props.regPurpose && props.regPurpose.map(item => (
-              <div>{item}</div>
+            {props.regPurposeRef && props.regPurposeRef.map(item => (
+              <div>{handleItem(item)}</div>
             ))}
           <Spacer />
 

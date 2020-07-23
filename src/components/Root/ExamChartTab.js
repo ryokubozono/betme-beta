@@ -8,7 +8,7 @@ const ExamChartTab = (props) => {
 
   return (
     <>
-      <h4>{props.examTarget && props.examTarget.examName}</h4>
+      {/* <h4>{props.examTarget && props.examTarget.examName}</h4> */}
       <StudyTimeBarChart events={events} />
       <StudyTimeMonthBarChart events={events} />
     </>

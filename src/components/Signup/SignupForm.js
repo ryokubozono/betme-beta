@@ -37,6 +37,7 @@ const SignupForm = (props) => {
           onError={errors => console.log(errors)}
         >
           <TextValidator
+            required
             label='Email'
             id="component-simple"
             name='email'
@@ -49,6 +50,7 @@ const SignupForm = (props) => {
             errorMessages={['this field is required', 'email is not valid']}
           />
           <TextValidator
+            required
             label='Password'
             id="password"
             name='password'
@@ -62,6 +64,7 @@ const SignupForm = (props) => {
             errorMessages={['this field is required']}
           />
           <TextValidator
+            required
             label='Password Confirm'
             id="passwordConfirm"
             name='passwordConfirm'

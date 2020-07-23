@@ -228,7 +228,7 @@ const ExamInfoTab = (props) => {
 
   return (
     <div className={classes.root}>
-      <h4>{props.examTarget.examName}</h4>
+      {/* <h4>{props.examTarget.examName}</h4> */}
       <Stepper
         activeStep={todayNumber} 
         // alternativeLabel

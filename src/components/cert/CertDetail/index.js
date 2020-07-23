@@ -19,6 +19,8 @@ import CertAfterPass from "components/cert/CertDetail/CertAfterPass";
 import CertSelectExam from "./CertSelectExam";
 import { AuthContext } from "hooks/Auth";
 import CertBread from 'components/cert/CertDetail/CertBread';
+import paths from 'paths';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -64,6 +66,7 @@ const CertDetail = (props) => {
   const [expanded, setExpanded] = useState('panel1');
   const [open, setOpen] = useState(false);
   const { currentUser } = useContext(AuthContext);
+  const history = useHistory();
 
   useEffect(() => {
     if (location.pathname) {
@@ -88,6 +91,10 @@ const CertDetail = (props) => {
     setOpen(false);
   };
 
+  const handleSignIn = () => {
+    history.push(`${paths.signin}`)
+  }
+
   return (
     <>
       <AppLayout>
@@ -103,6 +110,16 @@ const CertDetail = (props) => {
               onClick={handleOpen}
             >
               My試験に登録する
+            </Button>
+          }
+          { !currentUser &&
+            <Button
+              color='secondary'
+              fullWidth
+              variant="contained"
+              onClick={handleSignIn}
+            >
+              サインインしてMy試験に登録する
             </Button>
           }
 

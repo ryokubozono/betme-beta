@@ -48,7 +48,9 @@ const Signup = (props) => {
   const [educ, setEduc] = useState('');
   const [highSchool, setHighSchool] = useState('');
   const [college, setCollege] = useState('');
-  const [regPurpose, setRegPurpose] = useState([]);
+  const [toGetMoney, setToGetMoney] = useState(false);
+  const [toUseTimer, setToUseTimer] = useState(false);
+  const [regPurposeRef, setRegPurposeRef] = useState([]);
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -89,7 +91,6 @@ const Signup = (props) => {
         setNickName(event.target.value);
         break;
       case 'birthdayRef':
-        console.log(event.target.value)
         setBirthdayRef(event.target.value)
         break;
       case 'job':
@@ -119,8 +120,37 @@ const Signup = (props) => {
       default:
         console.log('key not found');
     }
-    console.log(birthdayRef)
   };
+
+  const handleRegPurpose = (event) => {
+    switch (event.target.name) {
+      case 'toGetMoney':
+        if (!toGetMoney) {
+          regPurposeRef.push('toGetMoney');
+        } else {
+          removeFromArray('toGetMoney')
+        }
+        setToGetMoney(!toGetMoney);
+        break;
+      case 'toUseTimer':
+        if (!toUseTimer) {
+          regPurposeRef.push('toUseTimer');
+        } else {
+          removeFromArray('toUseTimer')
+        }
+        setToUseTimer(!toUseTimer);
+        break;
+      default:
+        console.log('no key match')
+    }
+  }
+
+  const removeFromArray = (item) => {
+    const index = regPurposeRef.indexOf(String(item))
+    if (index  !== -1) {
+      regPurposeRef.splice(index, 1)
+    } 
+  }
 
   const clickLogupAsUser = () => {
     setLoading(true)
@@ -147,7 +177,7 @@ const Signup = (props) => {
             educ: educ,
             highSchool: highSchool,
             college: college,
-            regPurpose: regPurpose,
+            regPurpose: regPurposeRef,
           })
         }
       })
@@ -233,8 +263,10 @@ const Signup = (props) => {
                 educ={educ}
                 highSchool={highSchool}
                 college={college}
-                regPurpose={regPurpose}
-                setRegPurpose={setRegPurpose}
+                toGetMoney={toGetMoney}
+                toUseTimer={toUseTimer}
+                regPurposeRef={regPurposeRef}
+                handleRegPurpose={handleRegPurpose}
               />
             </>
             }
@@ -254,7 +286,7 @@ const Signup = (props) => {
                 educ={educ}
                 highSchool={highSchool}
                 college={college}
-                regPurpose={regPurpose}
+                regPurposeRef={regPurposeRef}
               />
             }
             </div>

@@ -200,7 +200,7 @@ const ExamTimerTab = (props) => {
 
   return (
     <>
-      <h4>{props.examTarget && props.examTarget.examName}</h4>
+      {/* <h4>{props.examTarget && props.examTarget.examName}</h4> */}
 
       <FormControl 
         className={classes.container} 

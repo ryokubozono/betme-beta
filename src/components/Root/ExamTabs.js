@@ -57,9 +57,18 @@ const ExamTabs = (props) => {
         textColor="primary"
         aria-label="icon tabs example"
       >
-        <Tab icon={<Info />} aria-label="info" />
-        <Tab icon={<Timer />} aria-label="timer" />
-        <Tab icon={<Equalizer />} aria-label="equalizer" />
+        <Tab 
+          label="情報" 
+          icon={<Info />} 
+        />
+        <Tab 
+          icon={<Timer />} 
+          label="学習記録" 
+        />
+        <Tab 
+          icon={<Equalizer />} 
+          label="進捗確認" 
+        />
       </Tabs>
       <TabPanel value={value} index={0}>
         <ExamInfoTab 

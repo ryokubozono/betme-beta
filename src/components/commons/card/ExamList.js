@@ -10,6 +10,9 @@ import Edit from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import paths from 'paths';
+import { CertsContext } from "hooks/Certs";
+import { CertFindFilter } from 'components/commons/filters/CertFindFilter';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,20 +20,29 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '4px',
     marginBottom: 8,
   },
+  inline: {
+    display: 'inline',
+  },
 }));
 
 const ExamList = (props) => {
   const { exams } = useContext(ExamsContext);
-  const [exam, setExam] = useState('')
+  const [exam, setExam] = useState('');
+  const [cert, setCert] = useState('');
   const [frag, setFrag] = useState(false);
   const classes = useStyles();
   const history = useHistory('');
+  const { certs } = useContext(CertsContext); 
 
   useEffect(() => {
     if (exams) {
       let examRef = ExamFindFilter(exams, props.examId)
       if (examRef) {
         setExam(examRef)
+      }
+      let certRef = CertFindFilter(certs, examRef.certId);
+      if (certRef) {
+        setCert(certRef);
       }
     }
   }, [exams, props.examId])
@@ -55,12 +67,29 @@ const ExamList = (props) => {
 
   return (
     <ListItem className={classes.root}>
-      <ListItemIcon>
-
-      </ListItemIcon>
-      <ListItemText>
-        {exam.examName}
-      </ListItemText>
+      <ListItemText
+        primary='label'
+        secondary={
+        <>
+        <Typography
+          component="span"
+          variant="body1"
+          className={classes.inline}
+          color="textPrimary"
+        >
+          {cert.name}
+        </Typography>
+        <Typography
+          component="span"
+          variant="body2"
+          className={classes.inline}
+          color="textPrimary"
+        >
+          ({exam.examName})
+        </Typography>
+        </>
+        }
+      />
       <ListItemSecondaryAction 
         onClick={() => handleExamTarget(exam)}
       >

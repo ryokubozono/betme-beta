@@ -12,8 +12,9 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import CertBeforeApply from 'components/cert/CertDetail/CertBeforeApply';
+import CertSummary from 'components/cert/CertDetail/CertSummary';
 import CertAboutStudy from "components/cert/CertDetail/CertAboutStudy";
+import CertAbout from 'components/cert/CertDetail/CertAbout';
 import CertNews from "components/cert/CertDetail/CertNews";
 import CertAfterPass from "components/cert/CertDetail/CertAfterPass";
 import CertSelectExam from "./CertSelectExam";
@@ -63,7 +64,7 @@ const CertDetail = (props) => {
   const location = useLocation();
   const [cert, setCert] = useState('');
   const { certs } = useContext(CertsContext); 
-  const [expanded, setExpanded] = useState('panel1');
+  const [expanded, setExpanded] = useState('panel0');
   const [open, setOpen] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const history = useHistory();
@@ -139,17 +140,31 @@ const CertDetail = (props) => {
         </Box>      
         <Spacer />
         <div className={classes.root}>
+          <ExpansionPanel square expanded={expanded === 'panel0'} onChange={handleChange('panel0')}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panelCertAbout"
+            >
+              <Typography className={classes.heading}>{cert.name}とは</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <div className={classes.fullWidthTable}>
+                <CertAbout cert={cert} />                
+              </div>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
           <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
-              id="panelCertBeforeAplly"
+              id="panelCertSummary"
             >
-              <Typography className={classes.heading}>申込前に見る情報</Typography>
+              <Typography className={classes.heading}>{cert.name}の概要</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div className={classes.fullWidthTable}>
-                <CertBeforeApply cert={cert} />                
+                <CertSummary cert={cert} />                
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -159,7 +174,7 @@ const CertDetail = (props) => {
               aria-controls="panel1a-content"
               id="panelCertAboutStudy"
             >
-              <Typography className={classes.heading}>勉強についての具体的な情報</Typography>
+              <Typography className={classes.heading}>攻略方法</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div>
@@ -167,13 +182,15 @@ const CertDetail = (props) => {
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
+
+          {!true &&
           <ExpansionPanel square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panelAfterPass"
             >
-              <Typography className={classes.heading}>合格後の姿についての情報</Typography>
+              <Typography className={classes.heading}>合格後について</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div>
@@ -181,6 +198,8 @@ const CertDetail = (props) => {
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
+          }
+          
           {!true &&
           <ExpansionPanel square expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
             <ExpansionPanelSummary

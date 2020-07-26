@@ -33,7 +33,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AdminNav from './AdminNav';
-import BetMeLogo from 'assets/betme9.png';
+import BetMeLogo from 'assets/betme_logo_02.png';
 
 const drawerWidth = 240;
 
@@ -90,6 +90,12 @@ const useStyles = makeStyles((theme) => ({
     },
     textAlign: 'center',
     // borderTop: '1px solid #ccc'
+  },
+  cursorPointer:{
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: '#eee',
+    },
   },
 }));
 
@@ -205,7 +211,15 @@ const AppLayout = (props) => {
             <MenuIcon />
           </IconButton>
           {/* <Typography variant="h6" noWrap> */}
-            <img src={BetMeLogo} height='40' />
+          <div
+            classes={classes.cursorPointer}
+          >
+            <img
+              onClick={() => history.push(`${paths.root}`)} 
+              src={BetMeLogo} 
+              height='40' 
+            />
+          </div>
           {/* </Typography> */}
           <div className={classes.menuButtonRight}>
             <IconButton aria-label="show 17 new notifications" color="inherit">

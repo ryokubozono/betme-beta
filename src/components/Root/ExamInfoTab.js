@@ -15,6 +15,9 @@ import Spacer from "components/commons/atoms/Spacer";
 import AboutBetMe from 'components/Root/AboutBetMe';
 import paths from "paths";
 import { useHistory } from 'react-router-dom';
+import { AuthContext } from "hooks/Auth";
+import { UsersContext } from "hooks/Users";
+import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -137,6 +140,8 @@ const ExamInfoTab = (props) => {
   const [todayNumber, setTodayNumber] = useState();
   const history = useHistory();
   const [frag, setFrag] = useState(false);
+  const { currentUser } = useContext(AuthContext);
+  const { users } = useContext(UsersContext);
 
   useEffect(() => {
     if (today && props.examTarget.examDate) {
@@ -224,7 +229,19 @@ const ExamInfoTab = (props) => {
     } else {
       setFrag(false)
     }
+
   }, [props.examTarget])
+
+  useEffect(() => {
+    if (currentUser) {
+      let userRef = UserFindFilter(users, currentUser.uid);
+      if (userRef && userRef.betmeExam && userRef.betmeExam.indexOf(props.examTarget.docId) !== -1 ) {
+        setFrag(false);
+      } else {
+        setFrag(true);
+      }
+    }
+  }, [users, currentUser, props.examTarget])
 
   return (
     <div className={classes.root}>

@@ -11,6 +11,11 @@ import Box from '@material-ui/core/Box';
 import ExamInfoTab from 'components/Root/ExamInfoTab';
 import ExamTimerTab from 'components/Root/ExamTimerTab';
 import ExamChartTab from 'components/Root/ExamChartTab';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import { AuthContext } from "hooks/Auth";
+import { UsersContext } from "hooks/Users";
+import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
+import ExamExperienceTab from 'components/Root/ExamExperienceTab';
 
 const useStyles = makeStyles({
   root: {
@@ -41,11 +46,25 @@ function TabPanel(props) {
 const ExamTabs = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [isBetmeExam, setIsBetmeExam] = useState(false);
+  const { currentUser } = useContext(AuthContext);
+  const { users } = useContext(UsersContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   
+  useEffect(() => {
+    if (currentUser && props.examTarget) {
+      let userRef = UserFindFilter(users, currentUser.uid);
+      if (userRef && userRef.betmeExam && userRef.betmeExam.indexOf(props.examTarget.docId) !== -1 ) {
+        setIsBetmeExam(true);
+      } else {
+        setIsBetmeExam(false);
+      }
+    }
+  }, [users, currentUser, props.examTarget])
+
   return (
     <>
       <Paper square className={classes.root}>
@@ -69,6 +88,12 @@ const ExamTabs = (props) => {
           icon={<Equalizer />} 
           label="進捗確認" 
         />
+        {isBetmeExam &&
+          <Tab 
+            icon={<ImportContactsIcon />} 
+            label="合格体験記"
+          />
+        }
       </Tabs>
       <TabPanel value={value} index={0}>
         <ExamInfoTab 
@@ -82,6 +107,11 @@ const ExamTabs = (props) => {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <ExamChartTab 
+          examTarget={props.examTarget}                 
+        />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <ExamExperienceTab
           examTarget={props.examTarget}                 
         />
       </TabPanel>

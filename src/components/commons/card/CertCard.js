@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import NoImage from 'assets/no_image.jpg';
+import takken from 'components/cert/CertDetail/Takken/takken_top.jpg';
 import { useHistory } from 'react-router-dom';
 
 
@@ -43,11 +44,20 @@ const CertCard = (props) => {
         // onClick={() => history.push(`cert/detail/${props.cert.docId}`)}
         onClick={handleClick}
       >
-        <CardMedia
-          className={classes.media}
-          image={NoImage}
-          title="Contemplative Reptile"
-        />
+        {!props.cert.url &&
+          <CardMedia
+            className={classes.media}
+            image={NoImage}
+            title="Contemplative Reptile"
+          />
+        }
+        {props.cert.url === 'takken' &&
+          <CardMedia
+            className={classes.media}
+            image={takken}
+            title="Contemplative Reptile"
+          />
+        }
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             {props.cert.name}

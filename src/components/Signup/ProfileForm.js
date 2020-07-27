@@ -297,7 +297,7 @@ const ProfileForm = (props) => {
             variant='contained'
             color='primary'
           >
-            保存
+            プロフィールを保存
           </Button>
         }
       </ValidatorForm>

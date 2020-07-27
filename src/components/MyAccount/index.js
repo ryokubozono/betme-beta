@@ -52,6 +52,10 @@ const MyAccount = (props) => {
   const [twitter, setTwitter] = useState(false)
   const [mailPassword, setMailPassword] = useState(false)
   const { currentUser } = useContext(AuthContext);
+  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [address, setAddress] = useState('');
+  const [tel, setTel] = useState('');
   const [nickName, setNickName] = useState('');
   const [birthday, setBirthday] = useState('');
   const [birthdayRef, setBirthdayRef] = useState('');
@@ -128,6 +132,10 @@ const MyAccount = (props) => {
         setHighSchool(userRef.highSchool);
         setCollege(userRef.college);
         setRegPurposeRef(userRef.regPurpose)
+        setFirstName(userRef.firstName);
+        setLastName(userRef.lastName);
+        setAddress(userRef.address);
+        setTel(userRef.tel);
       }
     }
   }, [currentUser])
@@ -174,6 +182,18 @@ const MyAccount = (props) => {
       case 'college':
         setCollege(event.target.value);
         break;
+      case 'firstName':
+        setFirstName(event.target.value);
+        break;
+      case 'lastName':
+        setLastName(event.target.value);
+        break;
+      case 'address':
+        setAddress(event.target.value);
+        break;
+      case 'tel':
+        setTel(event.target.value);
+        break;
       default:
         console.log('key not found');
     }
@@ -210,25 +230,55 @@ const MyAccount = (props) => {
   }
 
   const handleNext = () => {
-    let birthdayTmp = GetTimestamp(birthdayRef);
+
+    let time = firebase.firestore.Timestamp.fromDate(GetTimestamp(birthdayRef));
+
+      if (currentUser) {
+        db.collection('user').doc(currentUser.uid).set({
+          nickName: nickName,
+          birthday: time,
+          job: job,
+          school: school,
+          biz: biz,
+          gender: gender,
+          pref: pref,
+          educ: educ,
+          highSchool: highSchool,
+          college: college,
+          regPurpose: regPurposeRef,
+        }, {merge: true})
+        .then(() => {
+          history.push({
+            state: {
+              text: 'プロフィールを保存しました。',
+              type: 'success',
+            }
+          })
+        })
+        .catch((error) => {
+          history.push({
+            state: {
+              text: error.message,
+              type: 'error'        
+            }
+          });
+        })
+      }
+
+  }
+
+  const submitBasic = () => {
     if (user) {
       db.collection('user').doc(user.docId).set({
-        nickName: nickName,
-        birthday: firebase.firestore.Timestamp.fromDate(birthdayTmp),
-        job: job,
-        school: school,
-        biz: biz,
-        gender: gender,
-        pref: pref,
-        educ: educ,
-        highSchool: highSchool,
-        college: college,
-        regPurpose: regPurposeRef,
+        firstName: firstName,
+        lastName: lastName,
+        address: address,
+        tel: tel,
       }, {merge: true})
       .then(() => {
         history.push({
           state: {
-            text: 'プロフィールを保存しました。',
+            text: '基本情報を保存しました。',
             type: 'success',
           }
         })
@@ -283,7 +333,15 @@ const MyAccount = (props) => {
 
         <Box bgcolor='white' p={2} m={0}>
           <p>基本情報</p>
-          <BasicForm />
+          <BasicForm
+            firstName={firstName}
+            lastName={lastName}
+            address={address}
+            tel={tel}
+            handleChange={handleChange}
+            submitBasic={submitBasic}
+            formType='myAccount'
+          />
         </Box>
         
         <Box bgcolor='white' p={2} m={0}>

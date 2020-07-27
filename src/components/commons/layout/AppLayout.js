@@ -296,7 +296,7 @@ const AppLayout = (props) => {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <>
-          <Container maxWidth="sm">
+          <Container maxWidth="md">
           {props.children}
           </Container>
         </>

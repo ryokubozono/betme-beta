@@ -13,6 +13,10 @@ import paths from 'paths';
 import { CertsContext } from "hooks/Certs";
 import { CertFindFilter } from 'components/commons/filters/CertFindFilter';
 import Typography from '@material-ui/core/Typography';
+import BetMeLogo from 'assets/betme_logo_03.png';
+import { AuthContext } from "hooks/Auth";
+import { UsersContext } from "hooks/Users";
+import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ExamList = (props) => {
+  const { currentUser } = useContext(AuthContext);
   const { exams } = useContext(ExamsContext);
   const [exam, setExam] = useState('');
   const [cert, setCert] = useState('');
@@ -33,6 +38,8 @@ const ExamList = (props) => {
   const classes = useStyles();
   const history = useHistory('');
   const { certs } = useContext(CertsContext); 
+  const [isBetmeExam, setIsBetmeExam] = useState(false);
+  const { users } = useContext(UsersContext);
 
   useEffect(() => {
     if (exams) {
@@ -65,10 +72,21 @@ const ExamList = (props) => {
     })
   }
 
+  useEffect(() => {
+    if (currentUser) {
+      let userRef = UserFindFilter(users, currentUser.uid);
+      if (userRef && userRef.betmeExam && userRef.betmeExam.indexOf(props.examId) !== -1 ) {
+        setIsBetmeExam(true);
+      } else {
+        setIsBetmeExam(false);
+      }
+    }
+  }, [users, currentUser, props.examId])
+
   return (
     <ListItem className={classes.root}>
       <ListItemText
-        primary='label'
+        primary={isBetmeExam && <img src={BetMeLogo} height='15' /> }
         secondary={
         <>
         <Typography

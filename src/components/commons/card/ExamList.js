@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #eee',
     borderRadius: '4px',
     marginBottom: 8,
+    // '&:hover': {
+    //   backgroundColor: '#eee',
+    // },
   },
   inline: {
     display: 'inline',
@@ -84,7 +87,11 @@ const ExamList = (props) => {
   }, [users, currentUser, props.examId])
 
   return (
-    <ListItem className={classes.root}>
+    <ListItem 
+      button
+      className={classes.root}
+      onClick={() => handleExamTarget(exam)}
+    >
       <ListItemText
         primary={isBetmeExam && <img src={BetMeLogo} height='15' /> }
         secondary={
@@ -108,10 +115,6 @@ const ExamList = (props) => {
         </>
         }
       />
-      <ListItemSecondaryAction 
-        onClick={() => handleExamTarget(exam)}
-      >
-        <IconButton edge="end" aria-label="comments">
         { frag ?
           (
             <Edit 
@@ -122,8 +125,6 @@ const ExamList = (props) => {
             />
           )
         }
-        </IconButton>
-      </ListItemSecondaryAction>
     </ListItem>
   )
 }

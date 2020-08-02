@@ -34,6 +34,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AdminNav from './AdminNav';
 import BetMeLogo from 'assets/betme_logo_02.png';
+import { MyNoticesContext } from 'hooks/MyNotices';
+import AppLogin from './AppLogin';
 
 const drawerWidth = 240;
 
@@ -110,6 +112,9 @@ const AppLayout = (props) => {
   const { user } = useContext(UserContext);
   const [openList, setOpenList] = useState(false);
   const [adminFrag, setAdminFrag] = useState(false);
+  const [countNotice, setCountNotice] = useState(0);
+  const { myNotices } = useContext(MyNoticesContext);
+  const [ nickName, setNickName ] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -118,14 +123,24 @@ const AppLayout = (props) => {
       } else {
         setAdminFrag(false)
       }
+      setNickName(user.nickName)
     }
   }, [user])
 
   const handleSignout = () => {
     // console.log('click logout')
     // logout button
-    // すぐにサインアウトしないため/loginに遷移させることができない。
+    // すぐにログアウトしないため/loginに遷移させることができない。
     auth.signOut()
+    .then(() => {
+      history.push({
+        pathname: '/',
+        state: {
+          text: 'ログアウトしました',
+          type: 'success',
+        }
+      })
+    })
   }
 
   const handleDrawerToggle = () => {
@@ -147,7 +162,7 @@ const AppLayout = (props) => {
           onClick={() => history.push(`${paths.root}`)}
         >
           <ListItemIcon><HomeIcon /></ListItemIcon>
-          <ListItemText primary={'HOME'} />
+          <ListItemText primary={'ホーム'} />
         </ListItem>
         <ListItem 
           button 
@@ -157,7 +172,7 @@ const AppLayout = (props) => {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="My Exam" />
+          <ListItemText primary="受験する資格試験" />
             {openList ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={openList} timeout="auto" unmountOnExit>
@@ -175,7 +190,17 @@ const AppLayout = (props) => {
           <ListItemIcon>
             <AccountCircle />
           </ListItemIcon>
-          <ListItemText primary={'My Account'} />
+          <ListItemText primary={'アカウント設定'} />
+        </ListItem>
+        <ListItem
+          button 
+          key={'通知'}
+          onClick={() => history.push(`${paths.noticelist}`)}
+        >
+          <ListItemIcon>
+            <NotificationsIcon />
+          </ListItemIcon>
+          <ListItemText primary={'通知'} />
         </ListItem>
       </List>
       <Divider />
@@ -195,6 +220,13 @@ const AppLayout = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    if (myNotices) {
+      let tmpCount = myNotices.filter(function(x){return x.beforeOpen}).length;
+      setCountNotice(tmpCount)
+    }
+  }, [myNotices])
 
   return (
     <div className={classes.root}>
@@ -222,8 +254,10 @@ const AppLayout = (props) => {
           </div>
           {/* </Typography> */}
           <div className={classes.menuButtonRight}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+            <IconButton aria-label="show 17 new notifications" color="inherit"
+              onClick={() => history.push(`${paths.noticelist}`)}
+            >
+              <Badge badgeContent={countNotice} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -251,11 +285,11 @@ const AppLayout = (props) => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={() => history.push(`${paths.myaccount}`)}>My account</MenuItem>
+              <MenuItem onClick={() => history.push(`${paths.myaccount}`)}>アカウント設定</MenuItem>
               { currentUser ? (
-                <MenuItem onClick={handleSignout}>Sign Out</MenuItem>
+                <MenuItem onClick={handleSignout}>ログアウト</MenuItem>
               ):(
-                <MenuItem onClick={() => history.push({pathname: `${paths.signin}`})}>Sign In</MenuItem>
+                <MenuItem onClick={() => history.push({pathname: `${paths.signin}`})}>ログイン</MenuItem>
               )
               }
             </Menu>
@@ -297,7 +331,10 @@ const AppLayout = (props) => {
         <div className={classes.toolbar} />
         <>
           <Container maxWidth="md">
-          {props.children}
+            {nickName &&
+              <AppLogin nickName={nickName} />
+            }
+            {props.children}
           </Container>
         </>
         <AppAlert />

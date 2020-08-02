@@ -94,6 +94,7 @@ const ExamEdit = (props) => {
         setBetmeApplyDate(examRef.betmeApplyDate);
         setBetmeResultDate(examRef.betmeResultDate);
         setBetAmount(examRef.betAmount);
+        console.log(examRef.examName)
       }
     }
   }, [exams, location.pathname])

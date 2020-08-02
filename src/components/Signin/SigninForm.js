@@ -36,7 +36,7 @@ const SigninForm = (props) => {
       history.push({
         pathname: `${paths.root}`,
         state: {
-          text: 'サインインしました',
+          text: 'ログアウトしました',
           type: 'success'        
         }
       })
@@ -106,7 +106,7 @@ const SigninForm = (props) => {
             color='primary'
             variant="contained"
           >
-            SIGN IN
+            ログイン
           </Button>
         </ValidatorForm>
 

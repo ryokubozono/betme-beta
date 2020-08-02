@@ -5,9 +5,9 @@ import TakkenSummary from "./Takken/TakkenSummary";
 const CertSummary = (props) => {
   return (
     <>
-      {props.cert.url === 'takken' &&
+      {/* {props.cert.url === 'takken' && */}
         <TakkenSummary cert={props.cert} />
-      }
+      {/* } */}
     </>
   )
 }

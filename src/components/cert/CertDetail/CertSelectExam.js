@@ -59,50 +59,50 @@ const CertSelectExam = (props) => {
   const classes = useStyles();
   const { exams } = useContext(ExamsContext);
   const { user } = useContext(UserContext);
-  const [filteredExams, setFilteredExams] = useState([])
+  // const [filteredExams, setFilteredExams] = useState([])
   const { currentUser } = useContext(AuthContext);
   const history = useHistory('');
 
-  useEffect(() => {
-    let tmpExams = []
-    if (exams) {
-      tmpExams = exams;
-      tmpExams = tmpExams.filter(row => {
-        if (row.certId === props.cert.docId) {
-          return row;
-        } else {
-          return false;
-        }
-      })
-      tmpExams = tmpExams.filter(row => {
-        if (row.isDisable) {
-          return false
-        } else {
-          return row
-        }
-      })
-      tmpExams.sort(function(a,b){
-        if(a.examDate.seconds < b.examDate.seconds) return -1;
-        if(a.examDate.seconds > b.examDate.seconds) return 1;
-        return 0;
-      });
-      let refExams = []
-      tmpExams.forEach(exam => {
-        let isMyExam = false
-        if (user.myExam && (user.myExam).indexOf(exam.docId) !== -1) {
-          isMyExam = true
-        }
-        refExams.push({
-          uid: exam.docId,
-          name: exam.name,
-          isMyExam: isMyExam,
-          applyDate: exam.applyDate,
-          examDate: exam.examDate
-        })
-      })
-      setFilteredExams(refExams)
-    }
-  }, [exams, props.cert, user])
+  // useEffect(() => {
+  //   let tmpExams = []
+  //   if (exams) {
+  //     tmpExams = exams;
+  //     tmpExams = tmpExams.filter(row => {
+  //       if (row.certId === props.cert.docId) {
+  //         return row;
+  //       } else {
+  //         return false;
+  //       }
+  //     })
+  //     tmpExams = tmpExams.filter(row => {
+  //       if (row.isDisable) {
+  //         return false
+  //       } else {
+  //         return row
+  //       }
+  //     })
+  //     tmpExams.sort(function(a,b){
+  //       if(a.examDate.seconds < b.examDate.seconds) return -1;
+  //       if(a.examDate.seconds > b.examDate.seconds) return 1;
+  //       return 0;
+  //     });
+  //     let refExams = []
+  //     tmpExams.forEach(exam => {
+  //       let isMyExam = false
+  //       if (user.myExam && (user.myExam).indexOf(exam.docId) !== -1) {
+  //         isMyExam = true
+  //       }
+  //       refExams.push({
+  //         uid: exam.docId,
+  //         name: exam.name,
+  //         isMyExam: isMyExam,
+  //         applyDate: exam.applyDate,
+  //         examDate: exam.examDate
+  //       })
+  //     })
+  //     setFilteredExams(refExams)
+  //   }
+  // }, [exams, props.cert, user])
 
   const handleMyExam = (exam) => {
     if (window.confirm('Add To My Exam ?')) {
@@ -117,7 +117,7 @@ const CertSelectExam = (props) => {
           pathname: '/',
           search: `examId=${exam.uid}`,
           state: {
-            text: 'My試験に追加しました',
+            text: '受験する資格試験に追加しました',
             type: 'success',
           }
         })
@@ -141,12 +141,12 @@ const CertSelectExam = (props) => {
         <TableHead>
           <TableRow>
             <StyledTableCell></StyledTableCell>
-            <StyledTableCell align="center">My試験</StyledTableCell>
+            <StyledTableCell align="center">受験する資格試験</StyledTableCell>
             <StyledTableCell align="center">試験日</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredExams.map(exam => (
+          {props.filteredExams.map(exam => (
             <>
               {exam.isMyExam ? (
                 <SelectedTableRow 

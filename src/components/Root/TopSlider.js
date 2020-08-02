@@ -4,6 +4,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Button } from "@material-ui/core";
 import { useHistory } from 'react-router-dom';
 import paths from 'paths';
+import BetMeLogo from 'assets/betme_logo_04.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +64,10 @@ const TopSlider = (props) => {
         ベットミー
       </div>
       <div className={classes.header3}>
-        BetMe
+        <img
+          src={BetMeLogo}
+          height='40'
+        />
       </div>
       <div className={classes.sliderButton} >
         <Button

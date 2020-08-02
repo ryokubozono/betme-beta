@@ -67,11 +67,11 @@ const Paypal = (props) => {
         }
       }
     }
-  }, [currentUser, exam]);
+  }, [currentUser, exam, users]);
 
   useEffect(() => {
     if (user) {
-      if (!user.firstName || !user.lastName) {
+      if (!user.firstName || !user.lastName || !user.tel ) {
         setFilledFrag(false);
       } else {
         setFilledFrag(true);
@@ -87,9 +87,6 @@ const Paypal = (props) => {
       case 'lastName':
         setLastName(event.target.value);
         break;
-      case 'address':
-        setAddress(event.target.value);
-        break;
       case 'tel':
         setTel(event.target.value);
         break;
@@ -103,7 +100,6 @@ const Paypal = (props) => {
       db.collection('user').doc(user.docId).set({
         firstName: firstName,
         lastName: lastName,
-        address: address,
         tel: tel,
       }, {merge: true})
       .then(() => {
@@ -132,22 +128,6 @@ const Paypal = (props) => {
       setFrag(false)
     }
   }, [exam, user])
-
-  // useEffect(() => {
-  //   console.log(exam.docId)
-  //   console.log(currentUser && currentUser.betmeExam)
-  //   console.log(user.betmeExam)
-  //   console.log(user.betmeExam && user.betmeExam.indexOf(exam.docId))
-  //   if (currentUser && exam) {
-  //     let userRef = UserFindFilter(users, currentUser.uid);
-  //     console.log(userRef)
-  //     if (userRef && userRef.betmeExam.indexOf(exam.docId) !== -1 ) {
-  //       setFrag(false);
-  //     } else {
-  //       setFrag(true);
-  //     }
-  //   }
-  // }, [users, currentUser, exam])
 
   const handlePaypal = () => {
     console.log('handle paypal')
@@ -197,13 +177,7 @@ const Paypal = (props) => {
           </Dialog>
         }
 
-        {!currentUser &&
-          <Box bgcolor='white' p={2} m={0}>
-            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-            <Spacer />
-          </Box>
-        }
-        {currentUser && !frag &&
+        { currentUser && !frag &&
           <Button
             variant='contained'
             onClick={() => history.push(`${paths.root}`)}
@@ -236,6 +210,7 @@ const Paypal = (props) => {
             currency='JPY' // default is 'USD'
             country='JP'
             shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+            buyerCountry='JP'
             onSuccess={handlePaypal}
               // alert("Transaction ompleted by " + details.payer.name.given_name);
               // OPTIONAL: Call your server to save the transaction
@@ -251,6 +226,7 @@ const Paypal = (props) => {
             options={{
               clientId: "AQmjU-3JUfO8J9eV2pJ30hotJCJywhbUNgPiP7mnuFs8ErIYGpVADBuL90Kec0VrWCEBfi2EsB8QJARp",
               currency: 'JPY',
+              locale: 'ja_JP',
             }}
           />
         </>

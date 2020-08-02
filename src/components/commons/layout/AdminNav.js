@@ -5,6 +5,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useHistory } from 'react-router-dom';
 import paths from 'paths';
+import { Link } from '@material-ui/core';
 
 const AdminNav = (props) => {
 
@@ -41,6 +42,13 @@ const AdminNav = (props) => {
         >
           <ListItemText primary={'User'} />
         </ListItem>
+        <ListItem
+          button 
+          key={'Notice'}
+          onClick={() => history.push(`${paths.noticeindex}`)}
+        >
+          <ListItemText primary={'Notice'} />
+        </ListItem>        
       </List>
     </>
   )

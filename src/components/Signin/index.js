@@ -33,13 +33,13 @@ const Signin = (props) => {
       <AppLayout>
         <Box bgcolor='white' p={2} m={0}>
           {/* <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} /> */}
-          <h1>SIGN IN</h1>
+          <h1>ログイン</h1>
           <SigninForm />
           <Spacer />
           <Link 
             onClick={() => history.push(`${paths.passwordreset}`)} 
           >
-            Reset Password
+            パスワードリセット
           </Link>
           <Spacer />
           <Button
@@ -47,7 +47,7 @@ const Signin = (props) => {
             variant="outlined"
             onClick={() => history.push(`${paths.signup}`)} 
           >
-            Sign Up
+            新規登録
           </Button> 
           <Spacer />
         </Box>

@@ -185,7 +185,7 @@ const Signup = (props) => {
       history.push({
         pathname: `${paths.root}`,
         state: {
-          text: 'サインアップしました',
+          text: '新規登録しました',
           type: 'success'        
         }  
       })
@@ -215,7 +215,7 @@ const Signup = (props) => {
     }
       <AppLayout>
         <Box bgcolor='white' p={2} m={0}>
-          <h1>SIGN UP</h1>
+          <h1>新規登録</h1>
 
           <div>
             <Stepper activeStep={activeStep}>
@@ -297,7 +297,7 @@ const Signup = (props) => {
             variant="outlined"
             onClick={() => history.push(`${paths.signin}`)} 
           >
-            Sign In
+            ログイン
           </Button>
           <Spacer />
         </Box>

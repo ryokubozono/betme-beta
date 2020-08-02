@@ -41,20 +41,6 @@ const BasicForm = (props) => {
         />
         <TextValidator
           required
-          label='address'
-          id='address'
-          name='address'
-          type="text"
-          color='primary'
-          fullWidth
-          margin="normal"
-          value={props.address} 
-          onChange={props.handleChange} 
-          validators={['required']}
-          errorMessages={['this field is required']}
-        />
-        <TextValidator
-          required
           label='tel'
           id='tel'
           name='tel'

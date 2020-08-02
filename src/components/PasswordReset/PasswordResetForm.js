@@ -96,7 +96,7 @@ const PasswordResetForm = (props) => {
             color='primary'
             variant="contained"
           >
-            SEND
+            送信
           </Button>
         </ValidatorForm>
     </>

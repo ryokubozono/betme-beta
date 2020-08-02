@@ -22,6 +22,8 @@ import { AuthContext } from "hooks/Auth";
 import CertBread from 'components/cert/CertDetail/CertBread';
 import paths from 'paths';
 import { useHistory } from 'react-router-dom';
+import { ExamsContext } from "hooks/Exams";
+import { UserContext } from "hooks/User";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -64,10 +66,63 @@ const CertDetail = (props) => {
   const location = useLocation();
   const [cert, setCert] = useState('');
   const { certs } = useContext(CertsContext); 
-  const [expanded, setExpanded] = useState('panel0');
+  const [expanded, setExpanded] = useState('');
   const [open, setOpen] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const history = useHistory();
+  const { exams } = useContext(ExamsContext);
+  const { user } = useContext(UserContext);
+  const [filteredExams, setFilteredExams] = useState([])
+  const [isAllMyExam, setIsAllMyExam] = useState(true);
+
+  useEffect(() => {
+    let tmpExams = []
+    if (exams) {
+      console.log('pass')
+      tmpExams = exams;
+      tmpExams = tmpExams.filter(row => {
+        if (row.certId === cert.docId) {
+          return row;
+        } else {
+          return false;
+        }
+      })
+      tmpExams = tmpExams.filter(row => {
+        if (row.isDisable) {
+          return false
+        } else {
+          return row
+        }
+      })
+      tmpExams.sort(function(a,b){
+        if(a.examDate.seconds < b.examDate.seconds) return -1;
+        if(a.examDate.seconds > b.examDate.seconds) return 1;
+        return 0;
+      });
+      let refExams = []
+      tmpExams.forEach(exam => {
+        let isMyExam = false
+        if (user.myExam && (user.myExam).indexOf(exam.docId) !== -1) {
+          isMyExam = true
+        }
+        refExams.push({
+          uid: exam.docId,
+          name: exam.name,
+          isMyExam: isMyExam,
+          applyDate: exam.applyDate,
+          examDate: exam.examDate
+        })
+      })
+      refExams.filter(exam => {
+        if (exam.isMyExam === false) {
+          setIsAllMyExam(false)
+        }
+      })
+      setFilteredExams(refExams)
+      console.log(refExams)
+    }
+  }, [exams, cert, user])
+
 
   useEffect(() => {
     if (location.pathname) {
@@ -103,14 +158,24 @@ const CertDetail = (props) => {
         <Box bgcolor='white' p={2} m={0}>
           <h2>{cert.name}</h2>
           <p>{cert.desc}</p>
-          { currentUser &&
+          { currentUser && isAllMyExam &&
+            <Button
+              color='primary'
+              fullWidth
+              variant="contained"
+              onClick={() => history.push(`/`)}
+            >
+              受験する資格試験に移動
+            </Button>
+          }
+          { currentUser && !isAllMyExam &&
             <Button
               color='secondary'
               fullWidth
               variant="contained"
               onClick={handleOpen}
             >
-              My試験に登録する
+              受験する資格試験に登録する
             </Button>
           }
           { !currentUser &&
@@ -120,7 +185,7 @@ const CertDetail = (props) => {
               variant="contained"
               onClick={handleSignIn}
             >
-              サインインしてMy試験に登録する
+              ログインして受験する資格試験に登録する
             </Button>
           }
 
@@ -132,9 +197,12 @@ const CertDetail = (props) => {
             onClose={handleClose}
           >
             <div className={classes.paper}>
-              <h2 id="transition-modal-title">My試験に登録する</h2>
+              <h2 id="transition-modal-title">受験する資格試験に登録する</h2>
               <p id="transition-modal-description">選択可能な試験は以下です。</p>
-              <CertSelectExam cert={cert} />
+              <CertSelectExam 
+                cert={cert} 
+                filteredExams={filteredExams}
+              />
             </div>
           </Modal>
         </Box>      

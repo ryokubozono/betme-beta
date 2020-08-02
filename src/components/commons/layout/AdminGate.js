@@ -42,12 +42,12 @@ const AdminGate = (props) => {
             </>
           ):(
             <>
-              <p>サインインしてください</p>
+              <p>ログインしてください</p>
               <Button
                 variant="contained"
                 onClick={() => history.push(`${paths.signin}`)}
               >
-                Sign In
+                ログイン
               </Button>
             </>
           )

@@ -15,12 +15,27 @@ const useStyles = makeStyles((theme) => ({
   },
   nested1: {
     paddingLeft: theme.spacing(0),
+    fontWeight: 'bolder',
   },
   nested2: {
     paddingLeft: theme.spacing(4),
   },
   nested3: {
     paddingLeft: theme.spacing(8),
+  },
+  title: {
+    backgroundColor: '#ffcccc',
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    margin: theme.spacing(1),
+    borderLeft: '4px solid #ff7fbf', 
+    fontWeight: 'bold',
+  },
+  subTitle: {
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    fontWeight: 'bolder',
+    backgroundColor: '#ffffcc',
   },
 }));
 
@@ -31,10 +46,8 @@ const TakkenAbout = (props) => {
   return (
     <>
       <ListItem className={classes.nested1}>
-        <ListItemIcon>
-          <Brightness1 fontSize='small' />
-        </ListItemIcon>
         <ListItemText
+          className={classes.title}
           primary="
             どんな資格か
           "
@@ -45,10 +58,8 @@ const TakkenAbout = (props) => {
       </ListItem>
 
       <ListItem className={classes.nested1}>
-        <ListItemIcon>
-          <Brightness1 fontSize='small' />
-        </ListItemIcon>
         <ListItemText
+          className={classes.title}
           primary="
             資格の魅力・取得メリット
           "
@@ -56,7 +67,7 @@ const TakkenAbout = (props) => {
       </ListItem>
       <ListItem className={classes.nested1}>
         <ListItemIcon>
-          <CheckIcon fontSize='small' />
+          <CheckIcon fontSize='small' color="secondary" />
         </ListItemIcon>
         <ListItemText
           primary="
@@ -70,7 +81,7 @@ const TakkenAbout = (props) => {
       
       <ListItem className={classes.nested1}>
         <ListItemIcon>
-          <CheckIcon fontSize='small' />
+          <CheckIcon fontSize='small' color="secondary" />
         </ListItemIcon>
         <ListItemText
           primary="
@@ -84,7 +95,7 @@ const TakkenAbout = (props) => {
 
       <ListItem className={classes.nested1}>
         <ListItemIcon>
-          <CheckIcon fontSize='small' />
+          <CheckIcon fontSize='small' color="secondary" />
         </ListItemIcon>
         <ListItemText
           primary="
@@ -97,10 +108,8 @@ const TakkenAbout = (props) => {
       </ListItem> 
 
       <ListItem className={classes.nested1}>
-        <ListItemIcon>
-          <Brightness1 fontSize='small' />
-        </ListItemIcon>
         <ListItemText
+          className={classes.title}
           primary="
           将来性・活躍シーン
           "
@@ -108,7 +117,7 @@ const TakkenAbout = (props) => {
       </ListItem>
       <ListItem className={classes.nested1}>
         <ListItemIcon>
-          <CheckIcon fontSize='small' />
+          <CheckIcon fontSize='small' color="secondary" />
         </ListItemIcon>
         <ListItemText
           primary="
@@ -122,7 +131,7 @@ const TakkenAbout = (props) => {
 
       <ListItem className={classes.nested1}>
         <ListItemIcon>
-          <CheckIcon fontSize='small' />
+          <CheckIcon fontSize='small' color="secondary" />
         </ListItemIcon>
         <ListItemText
           primary="
@@ -132,26 +141,46 @@ const TakkenAbout = (props) => {
       </ListItem>
 
       <ListItem className={classes.nested2}>
-      ・不動産業界
+        <ListItemText
+          className={classes.subTitle}
+          primary="
+            不動産業界
+          "
+        />
       </ListItem> 
       <ListItem className={classes.nested3}>
       活躍シーンにおける筆頭業界となります。不動産の売買・交換・貸借の代理・仲介などの業務では、宅建士の知識が必要不可欠です。不動産取引で契約を締結する際の重要事項の説明などは、独占業務となり、宅建士以外の人は行うことができません。そのため、不動産業界に従事する方は自ずと求められる資格となります。
       </ListItem> 
       <ListItem className={classes.nested2}>
-      ・金融業界
+        <ListItemText
+          className={classes.subTitle}
+          primary="
+          金融業界
+          "
+        />
       </ListItem> 
       <ListItem className={classes.nested3}>
       不動産を担保として融資する際の物件評価をはじめ、法律・税金・その他の宅建士の知識は日常業務のなかで頻繁に要求されています。他にも、信託銀行の主業務の一つに不動産業務があること、貸金業法の改正で不動産の仲介を活用した不動産担保ローンの取り扱い増加等、数多く活躍シーンがあります。
       </ListItem> 
       <ListItem className={classes.nested2}>
-      ・その他一般企業
+        <ListItemText
+          className={classes.subTitle}
+          primary="
+          その他一般企業
+          "
+        />
       </ListItem> 
       <ListItem className={classes.nested3}>
       工場用地の取得や新規店舗計画をはじめ、自社が所有している不動産の有効利用等総務系の実務においても、宅建士の知識は役立ちます。このように一般の企業でも、宅建士の活躍の場は広がっています。
       </ListItem> 
       <ListItem className={classes.nested2}>
-      ・独立開業、不動産投資など
-      </ListItem> 
+        <ListItemText
+          className={classes.subTitle}
+          primary="
+          独立開業、不動産投資など
+          "
+        />
+      </ListItem>
       <ListItem className={classes.nested3}>
       資格を活かした独立開業も可能です。また本業の傍ら不動産投資を行いたい方にとっても、宅建士の知識は役立つと言えるでしょう。
       </ListItem> 

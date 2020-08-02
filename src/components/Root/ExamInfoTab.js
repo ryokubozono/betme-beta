@@ -135,13 +135,8 @@ const ExamInfoTab = (props) => {
   const classes = useStyles();
   const today = firebase.firestore.Timestamp.fromDate(new Date(Date.now()));
   const [date, setDate] = useState('');
-  const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [todayNumber, setTodayNumber] = useState();
-  const history = useHistory();
-  const [frag, setFrag] = useState(false);
-  const { currentUser } = useContext(AuthContext);
-  const { users } = useContext(UsersContext);
 
   useEffect(() => {
     if (today && props.examTarget.examDate) {
@@ -211,38 +206,6 @@ const ExamInfoTab = (props) => {
     setData(dataRef)
   }, [props.examTarget.applyDate, props.examTarget.betmeApplyDate, props.examTarget.betmeResultDate, props.examTarget.examDate, props.examTarget.examTarget, props.examTarget.resultDate])
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handlePaypal = () => {
-    history.push(`/paypal/${props.examTarget.docId}`);
-  }
-
-  useEffect(() => {
-    if (props.examTarget && props.examTarget.betAmount && props.examTarget.betAmount !== '0') {
-      setFrag(true)
-    } else {
-      setFrag(false)
-    }
-
-  }, [props.examTarget])
-
-  useEffect(() => {
-    if (currentUser) {
-      let userRef = UserFindFilter(users, currentUser.uid);
-      if (userRef && userRef.betmeExam && userRef.betmeExam.indexOf(props.examTarget.docId) !== -1 ) {
-        setFrag(false);
-      } else {
-        setFrag(true);
-      }
-    }
-  }, [users, currentUser, props.examTarget])
-
   return (
     <div className={classes.root}>
       {/* <h4>{props.examTarget.examName}</h4> */}
@@ -277,47 +240,6 @@ const ExamInfoTab = (props) => {
           {date}
         </b> 
         &nbsp;&nbsp;日
-      </div>
-      <Spacer />
-      <div className={classes.dateAlign}>
-        <Button
-        　color='secondary'
-          variant="contained"
-          size='small'
-          onClick={handlePaypal}
-          disabled={!frag}
-        >
-          BetMeに申し込む
-        </Button>
-        &nbsp;
-        &nbsp;
-
-        <Button
-          color='secondary'
-          variant="outlined"  
-          size='small'
-          onClick={handleOpen}
-        >
-          BetMeって？
-        </Button>
-        <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-          >
-            <div className={classes.paper}>
-              <div
-                className={classes.closeButton}              
-              >
-                <HighlightOff 
-                  onClick={handleClose}
-                />
-              </div>
-              <AboutBetMe />
-            </div>
-          </Modal>
       </div>
     </div>
   );

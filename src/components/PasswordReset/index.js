@@ -13,13 +13,13 @@ const PasswordReset = (props) => {
     <>
       <AppLayout>
         <Box bgcolor='white' p={2} m={0}>
-          <h1>Password Reset</h1>
+          <h1>パスワードリセット</h1>
           <PasswordResetForm />
           <Spacer />
           <Link 
             onClick={() => history.push(`${paths.signin}`)} 
           >
-            Sign In
+            ログイン
           </Link>
           <Spacer />
         </Box>

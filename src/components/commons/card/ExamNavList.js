@@ -50,8 +50,7 @@ const ExamNavList = (props) => {
       >
         {/* <ListItemText primary={exam.examName} /> */}
         <ListItemText
-        primary='label'
-        secondary={
+        primary={
         <>
         <Typography
           component="span"

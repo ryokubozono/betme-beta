@@ -222,14 +222,14 @@ const ConfirmForm = (props) => {
             color='primary'
             variant="outlined"
           >
-            Back
+            戻る
           </Button>
           <Button
             type="submit"
             variant="contained"
             color="primary"
           >
-            Sign Up
+            新規登録
           </Button>
         </div>
       </ValidatorForm>  

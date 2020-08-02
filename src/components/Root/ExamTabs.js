@@ -16,12 +16,37 @@ import { AuthContext } from "hooks/Auth";
 import { UsersContext } from "hooks/Users";
 import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
 import ExamExperienceTab from 'components/Root/ExamExperienceTab';
+import { Button, Modal } from "@material-ui/core";
+import { useHistory } from 'react-router-dom';
+import HighlightOff from '@material-ui/icons/HighlightOff';
+import AboutBetMe from 'components/Root/AboutBetMe';
+import Spacer from "components/commons/atoms/Spacer";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-});
+  modal: {
+    display: 'flex',
+    maxWidth: 500,
+    width: '80vw',
+    margin: 'auto',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  dateAlign: {
+    textAlign: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(4),
+    height: 400,
+    overflow: 'scroll',
+  },
+  closeButton: {
+    textAlign: 'right',
+  },
+}));
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,10 +74,25 @@ const ExamTabs = (props) => {
   const [isBetmeExam, setIsBetmeExam] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const { users } = useContext(UsersContext);
+  const history = useHistory();
+  const [frag, setFrag] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handlePaypal = () => {
+    history.push(`/paypal/${props.examTarget.docId}`);
+  }
   
   useEffect(() => {
     if (currentUser && props.examTarget) {
@@ -61,6 +101,25 @@ const ExamTabs = (props) => {
         setIsBetmeExam(true);
       } else {
         setIsBetmeExam(false);
+      }
+    }
+  }, [users, currentUser, props.examTarget])
+
+  useEffect(() => {
+    if (props.examTarget && props.examTarget.betAmount && props.examTarget.betAmount !== '0') {
+      setFrag(true)
+    } else {
+      setFrag(false)
+    }
+  }, [props.examTarget])
+
+  useEffect(() => {
+    if (currentUser) {
+      let userRef = UserFindFilter(users, currentUser.uid);
+      if (userRef && userRef.betmeExam && userRef.betmeExam.indexOf(props.examTarget.docId) !== -1 ) {
+        setFrag(false);
+      } else {
+        setFrag(true);
       }
     }
   }, [users, currentUser, props.examTarget])
@@ -115,6 +174,48 @@ const ExamTabs = (props) => {
           examTarget={props.examTarget}                 
         />
       </TabPanel>
+      <div className={classes.dateAlign}>
+        <Button
+        　color='secondary'
+          variant="contained"
+          size='small'
+          onClick={handlePaypal}
+          disabled={!frag}
+        >
+          { frag && 'BetMeに申し込む' }
+          { !frag && 'BetMe申込済み' }
+        </Button>
+        &nbsp;
+        &nbsp;
+
+        <Button
+          color='secondary'
+          variant="outlined"  
+          size='small'
+          onClick={handleOpen}
+        >
+          BetMeって？
+        </Button>
+        <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+          >
+            <div className={classes.paper}>
+              <div
+                className={classes.closeButton}              
+              >
+                <HighlightOff 
+                  onClick={handleClose}
+                />
+              </div>
+              <AboutBetMe />
+            </div>
+          </Modal>
+      </div>
+      <Spacer />
     </Paper>
     </>
   )

@@ -31,6 +31,12 @@ const paths = {
   useredit: '/admin/user/edit/:uid',
   // paypal
   paypal: '/paypal/:uid',
+  // admin notice
+  noticeindex: '/admin/notice/index',
+  noticenew: '/admin/notice/new',
+  noticeedit: '/admin/notice/edit/:uid',
+  // notice
+  noticelist: '/noticelist', 
   
 };
 

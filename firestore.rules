@@ -18,5 +18,8 @@ service cloud.firestore {
     match /user/{user} {
     	allow read, write: if true 
     }
+    match /notice/{notice} {
+    	allow read, write: if true 
+    }
   }
 }

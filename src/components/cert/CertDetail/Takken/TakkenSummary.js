@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { Link } from "@material-ui/core";
+import { Link, Table, TableCell, TableBody, TableRow } from "@material-ui/core";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -8,22 +8,6 @@ import { ExamsContext } from "hooks/Exams";
 import GetYearMonthDate from 'components/commons/atoms/GetYearMonthDate';
 import Spacer from "components/commons/atoms/Spacer";
 
-const StyledListItem = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-
-  },
-}))(ListItem);
-
-const StyledListItemText = withStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    textAlign: 'left',
-  },
-}))(ListItemText);
 
 const useStyles = makeStyles((theme) => ({
   nested1: {
@@ -35,191 +19,228 @@ const useStyles = makeStyles((theme) => ({
   nested3: {
     paddingLeft: theme.spacing(8),
   },
+  title: {
+    backgroundColor: '#ffcccc',
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    // margin: theme.spacing(1),
+    borderLeft: '4px solid #ff7fbf', 
+    fontWeight: 'bold',
+  },
+  tableCell: {
+    borderRight: '1px solid #000',
+    borderBottom: '1px solid #000',
+    margin: '0px',
+    textAlign: 'left',
+  },
+  tableHeader: {
+    borderRight: '1px solid #000',
+    borderBottom: '1px solid #000',
+    margin: '0px',
+    textAlign: 'left',
+    minWidth: '120px',
+  },
+  tableRow: {
+  },
+  tableBody: {
+    borderTop: '1px solid #000',
+    borderLeft: '1px solid #000',
+  }
 }));
 
 const TakkenSummary = (props) => {
 
   const classes = useStyles();
-  const { exams } = useContext(ExamsContext);
-  const [filteredExams, setFilteredExams] = useState([])
-
-  useEffect(() => {
-    let tmpExams = []
-    if (exams) {
-      tmpExams = exams;
-      tmpExams = tmpExams.filter(row => {
-        if (row.certId === props.cert.docId) {
-          return row;
-        } else {
-          return false;
-        }
-      })
-      tmpExams = tmpExams.filter(row => {
-        if (row.isDisable) {
-          return false
-        } else {
-          return row
-        }
-      })
-      tmpExams.sort(function(a,b){
-        if(a.examDate.seconds < b.examDate.seconds) return -1;
-        if(a.examDate.seconds > b.examDate.seconds) return 1;
-        return 0;
-      });
-      setFilteredExams(tmpExams)
-    }
-  }, [exams, props.cert])
 
   return (
     <>
       <List>
         <ListItem>
-          <StyledListItemText 
-            primary="試験実施"
+          <ListItemText
+            className={classes.title}
+            primary="
+              受験申込みについて
+            "
           />
         </ListItem>
-        <ListItem className={classes.nested3}>
-          試験頻度：{props.cert.freq}
-        </ListItem>
-        <ListItem className={classes.nested3}>
-          試験時間：{props.cert.examTime}
-        </ListItem>
-        <ListItem className={classes.nested3}>
-          出題形式：{props.cert.format}
-        </ListItem>
-        <ListItem>
-          <StyledListItemText
-            primary="　　　　　"
-          />
-          <StyledListItemText 
-            primary="試験申込"
-          />
-          <StyledListItemText 
-            primary="試験日"
-          />
-        </ListItem>
-        {filteredExams.map(exam => (
-          <ListItem>
-            <StyledListItemText 
-              primary={exam.name}
-            />
-            <StyledListItemText 
-              primary={exam.applyDate && <GetYearMonthDate timestamp={exam.applyDate} />}
-            />
-            <StyledListItemText 
-              primary={exam.examDate && <GetYearMonthDate timestamp={exam.examDate} />}
-            />
-          </ListItem>
-        ))}
       </List>
+      <Table>
+        <TableBody className={classes.tableBody}>
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              試験案内（受験申込書）について
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              試験案内（受験申込書）は各都道府県ごとに異なります。郵送にて受験申込みをされる場合は試験案内を入手いただく必要があります。また、インターネットにて受験申込みをされる場合は、（一財）不動産適正取引推進機構のホームペ ージに試験案内が掲載されますのでそちらでご確認いただけます。
+            </TableCell>
+          </TableRow>
 
-      <Spacer />
-      
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              試験案内配布期間
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              2020年（令和2年）7月1日（水）～7月31日（金）
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              試験案内配布場所
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              試験案内の配布場所は各都道府県の宅地建物取引業協会など、ご受験いただく都道府県によって様々です。詳細は（一財）不動産適正取引推進機構のホームページをご確認ください。
+            </TableCell>
+          </TableRow>
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              申込受付期間
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              宅建士試験は、郵送、インターネットのいずれかの方法で申込みができます。それぞれの方法で申込み期間が異なります。
+            </TableCell>
+          </TableRow>
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              インターネット申込
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              2020年（令和2年）7月1日（水）9時30分～7月15日（水）21時59分
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+            　郵送申込
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              2020年（令和2年）7月1日（水）～7月31日（金）
+            </TableCell>
+          </TableRow>
+
+        </TableBody>
+      </Table>
+
       <List>
-        <StyledListItem>
-          <StyledListItemText 
-            primary="資格名"
+        <ListItem>
+          <ListItemText
+            className={classes.title}
+            primary="
+              試験実施日程・概要
+            "
           />
-          <StyledListItemText 
-            primary={props.cert.name}
-          />
-        </StyledListItem>
-        
-        <StyledListItem>
-          <StyledListItemText 
-            primary="試験区分"
-          />
-          <StyledListItemText 
-            primary={props.cert.division}
-          />
-        </StyledListItem>
-        <StyledListItem>
-          <StyledListItemText 
-            primary="主催団体"
-          />
-          <StyledListItemText 
-            primary={props.cert.sponsor}
-          />
-        </StyledListItem>
-        <StyledListItem>
-          <StyledListItemText 
-            primary="受験資格"
-          />
-          <StyledListItemText 
-            primary={props.cert.qual}
-          />
-        </StyledListItem>
-        <StyledListItem>
-          <StyledListItemText 
-            primary="受験手数料"
-          />
-          <StyledListItemText 
-            primary={props.cert.fee}
-          />
-        </StyledListItem>
-        <StyledListItem>
-          <StyledListItemText 
-            primary="試験会場"
-          />
-          <StyledListItemText 
-            primary={props.cert.testCenter}
-          />
-        </StyledListItem>
-
-        <StyledListItem>
-          <StyledListItemText 
-            primary="合格率"
-          />
-          <StyledListItemText 
-            primary={props.cert.passRate}
-          />
-        </StyledListItem>
-        <StyledListItem>
-          <StyledListItemText 
-            primary="合格基準"
-          />
-          <StyledListItemText 
-            primary={props.cert.passMark}
-          />
-        </StyledListItem>
-        <StyledListItem>
-          <StyledListItemText 
-            primary="問合せ先"
-          />
-          <StyledListItemText 
-            primary={props.cert.refOrg}
-          />
-        </StyledListItem>
-        <StyledListItem>
-          <StyledListItemText 
-            primary="web"
-          />
-          <StyledListItemText>
-            <Link
-              href={props.cert.refWeb}
-              target="_blank"
-            >
-              {props.cert.refWeb}
-            </Link>
-          </StyledListItemText>
-        </StyledListItem>
-        <StyledListItem>
-          <StyledListItemText 
-            primary="目安勉強時間"
-          />
-          <StyledListItemText 
-            primary={props.cert.studyTime}
-          />
-        </StyledListItem>
-        <StyledListItem>
-          <StyledListItemText 
-            primary="難易度"
-          />
-          <StyledListItemText 
-            primary={props.cert.difficulty}
-          />
-        </StyledListItem>
+        </ListItem>
       </List>
+      <Table>
+        <TableBody className={classes.tableBody}>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              名称
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              宅地建物取引士試験（国家資格）
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              主催団体
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              国土交通省
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              試験日
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              2020/10/18
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              試験時間
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              13:00〜15:00（登録講習修了者は13：10～15：00）
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              受験資格
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              誰でも受験可能（受験制限なし）
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              受験地
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              原則として、現在お住まいの試験地（当道府県）
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              受験料
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              7,000円
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              試験形式・出題数
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+            4肢択一のマークシート方式・全50題
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+            合格発表日
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+            2020/12/2
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+            問い合わせ先
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              （財）不動産適正取引推進機構
+              <Link
+                href='http://www.retio.or.jp/'
+                target="_blank"
+              >
+                http://www.retio.or.jp/
+              </Link>
+            </TableCell>
+          </TableRow>
+
+          <TableRow className={classes.tableRow}>
+            <TableCell className={classes.tableHeader}>
+              目安勉強時間（当社調べ）
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              500時間程度
+            </TableCell>
+          </TableRow>
+
+        </TableBody>
+      </Table>
     </>
   )
 }

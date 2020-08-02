@@ -36,6 +36,12 @@ import CertEditText from 'components/admin/cert/CertEditText';
 import Paypal from 'components/Paypal';
 import Signup from 'components/Signup';
 import PasswordReset from 'components/PasswordReset';
+import NoticeIndex from 'components/admin/notice';
+import { NoticesProvider } from 'hooks/Notices';
+import NoticeNew from 'components/admin/notice/NoticeNew';
+import NoticeEdit from 'components/admin/notice/NoticeEdit';
+import NoticeList from 'components/Notice';
+import { MyNoticesProvider } from 'hooks/MyNotices';
 
 const theme = createMuiTheme({
   palette: {
@@ -71,8 +77,14 @@ function App() {
         <CertsProvider>
         <ExamsProvider>
         <EventsProvider>        
-        <BooksProvider>        
+        <BooksProvider>
+        <NoticesProvider>
+        <MyNoticesProvider>
         <ThemeProvider theme={theme}>
+          <Route exact path={paths.noticelist} component={NoticeList} key='noticelist' />
+          <Route exact path={paths.noticeedit} component={NoticeEdit} key='noticeedit' />
+          <Route exact path={paths.noticenew} component={NoticeNew} key='noticenew' /> 
+          <Route exact path={paths.noticeindex} component={NoticeIndex} key='noticeindex' />
           <Route exact path={paths.paypal} component={Paypal} key='paypal' />
           <Route exact path={paths.certedittext} component={CertEditText} key='certedittext' />
           <Route exact path={paths.useredit} component={UserEdit} key='useredit' />
@@ -96,6 +108,8 @@ function App() {
           <Route exact path={paths.root} component={Root} key='root' />
           {/* <Route component={NoPageFound} key='nopagefound1' /> */}
         </ThemeProvider>
+        </MyNoticesProvider>
+        </NoticesProvider>
         </BooksProvider>  
         </EventsProvider>
         </ExamsProvider>

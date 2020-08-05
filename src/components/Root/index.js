@@ -11,6 +11,9 @@ import { useLocation } from 'react-router-dom';
 import { ExamFindFilter } from 'components/commons/filters/ExamFindFilter';
 import { ExamsContext } from "hooks/Exams";
 import { UserContext } from 'hooks/User';
+import WhatIsBetMe from './WhatIsBetMe';
+import Spacer from 'components/commons/atoms/Spacer';
+import WhatIsBetMeChallenge from './WhatIsBetMeChallenge';
 
 const Root = (props) => {
   const { currentUser } = useContext(AuthContext);
@@ -19,6 +22,7 @@ const Root = (props) => {
   const { exams } = useContext(ExamsContext);
   const { user } = useContext(UserContext);
   const [frag, setFrag] = useState(false);
+  const [ whatIsBetMeChallenge, setWhatIsBetMeChallenge ] = useState(false);
 
   useEffect(() => {
     if (exams) {
@@ -44,7 +48,20 @@ const Root = (props) => {
     <>
       <AppLayout>
         {!currentUser &&
-          <TopSlider />
+          <>
+            <TopSlider />
+            {!whatIsBetMeChallenge &&
+              <WhatIsBetMe 
+                setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+              />
+            }
+            {whatIsBetMeChallenge &&
+              <WhatIsBetMeChallenge 
+                setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+              />
+            }
+            <Spacer />
+          </>
         }
         {currentUser &&
           <>

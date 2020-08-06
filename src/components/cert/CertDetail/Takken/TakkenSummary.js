@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(8),
   },
   title: {
-    backgroundColor: '#ffcccc',
+    backgroundColor: '#ffd7db',
     padding: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     // margin: theme.spacing(1),
-    borderLeft: '4px solid #ff7fbf', 
+    borderLeft: '4px solid #E60114', 
     fontWeight: 'bold',
   },
   tableCell: {

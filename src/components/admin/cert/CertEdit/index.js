@@ -229,7 +229,7 @@ const CertEdit = (props) => {
           <div className={classes.buttonAlign}>
             <Button
               variant="outlined"
-              color='secondary'
+              color='primary'
               onClick={() => history.push(`/admin/cert/edittext/${cert.docId}`)}
             >
               文章の編集

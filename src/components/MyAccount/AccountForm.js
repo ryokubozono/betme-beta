@@ -262,7 +262,7 @@ const AccountForm = (props) => {
         <div className={classes.buttonAlign}>
           <Button 
             type="submit"
-            color='secondary'
+            color='primary'
             variant="contained"
           >
             確定

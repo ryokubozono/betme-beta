@@ -36,7 +36,7 @@ const SigninForm = (props) => {
       history.push({
         pathname: `${paths.root}`,
         state: {
-          text: 'ログアウトしました',
+          text: 'ログインしました',
           type: 'success'        
         }
       })

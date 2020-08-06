@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(8),
   },
   title: {
-    backgroundColor: '#ffcccc',
+    backgroundColor: '#ffd7db',
     padding: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     margin: theme.spacing(1),
-    borderLeft: '4px solid #ff7fbf', 
+    borderLeft: '4px solid #E60114', 
     fontWeight: 'bold',
   },
   subTitle: {
@@ -65,10 +65,8 @@ const TakkenAbout = (props) => {
           "
         />
       </ListItem>
-      <ListItem className={classes.nested1}>
-        <ListItemIcon>
-          <CheckIcon fontSize='small' color="secondary" />
-        </ListItemIcon>
+      <ListItem className={classes.nested2}>
+        <CheckIcon fontSize='small' color='primary' />
         <ListItemText
           primary="
             誰でも受験できる価値ある国家資格
@@ -79,10 +77,8 @@ const TakkenAbout = (props) => {
         受験制限がなく、年齢学歴実務経験問わず誰もが受験することができます。また、弁護士・司法書士・税理士・公認会計士・行政書士・社会保険労務士などと同じ「士業」として、独占業務が認められている価値ある国家資格です。
       </ListItem>
       
-      <ListItem className={classes.nested1}>
-        <ListItemIcon>
-          <CheckIcon fontSize='small' color="secondary" />
-        </ListItemIcon>
+      <ListItem className={classes.nested2}>
+        <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           primary="
             不動産取引のプロとして認められる
@@ -93,10 +89,8 @@ const TakkenAbout = (props) => {
       不動産業界では、従業員5人に1人以上の宅地建物取引士（宅建士）を置くことが、法律で義務づけられています。宅建士は、不動産の売買・交換・貸借の代理・仲介（媒介）などの場面において、プロフェッショナルとして価値を発揮します。
       </ListItem>  
 
-      <ListItem className={classes.nested1}>
-        <ListItemIcon>
-          <CheckIcon fontSize='small' color="secondary" />
-        </ListItemIcon>
+      <ListItem className={classes.nested2}>
+        <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           primary="
             就職・転職・独立等のステップアップに有効
@@ -115,10 +109,8 @@ const TakkenAbout = (props) => {
           "
         />
       </ListItem>
-      <ListItem className={classes.nested1}>
-        <ListItemIcon>
-          <CheckIcon fontSize='small' color="secondary" />
-        </ListItemIcon>
+      <ListItem className={classes.nested2}>
+        <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           primary="
           将来性
@@ -129,10 +121,8 @@ const TakkenAbout = (props) => {
       人々の生活、「衣・食・住」における「住」を扱う資格となり、今後も活躍の場は広がっていくものと考えられています。また、他資格へのステップアップもオススメです。不動産鑑定士、司法書士、行政書士、マンション管理士等の資格は、宅建士試験と一部試験科目が重なっていますので、宅建士で勉強した知識を活かすことができます。
       </ListItem> 
 
-      <ListItem className={classes.nested1}>
-        <ListItemIcon>
-          <CheckIcon fontSize='small' color="secondary" />
-        </ListItemIcon>
+      <ListItem className={classes.nested2}>
+        <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           primary="
           活躍シーン

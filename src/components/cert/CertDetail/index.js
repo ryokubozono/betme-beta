@@ -170,7 +170,7 @@ const CertDetail = (props) => {
           }
           { currentUser && !isAllMyExam &&
             <Button
-              color='secondary'
+              color='primary'
               fullWidth
               variant="contained"
               onClick={handleOpen}
@@ -180,7 +180,7 @@ const CertDetail = (props) => {
           }
           { !currentUser &&
             <Button
-              color='secondary'
+              color='primary'
               fullWidth
               variant="contained"
               onClick={handleSignIn}

@@ -11,6 +11,7 @@ import { db } from 'FirebaseConfig';
 import { NoticesContext } from 'hooks/Notices';
 import {NoticeFindFilter} from 'components/commons/filters/NoticeFindFilter';
 import HighlightOff from '@material-ui/icons/HighlightOff';
+import { AuthContext } from "hooks/Auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +50,7 @@ const NoticeList = (props) => {
   const [open, setOpen] = useState(false);
   const [notice, setNotice] = useState('');
   const { notices } = useContext(NoticesContext);
+  const { currentUser } = useContext(AuthContext);
 
   const handleSelect = (noticeId) => {
     setOpen(true);
@@ -66,6 +68,12 @@ const NoticeList = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (!currentUser) {
+      history.push(`${paths.signin}`)
+    }
+  })
 
   return (
     <>

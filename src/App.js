@@ -8,7 +8,7 @@ import Root from 'components/Root';
 import Signin from 'components/Signin';
 import { ThemeProvider } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
-import pink from '@material-ui/core/colors/pink';
+import grey from '@material-ui/core/colors/grey';
 import green from '@material-ui/core/colors/green';
 import { AuthProvider } from 'hooks/Auth';
 import indigo from '@material-ui/core/colors/indigo';
@@ -46,14 +46,14 @@ import { MyNoticesProvider } from 'hooks/MyNotices';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: green['A100'],
-      main: green['A200'],
-      dark: green['A400'],
+      light: '#eb3343',
+      main: '#E60114',
+      dark: '#a1000e',
     },
     secondary: {
-      light: pink[100],
-      main: pink[200],
-      dark: pink[300],
+      light: grey[200],
+      main: grey[500],
+      dark: grey[700],
     },
     info: {
       light: indigo[700],

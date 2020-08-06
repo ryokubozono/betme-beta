@@ -162,7 +162,7 @@ const AddMyBook = (props) => {
       />
       <div className={classes.buttonAlign}>
         <Button
-          color='secondary'
+          color='primary'
           variant="contained"
           onClick={clickAddMyBook}
         >

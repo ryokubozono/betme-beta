@@ -124,6 +124,8 @@ const AppLayout = (props) => {
         setAdminFrag(false)
       }
       setNickName(user.nickName)
+    } else {
+      setNickName('')
     }
   }, [user])
 
@@ -131,6 +133,7 @@ const AppLayout = (props) => {
     // console.log('click logout')
     // logout button
     // すぐにログアウトしないため/loginに遷移させることができない。
+    setNickName('')
     auth.signOut()
     .then(() => {
       history.push({
@@ -257,7 +260,7 @@ const AppLayout = (props) => {
             <IconButton aria-label="show 17 new notifications" color="inherit"
               onClick={() => history.push(`${paths.noticelist}`)}
             >
-              <Badge badgeContent={countNotice} color="secondary">
+              <Badge badgeContent={countNotice} color="primary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>

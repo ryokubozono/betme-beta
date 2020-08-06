@@ -15,7 +15,11 @@ const UserProvider = ({ children }) => {
       let userRef = users.find(u => u.docId === currentUser.uid)
       if (userRef) {
         setUser(userRef)
+      } else {
+        setUser('')
       }
+    } else {
+      setUser('')
     }
   }, [currentUser, users]);
 

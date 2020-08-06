@@ -91,7 +91,7 @@ const NewMyBook = (props) => {
         <div className={classes.buttonAlign}>
           <Button 
             type="submit"
-            color='secondary'
+            color='primary'
             variant="contained"
           >
             My教材登録

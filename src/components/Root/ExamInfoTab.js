@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   dateBold: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     fontSize: 24,
   },
   dateAlign: {

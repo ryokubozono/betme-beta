@@ -25,6 +25,8 @@ const MyNoticesProvider = ({ children }) => {
         }
       })
       setMyNotices(tmpMyNotices);
+    } else {
+      setMyNotices('');
     }
     // db.collection('notice').onSnapshot(query => {
     // const data = []

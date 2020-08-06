@@ -176,7 +176,7 @@ const ExamTabs = (props) => {
       </TabPanel>
       <div className={classes.dateAlign}>
         <Button
-        　color='secondary'
+        　color='primary'
           variant="contained"
           size='small'
           onClick={handlePaypal}
@@ -189,7 +189,7 @@ const ExamTabs = (props) => {
         &nbsp;
 
         <Button
-          color='secondary'
+          color='primary'
           variant="outlined"  
           size='small'
           onClick={handleOpen}

@@ -242,7 +242,7 @@ const ExamTimerTab = (props) => {
       <div className={classes.buttonAlign}>
         <Button
           onClick={handleOpenAdd}    
-          color='secondary'
+          color='primary'
           variant="outlined"
           size='small'
         >
@@ -251,7 +251,7 @@ const ExamTimerTab = (props) => {
         &nbsp;
         <Button
           onClick={handleOpenNew}
-          color='secondary'
+          color='primary'
           variant="outlined"
           size='small'
         >

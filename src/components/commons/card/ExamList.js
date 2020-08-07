@@ -70,6 +70,7 @@ const ExamList = (props) => {
   }, [props.examId, props.examTarget])
 
   const handleExamTarget = (exam) => {
+    props.setEditFrag(false)
     history.push({
       search: `examId=${exam.docId}`
     })

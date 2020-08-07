@@ -1,6 +1,6 @@
 export const mins = [
-  { value: 0 },
-  { value: 15 },
-  { value: 30 },
-  { value: 45 },
+  0,
+  15,
+  30,
+  45,
 ]

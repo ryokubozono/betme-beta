@@ -18,6 +18,8 @@ const MyItem = (props) => {
               examId={examId}
               examTarget={props.examTarget}
               setExamTarget={props.setExamTarget} 
+              setEvent={props.setEvent}
+              setEditFrag={props.setEditFrag}
             />
           ))}
           {!props.frag &&

@@ -161,7 +161,11 @@ const ExamTabs = (props) => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ExamTimerTab 
-          examTarget={props.examTarget}         
+          examTarget={props.examTarget}  
+          event={props.event}
+          setEvent={props.setEvent} 
+          editFrag={props.editFrag}
+          setEditFrag={props.setEditFrag}      
         />
       </TabPanel>
       <TabPanel value={value} index={2}>

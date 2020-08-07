@@ -18,11 +18,13 @@ import WhatIsBetMeChallenge from './WhatIsBetMeChallenge';
 const Root = (props) => {
   const { currentUser } = useContext(AuthContext);
   const [examTarget, setExamTarget] = useState('')
+  const [event, setEvent] = useState('');
   const location = useLocation();
   const { exams } = useContext(ExamsContext);
   const { user } = useContext(UserContext);
   const [frag, setFrag] = useState(false);
   const [ whatIsBetMeChallenge, setWhatIsBetMeChallenge ] = useState(false);
+  const [editFrag, setEditFrag] = useState(false)
 
   useEffect(() => {
     if (exams) {
@@ -69,11 +71,17 @@ const Root = (props) => {
             <MyItem
               examTarget={examTarget} 
               setExamTarget={setExamTarget} 
+              setEvent={setEvent}
               frag={frag}
+              setEditFrag={setEditFrag}
             />
             {frag && examTarget &&
               <ExamTabs 
                 examTarget={examTarget} 
+                setEvent={setEvent}
+                event={event}
+                setEditFrag={setEditFrag}
+                editFrag={editFrag}
               />
             }
 

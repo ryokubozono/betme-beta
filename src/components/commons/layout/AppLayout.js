@@ -175,7 +175,7 @@ const AppLayout = (props) => {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="受験する資格試験" />
+          <ListItemText primary="My試験" />
             {openList ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={openList} timeout="auto" unmountOnExit>

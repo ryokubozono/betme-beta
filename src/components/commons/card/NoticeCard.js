@@ -12,27 +12,21 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   beforeOpen: {
     backgroundColor: '#fff',
+    width: '100%',
   },
   afterOpen: {
     backgroundColor: '#eee',
+    width: '100%',
   },
   textOverflow: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    // maxHeight: '50px',
   },
 }))
 
-const NoticeCardAdmin = (props) => {
+const NoticeCard = (props) => {
   const [disableFrag, setDisableFrag] = useState(false);
   const history = useHistory();
   const classes = useStyles();
-
-  // const handleSelect = () => {
-  //   db.collection('notice').doc(props.notice.docId).set({
-  //     beforeOpen: false
-  //   }, {merge: true})
-  // }
 
   useEffect(() => {
     if (!props.notice.beforeOpen) {
@@ -52,7 +46,19 @@ const NoticeCardAdmin = (props) => {
       >
         <ListItemText
           className={classes.textOverflow}
-          primary={props.notice.body}
+          primary={
+            <Typography
+              component='span'
+              variant='body1'
+            >   
+              {props.notice.body.length > 50 ? (
+                props.notice.body.substr(0, 50) + '...'
+              ):(
+                props.notice.body
+              )
+              }
+            </Typography>
+          }
         />
       </ListItem>
       <Divider
@@ -62,4 +68,4 @@ const NoticeCardAdmin = (props) => {
   )
 }
 
-export default NoticeCardAdmin;
+export default NoticeCard;

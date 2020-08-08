@@ -81,7 +81,6 @@ const EditTextForm = (props) => {
       })
     }, {merge: true})
     .then(() => {
-
       history.push({
         pathname: `/admin/cert/edittext/${props.cert.docId}`,
         state: {
@@ -92,7 +91,6 @@ const EditTextForm = (props) => {
     })
     .catch((error) => {
       console.log(error)
-      // history.go(0)
       history.push({
         state: {
           text: `${error}`,

@@ -15,12 +15,14 @@ import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import { AuthContext } from "hooks/Auth";
 import { UsersContext } from "hooks/Users";
 import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
-import ExamExperienceTab from 'components/Root/ExamExperienceTab';
 import { Button, Modal } from "@material-ui/core";
 import { useHistory } from 'react-router-dom';
 import HighlightOff from '@material-ui/icons/HighlightOff';
 import AboutBetMe from 'components/Root/AboutBetMe';
 import Spacer from "components/commons/atoms/Spacer";
+import firebase, { db } from "FirebaseConfig";
+import paths from "paths";
+import ExamStoryTab from "components/Root/ExamStoryTab";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,29 +50,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+// function TabPanel(props) {
+//   const { children, value, index, ...other } = props;
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`nav-tabpanel-${index}`}
-      aria-labelledby={`nav-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+//   return (
+//     <div
+//       role="tabpanel"
+//       hidden={value !== index}
+//       id={`nav-tabpanel-${index}`}
+//       aria-labelledby={`nav-tab-${index}`}
+//       {...other}
+//     >
+//       {value === index && (
+//         <Box p={3}>
+//           <Typography>{children}</Typography>
+//         </Box>
+//       )}
+//     </div>
+//   );
+// }
 
 const ExamTabs = (props) => {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
   const [isBetmeExam, setIsBetmeExam] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const { users } = useContext(UsersContext);
@@ -79,7 +81,11 @@ const ExamTabs = (props) => {
   const [open, setOpen] = useState(false);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    props.setValue(newValue);
+    // history.push({
+    //   pathname: `${paths.root}`,
+    //   search: `examId=${props.examTarget.docId}&tab=${newValue}`,
+    // })
   };
 
   const handleOpen = () => {
@@ -124,11 +130,40 @@ const ExamTabs = (props) => {
     }
   }, [users, currentUser, props.examTarget])
 
+  const removeMyExam = () => {
+    if (window.confirm('削除しますか？')) {
+      db.collection('user').doc(currentUser.uid).update({
+        myExam: firebase.firestore.FieldValue.arrayRemove(
+          props.examTarget.docId
+        )
+      })
+      .then(() => {
+        history.push({
+          pathname: `${paths.root}`,
+          state: {
+            text: '削除しました',
+            type: 'success',
+          }
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+        history.push({
+          state: {
+            text: `${error}`,
+            type: 'error',
+          }
+        })
+      })
+    }
+
+  }
+
   return (
     <>
       <Paper square className={classes.root}>
       <Tabs
-        value={value}
+        value={props.value}
         onChange={handleChange}
         variant="fullWidth"
         indicatorColor="primary"
@@ -154,31 +189,57 @@ const ExamTabs = (props) => {
           />
         }
       </Tabs>
-      <TabPanel value={value} index={0}>
-        <ExamInfoTab 
-          examTarget={props.examTarget} 
-        />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <ExamTimerTab 
-          examTarget={props.examTarget}  
-          event={props.event}
-          setEvent={props.setEvent} 
-          editFrag={props.editFrag}
-          setEditFrag={props.setEditFrag}      
-        />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <ExamChartTab 
-          examTarget={props.examTarget}                 
-        />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <ExamExperienceTab
-          examTarget={props.examTarget}                 
-        />
-      </TabPanel>
+      <div
+        hidden={props.value !== 0}
+      >
+        {props.value === 0 && 
+          <Box p={3}>
+            <ExamInfoTab 
+              examTarget={props.examTarget} 
+            />
+          </Box>
+        }
+      </div>
+      <div
+        hidden={props.value !== 1}
+      >
+        {props.value === 1 && 
+          <Box p={3}>
+            <ExamTimerTab 
+              examTarget={props.examTarget}  
+              event={props.event}
+              setEvent={props.setEvent} 
+              editFrag={props.editFrag}
+              setEditFrag={props.setEditFrag}      
+            />
+          </Box>
+        }
+      </div>
+      <div
+        hidden={props.value !== 2}
+      >
+        {props.value === 2 && 
+          <Box p={3}>
+            <ExamChartTab 
+              examTarget={props.examTarget}                 
+            />            
+          </Box>
+        }
+      </div>
+      <div
+        hidden={props.value !== 3}
+      >
+        {props.value === 3 && 
+          <Box p={3}>
+            <ExamStoryTab
+              examTarget={props.examTarget}
+              setValue={props.setValue}              
+            />
+          </Box>
+        }
+      </div>
       <div className={classes.dateAlign}>
+
         <Button
         　color='primary'
           variant="contained"
@@ -201,23 +262,38 @@ const ExamTabs = (props) => {
           BetMeって？
         </Button>
         <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-          >
-            <div className={classes.paper}>
-              <div
-                className={classes.closeButton}              
-              >
-                <HighlightOff 
-                  onClick={handleClose}
-                />
-              </div>
-              <AboutBetMe />
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+        >
+          <div className={classes.paper}>
+            <div
+              className={classes.closeButton}              
+            >
+              <HighlightOff 
+                onClick={handleClose}
+              />
             </div>
-          </Modal>
+            <AboutBetMe />
+          </div>
+        </Modal>
+
+        &nbsp;
+        &nbsp;
+        {frag &&
+          <Button
+          　color='secondary'
+            variant="outlined"
+            size='small'
+            onClick={removeMyExam}
+            disabled={!frag}
+          >
+            { frag && '削除' }
+            { !frag && '削除できません' }
+          </Button>
+        }
       </div>
       <Spacer />
     </Paper>

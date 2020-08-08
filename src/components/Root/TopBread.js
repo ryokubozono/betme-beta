@@ -9,12 +9,16 @@ import paths from 'paths';
 import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
+import { CertsContext } from "hooks/Certs";
+import { CertFindFilter } from "components/commons/filters/CertFindFilter";
 
 const TopBread = (props) => {
   const { exams } = useContext(ExamsContext);
   const history = useHistory();
   const [exam, setExam] = useState('');
   const location = useLocation();
+  const [cert, setCert] = useState('');
+  const { certs } = useContext(CertsContext); 
 
   useEffect(() => {
     if (exams) {
@@ -22,12 +26,20 @@ const TopBread = (props) => {
         let examRef = ExamFindFilter(exams, queryString.parse(location.search).examId)
         if (examRef) {
           setExam(examRef);
+          if (certs) {
+            let certRef = CertFindFilter(certs, examRef.certId);
+            if (certRef) {
+              setCert(certRef);
+            }            
+          } 
         } else {
           setExam('')
+          setCert('')
         }
       // }
+
     }
-  }, [exams, location.search])
+  }, [certs, exams, location.search])
 
   return (
     <Breadcrumbs
@@ -45,15 +57,17 @@ const TopBread = (props) => {
       >
         <HomeIcon />
       </Link>
-      <Link
-        color="inherit" 
-        onClick={() => history.push({
-          pathName: `${paths.root}`,
-          search: `examId=${exam.docId}`,
-        })}
-      >
-        {exam.examName}
-      </Link>
+      {cert && exam && 
+         <Link
+          color="inherit" 
+          onClick={() => history.push({
+            pathName: `${paths.root}`,
+            search: `examId=${exam.docId}`,
+          })}
+        >
+          {cert.name}({exam.examName})
+        </Link>
+      }
     </Breadcrumbs>
   )
 }

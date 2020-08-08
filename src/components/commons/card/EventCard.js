@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { useHistory } from 'react-router-dom';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { makeStyles } from '@material-ui/core/styles';
 import GetYearMonthDate from '../atoms/GetYearMonthDate';
 

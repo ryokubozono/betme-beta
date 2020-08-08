@@ -59,53 +59,11 @@ const CertSelectExam = (props) => {
   const classes = useStyles();
   const { exams } = useContext(ExamsContext);
   const { user } = useContext(UserContext);
-  // const [filteredExams, setFilteredExams] = useState([])
   const { currentUser } = useContext(AuthContext);
   const history = useHistory('');
 
-  // useEffect(() => {
-  //   let tmpExams = []
-  //   if (exams) {
-  //     tmpExams = exams;
-  //     tmpExams = tmpExams.filter(row => {
-  //       if (row.certId === props.cert.docId) {
-  //         return row;
-  //       } else {
-  //         return false;
-  //       }
-  //     })
-  //     tmpExams = tmpExams.filter(row => {
-  //       if (row.isDisable) {
-  //         return false
-  //       } else {
-  //         return row
-  //       }
-  //     })
-  //     tmpExams.sort(function(a,b){
-  //       if(a.examDate.seconds < b.examDate.seconds) return -1;
-  //       if(a.examDate.seconds > b.examDate.seconds) return 1;
-  //       return 0;
-  //     });
-  //     let refExams = []
-  //     tmpExams.forEach(exam => {
-  //       let isMyExam = false
-  //       if (user.myExam && (user.myExam).indexOf(exam.docId) !== -1) {
-  //         isMyExam = true
-  //       }
-  //       refExams.push({
-  //         uid: exam.docId,
-  //         name: exam.name,
-  //         isMyExam: isMyExam,
-  //         applyDate: exam.applyDate,
-  //         examDate: exam.examDate
-  //       })
-  //     })
-  //     setFilteredExams(refExams)
-  //   }
-  // }, [exams, props.cert, user])
-
   const handleMyExam = (exam) => {
-    if (window.confirm('Add To My Exam ?')) {
+    if (window.confirm('My試験に登録しますか?')) {
 
       db.collection('user').doc(currentUser.uid).set({
         uid: currentUser.uid,
@@ -117,7 +75,7 @@ const CertSelectExam = (props) => {
           pathname: '/',
           search: `examId=${exam.uid}`,
           state: {
-            text: '受験する資格試験に追加しました',
+            text: 'My試験に追加しました',
             type: 'success',
           }
         })

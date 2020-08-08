@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bolder',
     backgroundColor: '#ffffcc',
   },
+  fontColorRed: {
+    color: '#E60114',
+  },
 }));
 
 const TakkenAbout = (props) => {
@@ -68,6 +71,7 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested2}>
         <CheckIcon fontSize='small' color='primary' />
         <ListItemText
+          className={classes.fontColorRed}
           primary="
             誰でも受験できる価値ある国家資格
           "
@@ -80,6 +84,7 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested2}>
         <CheckIcon fontSize='small' color="primary" />
         <ListItemText
+          className={classes.fontColorRed}
           primary="
             不動産取引のプロとして認められる
           "
@@ -92,6 +97,7 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested2}>
         <CheckIcon fontSize='small' color="primary" />
         <ListItemText
+          className={classes.fontColorRed}
           primary="
             就職・転職・独立等のステップアップに有効
           "
@@ -112,6 +118,7 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested2}>
         <CheckIcon fontSize='small' color="primary" />
         <ListItemText
+          className={classes.fontColorRed}
           primary="
           将来性
           "
@@ -124,6 +131,7 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested2}>
         <CheckIcon fontSize='small' color="primary" />
         <ListItemText
+          className={classes.fontColorRed}
           primary="
           活躍シーン
           "

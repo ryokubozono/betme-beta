@@ -14,6 +14,8 @@ import { UserContext } from 'hooks/User';
 import WhatIsBetMe from './WhatIsBetMe';
 import Spacer from 'components/commons/atoms/Spacer';
 import WhatIsBetMeChallenge from './WhatIsBetMeChallenge';
+import { UsersContext } from 'hooks/Users';
+import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
 
 const Root = (props) => {
   const { currentUser } = useContext(AuthContext);
@@ -21,24 +23,31 @@ const Root = (props) => {
   const [event, setEvent] = useState('');
   const location = useLocation();
   const { exams } = useContext(ExamsContext);
+  const { users } = useContext(UsersContext);
   const { user } = useContext(UserContext);
   const [frag, setFrag] = useState(false);
   const [ whatIsBetMeChallenge, setWhatIsBetMeChallenge ] = useState(false);
-  const [editFrag, setEditFrag] = useState(false)
+  const [editFrag, setEditFrag] = useState(false);
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (exams) {
-      if (exams && queryString.parse(location.search).examId) {
+    if (exams && users && currentUser) {
+      let userRef = UserFindFilter(users, currentUser.uid);
+      if (exams && userRef
+        && queryString.parse(location.search).examId 
+        && userRef.myExam
+        && userRef.myExam.indexOf(queryString.parse(location.search).examId) !== -1
+      ) {
         let examRef = ExamFindFilter(exams, queryString.parse(location.search).examId)
         if (examRef) {
           setExamTarget(examRef);
+          // setValue(queryString.parse(location.search).tab)
         }
       } else {
         setExamTarget('');
       }
     }
-
-  }, [exams, location.search])
+  }, [exams, location.search, user])
 
   useEffect(() => {
     if (user.myExam && user.myExam.length) {
@@ -82,6 +91,8 @@ const Root = (props) => {
                 event={event}
                 setEditFrag={setEditFrag}
                 editFrag={editFrag}
+                value={value}
+                setValue={setValue}
               />
             }
 

@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { AuthContext } from "hooks/Auth";
 import queryString from 'query-string';
 import { EventFindFilter } from "components/commons/filters/EventFindFilter";
+import { List } from "@material-ui/core";
 
 
 const TimerList = (props) => {
@@ -35,13 +36,8 @@ const TimerList = (props) => {
     if (events) {
       // all events
       let eventRef = events;
-      console.log(eventRef)
       // filtered by currentUser & examId
       eventRef = eventRef.filter(row => {
-        console.log(row.userId)
-        console.log(currentUser.uid)
-        console.log(queryString.parse(location.search).examId)
-        console.log(row.examId)
         if (
           row.userId === currentUser.uid && 
           queryString.parse(location.search).examId === row.examId
@@ -58,12 +54,15 @@ const TimerList = (props) => {
 
   return (
     <>
+    <List>
       {filteredEvent && filteredEvent.map(event => (
         <EventCard
           handleSelect={() => handleSelect(event.docId)}
           event={event}
         />
       ))}
+    </List>
+    
     </>
   )
 }

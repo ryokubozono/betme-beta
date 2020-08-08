@@ -21,5 +21,8 @@ service cloud.firestore {
     match /notice/{notice} {
     	allow read, write: if true 
     }
+    match /story/{story} {
+      allow read, write: if true
+    }
   }
 }

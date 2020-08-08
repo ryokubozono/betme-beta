@@ -11,7 +11,7 @@ const MyItem = (props) => {
   return (
     <>
       <Box bgcolor='white' p={2} m={0}>
-        <p>受験する資格試験</p>
+        <p>My試験</p>
         <List>
           {props.frag && user.myExam.map(examId => (
             <ExamList 
@@ -23,7 +23,7 @@ const MyItem = (props) => {
             />
           ))}
           {!props.frag &&
-            <p>受験する資格試験はありません</p>
+            <p>My試験はありません</p>
           }
         </List>
       </Box>

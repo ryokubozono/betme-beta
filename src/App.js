@@ -42,6 +42,7 @@ import NoticeNew from 'components/admin/notice/NoticeNew';
 import NoticeEdit from 'components/admin/notice/NoticeEdit';
 import NoticeList from 'components/Notice';
 import { MyNoticesProvider } from 'hooks/MyNotices';
+import { StoriesProvider } from 'hooks/Stories';
 
 const theme = createMuiTheme({
   palette: {
@@ -74,6 +75,7 @@ function App() {
         <AuthProvider>
         <UsersProvider>
         <UserProvider>
+        <StoriesProvider>
         <CertsProvider>
         <ExamsProvider>
         <EventsProvider>        
@@ -114,6 +116,7 @@ function App() {
         </EventsProvider>
         </ExamsProvider>
         </CertsProvider>
+        </StoriesProvider>
         </UserProvider>
         </UsersProvider>
         </AuthProvider>

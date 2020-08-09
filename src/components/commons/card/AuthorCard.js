@@ -5,6 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import GetYearMonthDate from '../atoms/GetYearMonthDate';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   beforeOpen: {
@@ -20,20 +21,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const EventCard = (props) => {
+const AuthorCard = (props) => {
   const history = useHistory();
   const classes = useStyles();
+
 
   return (
     <>
       <ListItem
-        onClick={props.handleSelect}
+        onClick={() => props.handleSelectStory(props.story.docId)}
         button
       >
         <ListItemText
           className={classes.textOverflow}
-          primary={<GetYearMonthDate timestamp={props.event.studyDate} />}
-          secondary={'[学習時間]' + props.event.studyTime + 'min'}
+          primary={
+            <Typography>
+              {props.story.job}({props.story.biz})
+            </Typography>
+          }
+          secondary={
+            <Typography>
+              {props.story.age}/{props.story.gender}
+            </Typography>
+          }
         />
       </ListItem>
       <Divider
@@ -43,4 +53,4 @@ const EventCard = (props) => {
   )
 }
 
-export default EventCard;
+export default AuthorCard;

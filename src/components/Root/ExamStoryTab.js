@@ -1,14 +1,34 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Tabs, Tab } from "@material-ui/core";
+import { StoriesContext } from "hooks/Stories";
+import CategoryTab from "./CategoryTab";
+import AuthorTab from "./AuthorTab";
 
 const ExamStoryTab = (props) => {
 
   const [storyTab, setStoryTab] = useState(0);
+  const { stories } = useContext(StoriesContext);
+  const [filteredStories, setFilteredStories] = useState([]);
+  const [category, setCategory] = useState('');
+  const [story, setStory] = useState('')
 
   const handleChange = (event, newValue) => {
     setStoryTab(newValue);
+    setStory('');
+    setCategory('');
   };
 
+  useEffect(() => {
+    if (stories && props.examTarget) {
+      let storiesRef = stories;
+      storiesRef = storiesRef.filter(row => {
+        if (row.certId === props.examTarget.certId) {
+          return row;
+        }
+      })
+      setFilteredStories(storiesRef);
+    }
+  }, [stories, props.examTarget])
 
   return (
     <>
@@ -30,12 +50,22 @@ const ExamStoryTab = (props) => {
       <div
         hidden={storyTab !== 0}
       >
-        <p>tab 0</p>
+        <CategoryTab 
+          category={category}
+          setCategory={setCategory}
+          filteredStories={filteredStories}
+          setStory={setStory}
+          setStoryTab={setStoryTab}
+        />
       </div>
       <div
         hidden={storyTab !== 1}
       >
-        <p>tab 1</p>
+        <AuthorTab 
+          filteredStories={filteredStories}
+          story={story}
+          setStory={setStory}
+        />
       </div>
     </>
   )

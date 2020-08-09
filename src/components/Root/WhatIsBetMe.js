@@ -179,8 +179,7 @@ const WhatIsBetMe = (props) => {
         </ListItem>
       </List>
       
-      <ArrowDownwardIcon 
-        // fontSize='small'
+      <ArrowDownwardIcon
       />
 
       <List

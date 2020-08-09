@@ -50,29 +50,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// function TabPanel(props) {
-//   const { children, value, index, ...other } = props;
-
-//   return (
-//     <div
-//       role="tabpanel"
-//       hidden={value !== index}
-//       id={`nav-tabpanel-${index}`}
-//       aria-labelledby={`nav-tab-${index}`}
-//       {...other}
-//     >
-//       {value === index && (
-//         <Box p={3}>
-//           <Typography>{children}</Typography>
-//         </Box>
-//       )}
-//     </div>
-//   );
-// }
-
 const ExamTabs = (props) => {
   const classes = useStyles();
-  // const [value, setValue] = useState(0);
   const [isBetmeExam, setIsBetmeExam] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const { users } = useContext(UsersContext);
@@ -82,10 +61,7 @@ const ExamTabs = (props) => {
 
   const handleChange = (event, newValue) => {
     props.setValue(newValue);
-    // history.push({
-    //   pathname: `${paths.root}`,
-    //   search: `examId=${props.examTarget.docId}&tab=${newValue}`,
-    // })
+
   };
 
   const handleOpen = () => {

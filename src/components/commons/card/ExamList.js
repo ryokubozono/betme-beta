@@ -71,6 +71,7 @@ const ExamList = (props) => {
 
   const handleExamTarget = (exam) => {
     props.setEditFrag(false)
+    props.setWhatIsBetMeChallenge(false)
     history.push({
       search: `examId=${exam.docId}`
     })

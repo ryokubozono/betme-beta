@@ -72,9 +72,9 @@ const ExamTabs = (props) => {
     setOpen(false);
   };
 
-  const handlePaypal = () => {
-    history.push(`/paypal/${props.examTarget.docId}`);
-  }
+  // const handlePaypal = () => {
+  //   history.push(`/paypal/${props.examTarget.docId}`);
+  // }
   
   useEffect(() => {
     if (currentUser && props.examTarget) {
@@ -132,7 +132,10 @@ const ExamTabs = (props) => {
         })
       })
     }
+  }
 
+  const handleWhat = () => {
+    props.setWhatIsBetMeChallenge(true)
   }
 
   return (
@@ -215,47 +218,16 @@ const ExamTabs = (props) => {
         }
       </div>
       <div className={classes.dateAlign}>
-
         <Button
         　color='primary'
           variant="contained"
           size='small'
-          onClick={handlePaypal}
+          onClick={handleWhat}
           disabled={!frag}
         >
-          { frag && 'BetMeに申し込む' }
-          { !frag && 'BetMe申込済み' }
+          { frag && 'BetMeチャレンジ' }
+          { !frag && 'BetMeチャレンジ申込済み' }
         </Button>
-        &nbsp;
-        &nbsp;
-
-        <Button
-          color='primary'
-          variant="outlined"  
-          size='small'
-          onClick={handleOpen}
-        >
-          BetMeって？
-        </Button>
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          className={classes.modal}
-          open={open}
-          onClose={handleClose}
-        >
-          <div className={classes.paper}>
-            <div
-              className={classes.closeButton}              
-            >
-              <HighlightOff 
-                onClick={handleClose}
-              />
-            </div>
-            <AboutBetMe />
-          </div>
-        </Modal>
-
         &nbsp;
         &nbsp;
         {frag &&

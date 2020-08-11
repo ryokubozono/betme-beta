@@ -149,8 +149,6 @@ const TimerEdit = (props) => {
       console.log(myBookRef)
     }
   }, [books, currentUser, user]);
-
-
   
   const handleOpenNew = () => {
     setOpenNew(true);
@@ -167,7 +165,7 @@ const TimerEdit = (props) => {
 
   useEffect(() => {
     let studyTimeRef = 0;
-    studyTimeRef = hour * 60 + min;
+    studyTimeRef = Number(hour) * 60 + Number(min);
     setStudyTime(studyTimeRef)
   }, [hour, min])
 

@@ -20,6 +20,7 @@ const MyItem = (props) => {
               setExamTarget={props.setExamTarget} 
               setEvent={props.setEvent}
               setEditFrag={props.setEditFrag}
+              setWhatIsBetMeChallenge={props.setWhatIsBetMeChallenge}
             />
           ))}
           {!props.frag &&

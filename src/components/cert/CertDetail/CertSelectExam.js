@@ -63,7 +63,7 @@ const CertSelectExam = (props) => {
   const history = useHistory('');
 
   const handleMyExam = (exam) => {
-    if (window.confirm('My試験に登録しますか?')) {
+    if (window.confirm('MY試験に登録しますか?')) {
 
       db.collection('user').doc(currentUser.uid).set({
         uid: currentUser.uid,
@@ -75,7 +75,7 @@ const CertSelectExam = (props) => {
           pathname: '/',
           search: `examId=${exam.uid}`,
           state: {
-            text: 'My試験に追加しました',
+            text: 'MY試験に追加しました',
             type: 'success',
           }
         })

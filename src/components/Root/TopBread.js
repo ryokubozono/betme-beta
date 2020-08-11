@@ -11,6 +11,17 @@ import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 import { CertsContext } from "hooks/Certs";
 import { CertFindFilter } from "components/commons/filters/CertFindFilter";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  linkText: {
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    '&:hover': {
+      color: '#f00',
+    },
+  },
+}))
 
 const TopBread = (props) => {
   const { exams } = useContext(ExamsContext);
@@ -19,6 +30,7 @@ const TopBread = (props) => {
   const location = useLocation();
   const [cert, setCert] = useState('');
   const { certs } = useContext(CertsContext); 
+  const classes = useStyles();
 
   useEffect(() => {
     if (exams) {
@@ -44,12 +56,11 @@ const TopBread = (props) => {
   return (
     <Breadcrumbs
       separator={
-        <NavigateNextIcon 
-          // fontSize="small" 
-        />
+        <NavigateNextIcon />
       }
     >
       <Link
+        className={classes.linkText}
         color="inherit"
         onClick={() => history.push({
           pathname: `${paths.root}`,
@@ -64,6 +75,7 @@ const TopBread = (props) => {
             pathName: `${paths.root}`,
             search: `examId=${exam.docId}`,
           })}
+          className={classes.linkText}
         >
           {cert.name}({exam.examName})
         </Link>

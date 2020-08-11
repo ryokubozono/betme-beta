@@ -331,7 +331,7 @@ const MyAccount = (props) => {
           </div>
         </Box>
 
-        <Box bgcolor='white' p={2} m={0}>
+        {/* <Box bgcolor='white' p={2} m={0}>
           <p>基本情報</p>
           <BasicForm
             firstName={firstName}
@@ -342,7 +342,7 @@ const MyAccount = (props) => {
             submitBasic={submitBasic}
             formType='myAccount'
           />
-        </Box>
+        </Box> */}
         
         <Box bgcolor='white' p={2} m={0}>
           <p>プロフィール</p>

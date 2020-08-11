@@ -85,7 +85,6 @@ const useStyles = makeStyles((theme) => ({
   option: {
     color: '#f00',
     fontSize: '0.5em',
-
   }
 }))
 
@@ -105,7 +104,6 @@ const WhatIsBetMe = (props) => {
     <div 
       className={classes.align}
     >
-
       <p className={classes.title}>
         BetMeとは？
       </p>

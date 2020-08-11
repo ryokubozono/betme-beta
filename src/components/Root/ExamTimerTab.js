@@ -127,13 +127,14 @@ const ExamTimerTab = (props) => {
       </>
       }
       {props.editFrag && frag && formFrag && props.event &&
+      <>
+        <TimerEdit
+          examTarget={props.examTarget}
+          event={props.event}
+        />
         <div
           className={classes.buttonAlign}
         >
-          <TimerEdit
-            examTarget={props.examTarget}
-            event={props.event}
-          />
           <Button
             variant='outlined'
             color='secondary'
@@ -150,8 +151,9 @@ const ExamTimerTab = (props) => {
             学習記録一覧
           </Button>
         </div>
+        </>
       }
-    </>
+  </>
   )
 }
 

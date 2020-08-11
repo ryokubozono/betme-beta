@@ -10,6 +10,8 @@ import Spacer from "components/commons/atoms/Spacer";
 import paths from "paths";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { AuthContext } from "hooks/Auth";
+
 const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: '1.5em',
@@ -56,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 const WhatIsBetMeChallenge = (props) => {
   const history = useHistory();
   const classes = useStyles();
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <>
@@ -120,24 +123,28 @@ const WhatIsBetMeChallenge = (props) => {
         </p>
       </div>
       <Spacer />
-      <List>
-        <ListItem
-          className={classes.listButton}
-          button
-          onClick={() => history.push(`${paths.signin}`)}  
-        >
-          BetMeチャレンジに参加する
-          &nbsp;&nbsp;
-          <ArrowForwardIcon 
-            fontSize='small'
-          />
-        </ListItem>
-      </List>
       
+      {currentUser &&
+        <List>
+          <ListItem
+            className={classes.listButton}
+            button
+            onClick={props.handlePaypal}
+          >
+            BetMeチャレンジに参加する
+            &nbsp;&nbsp;
+            <ArrowForwardIcon 
+              fontSize='small'
+            />
+          </ListItem>
+        </List>
+      }
+
       <ListItem
         button
         className={classes.listLink}
-        onClick={() => history.go(0)}
+        // onClick={() => history.go(0)}
+        onClick={props.handleBack}
       >
         <ArrowBackIcon
           fontSize='small'

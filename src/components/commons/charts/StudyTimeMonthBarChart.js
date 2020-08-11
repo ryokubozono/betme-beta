@@ -7,13 +7,17 @@ import {
   Tooltip,
   Legend,
   Bar,
+  ResponsiveContainer,
 } from 'recharts';
 import { AuthContext } from "hooks/Auth";
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
-
 import { GetDefaultDate } from 'components/commons/atoms/GetDefaultDate';
 import { GetMonthStartToEnd } from "../atoms/GetMonthStartToEnd";
+import { IconButton } from "@material-ui/core";
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const StudyTimeMonthBarChart = (props) => {
   const { currentUser } = useContext(AuthContext);
@@ -21,6 +25,7 @@ const StudyTimeMonthBarChart = (props) => {
   const location = useLocation();
   const [weekSum, setWeekSum] = useState(0);
   const [sum, setSum] = useState(0);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     if (props.events) {
@@ -38,11 +43,11 @@ const StudyTimeMonthBarChart = (props) => {
       
       let sumRef = 0;
       eventRef.forEach(event=> {
-        sumRef += event.studyTime;
+        sumRef += Number(event.studyTime);
       })
-      setSum(sumRef);
+      setSum(sumRef / 60);
 
-      let thisWeek = GetMonthStartToEnd();
+      let thisWeek = GetMonthStartToEnd(index);
       let dataRef = [];
       let weekSumRef = 0;
       thisWeek.forEach(date => {
@@ -59,35 +64,59 @@ const StudyTimeMonthBarChart = (props) => {
         })
         let timeSum = 0;
         eventTmp.forEach(event => {
-          timeSum += event.studyTime;
-          weekSumRef += event.studyTime;
+          timeSum += Number(event.studyTime);
+          weekSumRef += Number(event.studyTime);
         })
         dataRef.push({
           date: (date.getMonth()+1)+'/'+(date.getDate()),
-          studyTime: timeSum,
+          学習時間: timeSum / 60,
         })
       })
       setData(dataRef);
-      setWeekSum(weekSumRef);
+      setWeekSum(weekSumRef / 60);
     }
-  }, [currentUser, location.search, props.events])
+  }, [currentUser, location.search, props.events, index])
 
   return (
     <>
-      <BarChart 
-        width={230} 
-        height={250} 
-        data={data}
+      <p>月間：{weekSum}時間</p>
+      <IconButton
+        onClick={() => setIndex(index - 1)}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip />
-        {/* <Legend /> */}
-        <Bar dataKey="studyTime" fill="#8884d8" />
-      </BarChart>
-      <p>今月の合計勉強時間：{weekSum}分</p>
-      <p>累計の勉強時間：{sum}分</p>
+        <NavigateBeforeIcon 
+          color='secondary'
+        />
+      </IconButton>
+      <IconButton
+        onClick={() => setIndex(0)}
+      >
+        <FiberManualRecordIcon 
+          color='secondary'
+        />
+      </IconButton>
+      <IconButton
+        onClick={() => setIndex(index + 1)}
+      >
+        <NavigateNextIcon 
+          color='secondary'
+        />
+      </IconButton>
+
+      <div style={{ width: '100%', height: 300 }}>
+        <ResponsiveContainer>
+          <BarChart 
+            data={data}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" />
+            <YAxis unit='時間' tick={{strokeWidth: 1}} />
+            <Tooltip />
+            {/* <Legend /> */}
+            <Bar dataKey="学習時間" fill="#8884d8" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      <p>累計：{sum}時間</p>
     </>
   )
 }

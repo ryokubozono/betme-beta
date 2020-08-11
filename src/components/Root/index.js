@@ -16,6 +16,7 @@ import Spacer from 'components/commons/atoms/Spacer';
 import WhatIsBetMeChallenge from './WhatIsBetMeChallenge';
 import { UsersContext } from 'hooks/Users';
 import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
+import { useHistory } from 'react-router-dom';
 
 const Root = (props) => {
   const { currentUser } = useContext(AuthContext);
@@ -29,6 +30,7 @@ const Root = (props) => {
   const [ whatIsBetMeChallenge, setWhatIsBetMeChallenge ] = useState(false);
   const [editFrag, setEditFrag] = useState(false);
   const [value, setValue] = useState(0);
+  const history = useHistory();
 
   useEffect(() => {
     if (exams && users && currentUser) {
@@ -41,7 +43,6 @@ const Root = (props) => {
         let examRef = ExamFindFilter(exams, queryString.parse(location.search).examId)
         if (examRef) {
           setExamTarget(examRef);
-          // setValue(queryString.parse(location.search).tab)
         }
       } else {
         setExamTarget('');
@@ -55,9 +56,18 @@ const Root = (props) => {
     }
   }, [user.myExam])
 
+  const handleBack = () => {
+    setWhatIsBetMeChallenge(false)
+  }
+
+  const handlePaypal = () => {
+    history.push(`/paypal/${examTarget.docId}`);
+  }
+
   return (
     <>
       <AppLayout>
+
         {!currentUser &&
           <>
             <TopSlider />
@@ -69,11 +79,13 @@ const Root = (props) => {
             {whatIsBetMeChallenge &&
               <WhatIsBetMeChallenge 
                 setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+                handleBack={handleBack}
               />
             }
             <Spacer />
           </>
         }
+
         {currentUser &&
           <>
             <TopBread />
@@ -83,21 +95,33 @@ const Root = (props) => {
               setEvent={setEvent}
               frag={frag}
               setEditFrag={setEditFrag}
+              setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
             />
-            {frag && examTarget &&
-              <ExamTabs 
-                examTarget={examTarget} 
-                setEvent={setEvent}
-                event={event}
-                setEditFrag={setEditFrag}
-                editFrag={editFrag}
-                value={value}
-                setValue={setValue}
+            {whatIsBetMeChallenge ? (
+              <WhatIsBetMeChallenge 
+                setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+                handleBack={handleBack}
+                handlePaypal={handlePaypal}
               />
-            }
-
+            ):(
+              <>
+                {frag && examTarget &&
+                  <ExamTabs 
+                    examTarget={examTarget} 
+                    setEvent={setEvent}
+                    event={event}
+                    setEditFrag={setEditFrag}
+                    editFrag={editFrag}
+                    value={value}
+                    setValue={setValue}
+                    setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+                  />
+                }
+              </>
+            )}
           </>
         }
+
         {!examTarget &&
           <SearchItem />
         }

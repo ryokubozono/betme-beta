@@ -1,10 +1,10 @@
-export const GetMondayToSunday = () => {
+export const GetMondayToSunday = (index) => {
   let today = new Date();
   let this_year = today.getFullYear();
   let this_month = today.getMonth();
   let date = today.getDate();
   let day_num = today.getDay();
-  let this_monday = date - day_num + 1;
+  let this_monday = date - day_num + 1 + index * 7;
 
   let thisWeek = [];
   for (let i=0; i<7; i++) {

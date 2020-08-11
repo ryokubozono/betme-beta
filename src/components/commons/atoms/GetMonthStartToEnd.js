@@ -1,7 +1,7 @@
-export const GetMonthStartToEnd = () => {
+export const GetMonthStartToEnd = (index) => {
   let today = new Date();
   let this_year = today.getFullYear();
-  let this_month = today.getMonth();
+  let this_month = today.getMonth() + index;
   let last_day = new Date(this_year, this_month + 1, 0).getDate();
 
   let thisMonth = [];

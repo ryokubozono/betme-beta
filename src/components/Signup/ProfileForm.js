@@ -83,6 +83,7 @@ const ProfileForm = (props) => {
         onError={errors => console.log(errors)}
       >
         <TextValidator
+          className={classes.formControl} 
           required
           label='nickName'
           id='nickName'
@@ -216,6 +217,7 @@ const ProfileForm = (props) => {
           </FormControl>
         }
         <TextValidator
+          className={classes.formControl} 
           label='出身高校'
           id='highSchool'
           name='highSchool'
@@ -227,6 +229,7 @@ const ProfileForm = (props) => {
           onChange={props.handleChange} 
         />
         <TextValidator
+          className={classes.formControl} 
           label='出身大学・専門学校'
           id='college'
           name='college'

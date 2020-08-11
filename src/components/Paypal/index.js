@@ -182,7 +182,7 @@ const Paypal = (props) => {
             variant='contained'
             onClick={() => history.push(`${paths.root}`)}
           >
-            My Pageに戻る
+            ホームに戻る
           </Button>
         }
 

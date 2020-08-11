@@ -165,7 +165,7 @@ const CertDetail = (props) => {
               variant="contained"
               onClick={() => history.push(`/`)}
             >
-              My試験に移動
+              MY試験に移動
             </Button>
           }
           { currentUser && !isAllMyExam &&
@@ -175,7 +175,7 @@ const CertDetail = (props) => {
               variant="contained"
               onClick={handleOpen}
             >
-              My試験に登録する
+              MY試験に登録する
             </Button>
           }
           { !currentUser &&
@@ -185,7 +185,7 @@ const CertDetail = (props) => {
               variant="contained"
               onClick={handleSignIn}
             >
-              ログインしてMy試験に登録する
+              ログインしてMY試験に登録する
             </Button>
           }
 

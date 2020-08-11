@@ -37,7 +37,8 @@ const paths = {
   noticeedit: '/admin/notice/edit/:uid',
   // notice
   noticelist: '/noticelist', 
-  
+  // test
+  test: '/test',
 };
 
 export default paths;

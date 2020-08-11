@@ -43,6 +43,7 @@ import NoticeEdit from 'components/admin/notice/NoticeEdit';
 import NoticeList from 'components/Notice';
 import { MyNoticesProvider } from 'hooks/MyNotices';
 import { StoriesProvider } from 'hooks/Stories';
+import Example from 'components/Test';
 
 const theme = createMuiTheme({
   palette: {
@@ -83,6 +84,7 @@ function App() {
         <NoticesProvider>
         <MyNoticesProvider>
         <ThemeProvider theme={theme}>
+          <Route exact path={paths.test} component={Example} key='example' /> 
           <Route exact path={paths.noticelist} component={NoticeList} key='noticelist' />
           <Route exact path={paths.noticeedit} component={NoticeEdit} key='noticeedit' />
           <Route exact path={paths.noticenew} component={NoticeNew} key='noticenew' /> 

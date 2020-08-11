@@ -99,6 +99,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#eee',
     },
   },
+  logoImg: {
+    cursor: 'pointer',
+  },
 }));
 
 const AppLayout = (props) => {
@@ -245,14 +248,14 @@ const AppLayout = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          {/* <Typography variant="h6" noWrap> */}
           <div
-            classes={classes.cursorPointer}
+            className={classes.cursorPointer}
           >
             <img
               onClick={() => history.push(`${paths.root}`)} 
               src={BetMeLogo} 
               height='40' 
+              className={classes.logoImg}
             />
           </div>
           {/* </Typography> */}

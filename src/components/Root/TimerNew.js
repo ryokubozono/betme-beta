@@ -132,7 +132,7 @@ const TimerNew = (props) => {
 
   useEffect(() => {
     let studyTimeRef = 0;
-    studyTimeRef = hour * 60 + min;
+    studyTimeRef = Number(hour) * 60 + Number(min);
     setStudyTime(studyTimeRef)
   }, [hour, min])
 

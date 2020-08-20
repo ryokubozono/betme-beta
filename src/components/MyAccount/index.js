@@ -297,6 +297,7 @@ const MyAccount = (props) => {
   return (
     <>
       <AppLayout>
+        {!true &&
         <Box bgcolor='white' p={2} m={0}>
           <p>認証</p>
           <div className={classes.alignCenter}>
@@ -330,7 +331,7 @@ const MyAccount = (props) => {
 
           </div>
         </Box>
-
+        }
         {/* <Box bgcolor='white' p={2} m={0}>
           <p>基本情報</p>
           <BasicForm

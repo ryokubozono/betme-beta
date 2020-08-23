@@ -24,7 +24,7 @@ const MyItem = (props) => {
             />
           ))}
           {!props.frag &&
-            <p>My試験はありません</p>
+            <p>My試験はありません。「資格試験を探す」からMy試験に登録しましょう。</p>
           }
         </List>
       </Box>

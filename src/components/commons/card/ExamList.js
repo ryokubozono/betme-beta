@@ -45,7 +45,7 @@ const ExamList = (props) => {
   const { users } = useContext(UsersContext);
 
   useEffect(() => {
-    if (exams) {
+    if (exams && certs) {
       let examRef = ExamFindFilter(exams, props.examId)
       if (examRef) {
         setExam(examRef)
@@ -55,7 +55,7 @@ const ExamList = (props) => {
         setCert(certRef);
       }
     }
-  }, [exams, props.examId])
+  }, [certs, exams, props.examId])
 
   useEffect(() => {
     if (props.examId && props.examTarget) {

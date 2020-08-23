@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
-import { List, ListItemIcon, ListItem, ListItemText, Typography, ListItemAvatar } from "@material-ui/core";
+import { List, ListItemIcon, ListItem, ListItemText, Typography, ListItemAvatar, Container } from "@material-ui/core";
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import paths from 'paths';
 import { useHistory } from 'react-router-dom';
@@ -11,7 +11,6 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import Timer from '@material-ui/icons/Timer';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import { Button, Modal } from "@material-ui/core";
-import AboutBetMe from 'components/Root/AboutBetMe';
 import HighlightOff from '@material-ui/icons/HighlightOff';
 import Book from 'assets/book.jpg';
 import BetMeLogo5 from 'assets/betme_logo_05.png';
@@ -24,14 +23,14 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: '1.5em',
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'left',
   },
   body: {
-    textAlign: 'center',
+    textAlign: 'left',
   },
   note: {
     fontSize: '0.8em',
-    textAlign: 'center',
+    textAlign: 'left',
   },
   link: {
     cursor: 'pointer',
@@ -91,56 +90,36 @@ const useStyles = makeStyles((theme) => ({
 const WhatIsBetMe = (props) => {
   const history = useHistory();
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
 
   const handleAboutBetme = () => {
     props.setWhatIsBetMeChallenge(true)
   }
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <div 
       className={classes.align}
     >
-      <p className={classes.title}>
-        BetMeとは？
-      </p>
-      <p className={classes.body}>
-        資格試験におけるあなたのモチベーション管理サービスです。
-      </p>
-      <p className={classes.note}>
-        受けたい試験をMY試験に登録することで、学習時間の記録・保持が可能になります。
-      </p>
-      <p className={classes.note}>
-        また、MY試験に登録した試験については、
-        <b 
-          className={classes.redLink}
-          onClick={handleAboutBetme}
-        >
-        BetMeチャレンジ
-        </b>
-        することができます。
-      </p>
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
+      <Container maxWidth="sm">
+        <p className={classes.title}>
+          BetMeとは？
+        </p>
+        <p className={classes.body}>
+          資格試験におけるあなたのモチベーション管理サービスです。
+        </p>
+        <p className={classes.note}>
+          受けたい試験をMY試験に登録することで、学習時間の記録・保持が可能になります。
+        </p>
+        <p className={classes.note}>
+          また、MY試験に登録した試験については、
+          <b 
+            className={classes.redLink}
+            onClick={handleAboutBetme}
           >
-            <div className={classes.paper}>
-              <div
-                className={classes.closeButton}              
-              >
-                <HighlightOff 
-                  onClick={handleClose}
-                />
-              </div>
-              <AboutBetMe />
-            </div>
-          </Modal>
+          BetMeチャレンジ
+          </b>
+          することができます。
+        </p>
+      </Container>
       <List className={classes.root}>
         <ListItem>
           <ListItemIcon>

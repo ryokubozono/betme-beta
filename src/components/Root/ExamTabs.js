@@ -18,11 +18,11 @@ import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
 import { Button, Modal } from "@material-ui/core";
 import { useHistory } from 'react-router-dom';
 import HighlightOff from '@material-ui/icons/HighlightOff';
-import AboutBetMe from 'components/Root/AboutBetMe';
 import Spacer from "components/commons/atoms/Spacer";
 import firebase, { db } from "FirebaseConfig";
 import paths from "paths";
 import ExamStoryTab from "components/Root/ExamStoryTab";
+import GetYearMonthDateJap from "components/commons/atoms/GetYearMonthDateJap";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
   closeButton: {
     textAlign: 'right',
   },
+  note: {
+    textAlign: 'left',
+    padding: theme.spacing(2),
+  },
 }));
 
 const ExamTabs = (props) => {
@@ -58,6 +62,8 @@ const ExamTabs = (props) => {
   const history = useHistory();
   const [frag, setFrag] = useState(false);
   const [open, setOpen] = useState(false);
+  const [beforeResult, setBeforeResult] = useState(false);
+  const today = firebase.firestore.Timestamp.fromDate(new Date(Date.now()));
 
   const handleChange = (event, newValue) => {
     props.setValue(newValue);
@@ -137,6 +143,18 @@ const ExamTabs = (props) => {
   const handleWhat = () => {
     props.setWhatIsBetMeChallenge(true)
   }
+
+  useEffect(() => {
+    console.log(today.seconds)
+    console.log(props.examTarget)
+    if (props.examTarget && props.examTarget.resultDate && today) {
+      if (today.seconds < props.examTarget.resultDate.seconds) {
+        setBeforeResult(true)
+      } else {
+        setBeforeResult(false)
+      }
+    }
+  }, [props.examTarget, today])
 
   return (
     <>
@@ -241,6 +259,29 @@ const ExamTabs = (props) => {
             { frag && '削除' }
             { !frag && '削除できません' }
           </Button>
+        }
+        {!frag &&
+          <>
+            <Button
+              color='primary'
+              variant="contained"
+              disabled={beforeResult}
+              size='small'
+            >
+              合格報告
+              {beforeResult &&
+                <b>
+                  *
+                </b>
+              }
+            </Button>
+            <br />
+            {beforeResult &&
+              <p className={classes.note}>
+                * 合格報告は、<GetYearMonthDateJap timestamp={props.examTarget.resultDate} />以降にご利用可能です。
+              </p>
+            }
+          </>
         }
       </div>
       <Spacer />

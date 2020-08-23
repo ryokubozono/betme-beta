@@ -17,6 +17,9 @@ import WhatIsBetMeChallenge from './WhatIsBetMeChallenge';
 import { UsersContext } from 'hooks/Users';
 import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
 import { useHistory } from 'react-router-dom';
+import { CertsContext } from "hooks/Certs";
+import { CertFindFilter } from 'components/commons/filters/CertFindFilter';
+import { Dialog, CircularProgress } from '@material-ui/core';
 
 const Root = (props) => {
   const { currentUser } = useContext(AuthContext);
@@ -31,6 +34,9 @@ const Root = (props) => {
   const [editFrag, setEditFrag] = useState(false);
   const [value, setValue] = useState(0);
   const history = useHistory();
+  const [cert, setCert] = useState('');
+  const { certs } = useContext(CertsContext); 
+  const [loading, setLoading] = useState('');
 
   useEffect(() => {
     if (exams && users && currentUser) {
@@ -43,7 +49,12 @@ const Root = (props) => {
         let examRef = ExamFindFilter(exams, queryString.parse(location.search).examId)
         if (examRef) {
           setExamTarget(examRef);
+          let certRef = CertFindFilter(certs, examRef.certId);
+          if (certRef) {
+            setCert(certRef);
+          }
         }
+
       } else {
         setExamTarget('');
       }
@@ -64,9 +75,26 @@ const Root = (props) => {
     history.push(`/paypal/${examTarget.docId}`);
   }
 
+  const handleClose = () => {
+    setLoading(false);
+  };
+
+
   return (
     <>
-      <AppLayout>
+      <AppLayout
+        setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+      >
+        {loading && 
+          <Dialog
+            open={loading}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <CircularProgress />
+          </Dialog>
+        }
 
         {!currentUser &&
           <>
@@ -102,6 +130,10 @@ const Root = (props) => {
                 setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
                 handleBack={handleBack}
                 handlePaypal={handlePaypal}
+                examTarget={examTarget}
+                cert={cert}
+                setLoading={setLoading}
+                handleClose={handleClose}
               />
             ):(
               <>
@@ -123,7 +155,9 @@ const Root = (props) => {
         }
 
         {!examTarget &&
-          <SearchItem />
+          <>
+            <SearchItem />
+          </>
         }
       </AppLayout>
     </>

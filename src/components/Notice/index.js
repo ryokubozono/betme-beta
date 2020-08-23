@@ -3,7 +3,7 @@ import AppLayout from 'components/commons/layout/AppLayout';
 import { useHistory } from 'react-router-dom';
 import paths from 'paths';
 import Spacer from 'components/commons/atoms/Spacer';
-import { List, Button, Modal } from '@material-ui/core';
+import { List, Button, Modal, ListItem } from '@material-ui/core';
 import NoticeCard from 'components/commons/card/NoticeCard';
 import { makeStyles } from '@material-ui/core/styles';
 import { MyNoticesContext } from 'hooks/MyNotices';
@@ -79,14 +79,27 @@ const NoticeList = (props) => {
     <>
       <AppLayout>
         <Spacer />
-        <List className={classes.root}>
-          {myNotices && myNotices.map(notice => (
-            <NoticeCard 
-              handleSelect={() => handleSelect(notice.docId)}
-              notice={notice} 
-            />
-          ))}
-        </List>
+          {myNotices && myNotices.length ? (
+            <List className={classes.root}>
+            {myNotices && myNotices.map(notice => (
+              <NoticeCard 
+                handleSelect={() => handleSelect(notice.docId)}
+                notice={notice} 
+                />
+            ))}
+          </List>
+        ):(
+          <List>
+            <ListItem>
+              <p>
+                通知はありません
+              </p>                       
+            </ListItem>
+          </List>
+        )
+
+        }
+
         {notice && open &&
           <Modal
             aria-labelledby="transition-modal-title"

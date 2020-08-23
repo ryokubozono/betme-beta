@@ -13,7 +13,7 @@ const BasicForm = (props) => {
       >
         <TextValidator
           required
-          label='lastName'
+          label='姓'
           id='lastName'
           name='lastName'
           type="text"
@@ -27,7 +27,7 @@ const BasicForm = (props) => {
         />
         <TextValidator
           required
-          label='firstName'
+          label='名'
           id='firstName'
           name='firstName'
           type="text"
@@ -41,7 +41,7 @@ const BasicForm = (props) => {
         />
         <TextValidator
           required
-          label='tel'
+          label='電話番号'
           id='tel'
           name='tel'
           type="text"

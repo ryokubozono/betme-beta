@@ -11,6 +11,7 @@ import paths from "paths";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { AuthContext } from "hooks/Auth";
+import Paypal from "components/Paypal";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -61,7 +62,8 @@ const WhatIsBetMeChallenge = (props) => {
   const { currentUser } = useContext(AuthContext);
 
   return (
-    <>
+    <div>
+      <br />
       <>
         <img src={BetMeLogo} height='30' className={classes.img} />
       </>
@@ -95,8 +97,29 @@ const WhatIsBetMeChallenge = (props) => {
           過去合格者の体験記を閲覧し放題！
         </b>
         <p>
-          チャレンジ料金(試験により異なります)をお支払いただくことで、過去の合格者による体験記を閲覧できるようになります。
+          チャレンジ料金 * をお支払いただくことで、過去の合格者による体験記を閲覧できるようになります。
         </p>
+        {props.cert && props.examTarget && props.examTarget.betAmount &&
+          <>
+            <p>
+              {props.cert.name}({props.examTarget.examName}) のチャレンジ料金は、{props.examTarget.betAmount}円です。
+            </p>
+          </>
+        }
+        <p
+          className={classes.note}
+        >
+          * チャレンジ料金は試験により異なります。
+        </p>
+       
+        {currentUser &&
+          <Paypal 
+            exam={props.examTarget}
+            setLoading={props.setLoading}
+            handleClose={props.handleClose}
+            setWhatIsBetMeChallenge={props.setWhatIsBetMeChallenge}
+          />
+        }
       </div>
       <Spacer />
       <div
@@ -111,34 +134,27 @@ const WhatIsBetMeChallenge = (props) => {
         <b
           className={classes.subTitle}
         >
-          合格後、体験記を書くと、チャレンジ料金を上回る報酬*をお支払！
+          合格後、体験記を書くと、チャレンジ料金を上回る報酬 ** をお支払！
         </b>
         <p>
-          無事、合格された方は、所定のフォームにしたがって合格体験記をご提出ただたくと、チャレンジ料金を上回る報酬(試験により異なります)をお支払いします！
+          無事、合格された方は、所定のフォームにしたがって合格体験記をご提出ただたくと、チャレンジ料金を上回る報酬 ** をお支払いします！
         </p>
+        {props.cert &&　props.examTarget && props.examTarget.returnAmount &&
+          <p>
+            {props.cert.name}({props.examTarget.examName})の報酬額は、{props.examTarget.returnAmount}円です。
+          </p>
+
+        }
         <p
           className={classes.note}
         >
-          *試験により異なります。
+          ** 報酬は試験により異なります。
         </p>
+
       </div>
       <Spacer />
       
-      {currentUser &&
-        <List>
-          <ListItem
-            className={classes.listButton}
-            button
-            onClick={props.handlePaypal}
-          >
-            BetMeチャレンジに参加する
-            &nbsp;&nbsp;
-            <ArrowForwardIcon 
-              fontSize='small'
-            />
-          </ListItem>
-        </List>
-      }
+
 
       <ListItem
         button
@@ -152,7 +168,7 @@ const WhatIsBetMeChallenge = (props) => {
         &nbsp;&nbsp;
         ホームに戻る
       </ListItem>
-    </>
+    </div>
   )
 }
 

@@ -157,6 +157,13 @@ const AppLayout = (props) => {
     setOpenList(!openList);
   };
 
+  const clickHome = () => {
+    if (props.setWhatIsBetMeChallenge) {
+      props.setWhatIsBetMeChallenge(false)
+    }
+    history.push(`${paths.root}`)
+  }
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -165,7 +172,7 @@ const AppLayout = (props) => {
         <ListItem
           button 
           key={'Home'}
-          onClick={() => history.push(`${paths.root}`)}
+          onClick={clickHome}
         >
           <ListItemIcon><HomeIcon /></ListItemIcon>
           <ListItemText primary={'ホーム'} />
@@ -252,7 +259,7 @@ const AppLayout = (props) => {
             className={classes.cursorPointer}
           >
             <img
-              onClick={() => history.push(`${paths.root}`)} 
+              onClick={clickHome} 
               src={BetMeLogo} 
               height='40' 
               className={classes.logoImg}

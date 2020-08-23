@@ -9,13 +9,16 @@ import Spacer from 'components/commons/atoms/Spacer';
 import { ExamsContext } from 'hooks/Exams';
 import { useLocation } from 'react-router-dom';
 import { ExamFindFilter } from 'components/commons/filters/ExamFindFilter';
-import { Button, Dialog, CircularProgress } from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 import paths from 'paths';
 import { useHistory } from 'react-router-dom';
 import AccountForm from "components/MyAccount/AccountForm";
 import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
 import { UsersContext } from "hooks/Users";
 import BasicForm from "components/MyAccount/BasicForm";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { Icon, List, ListItem } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -26,10 +29,16 @@ const uiConfig = {
   ],
 }
 
+const useStyles = makeStyles((theme) => ({
+  listLink: {
+    maxWidth: '250px',
+    margin: 'auto',
+  },
+}));
+
+
 const Paypal = (props) => {
   const { currentUser } = useContext(AuthContext);
-  const [exam, setExam] = useState('');
-  const { exams } = useContext(ExamsContext);
   const location = useLocation();
   const history = useHistory();
   const [frag, setFrag] = useState(false);
@@ -40,16 +49,7 @@ const Paypal = (props) => {
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [tel, setTel] = useState('');
-  const [loading, setLoading] = useState('');
-
-  useEffect(() => {
-    if (location.pathname) {
-      let examRef = ExamFindFilter(exams, location.pathname.substr(-20));
-      if (examRef) {
-        setExam(examRef);
-      }
-    }
-  }, [exams, location.pathname])
+  const classes = useStyles();
 
   useEffect(() => {
     if (currentUser) {
@@ -60,14 +60,14 @@ const Paypal = (props) => {
         setLastName(userRef.lastName);
         setAddress(userRef.address);
         setTel(userRef.tel);
-        if (exam && userRef.betmeExam && userRef.betmeExam.indexOf(exam.docId) === -1) {
+        if (props.exam && userRef.betmeExam && userRef.betmeExam.indexOf(props.exam.docId) === -1) {
           setFrag(false)
         } else {
           setFrag(true)
         }
       }
     }
-  }, [currentUser, exam, users]);
+  }, [currentUser, props.exam, users]);
 
   useEffect(() => {
     if (user) {
@@ -103,12 +103,12 @@ const Paypal = (props) => {
         tel: tel,
       }, {merge: true})
       .then(() => {
-        history.push({
-          state: {
-            text: '基本情報を保存しました。',
-            type: 'success',
-          }
-        })
+        // history.push({
+        //   state: {
+        //     text: '基本情報を保存しました。',
+        //     type: 'success',
+        //   }
+        // })
       })
       .catch((error) => {
         history.push({
@@ -122,24 +122,25 @@ const Paypal = (props) => {
   }
 
   useEffect(() => {
-    if (exam && exam.betAmount && exam.betAmount !== '0') {
+    if (props.exam && props.exam.betAmount && props.exam.betAmount !== '0') {
       setFrag(true)
     } else {
       setFrag(false)
     }
-  }, [exam, user])
+  }, [props.exam, user])
 
   const handlePaypal = () => {
     console.log('handle paypal')
-    setLoading(true)
-    if (user && exam) {
+    props.setLoading(true)
+    if (user && props.exam) {
       db.collection('user').doc(user.docId).set({
-        betmeExam: firebase.firestore.FieldValue.arrayUnion(exam.docId)
+        betmeExam: firebase.firestore.FieldValue.arrayUnion(props.exam.docId)
       }, {merge: true})
       .then(() => {
-        setLoading(false);
+        props.setLoading(false);
+        props.setWhatIsBetMeChallenge(false)
         history.push({
-          pathname: '/',
+          pathname: `${paths.root}`,
           state: {
             text: '支払いを完了しました',
             type: 'success'
@@ -147,7 +148,7 @@ const Paypal = (props) => {
         })
       })
       .catch((error) => {
-        setLoading(false);
+        props.setLoading(false);
         console.log(error)
         history.push({
           state: {
@@ -159,36 +160,19 @@ const Paypal = (props) => {
     }
   }
 
-  const handleClose = () => {
-    setLoading(false);
-  };
-
   return (
     <>
-      <AppLayout>
-        {loading && 
-          <Dialog
-            open={loading}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <CircularProgress />
-          </Dialog>
-        }
-
         { currentUser && !frag &&
-          <Button
-            variant='contained'
-            onClick={() => history.push(`${paths.root}`)}
-          >
-            ホームに戻る
-          </Button>
+          <>
+            <p>
+              この試験は準備中です。
+            </p>
+          </>
         }
 
         { currentUser && frag && !filledFrag &&
           <>
-            <p>まずは、アカウント情報を入力してください</p>
+            <p>お申し込みのために受験者さまの情報を入力してください。</p>
             <BasicForm
               firstName={firstName}
               lastName={lastName}
@@ -203,10 +187,9 @@ const Paypal = (props) => {
 
         {currentUser && frag && filledFrag &&
         <>
-          <p>この試験のBET金額は{exam.betAmount}円です。</p>
-          <p>下記ボタンからお支払いください。</p>
+          <p>下記ボタンからチャレンジ料金をお支払いただけます。</p>
           <PayPalButton
-            amount={exam.betAmount}
+            amount={props.exam.betAmount}
             currency='JPY' // default is 'USD'
             country='JP'
             shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
@@ -229,10 +212,10 @@ const Paypal = (props) => {
               locale: 'ja_JP',
             }}
           />
+
         </>
         }
 
-      </AppLayout>
     </>
   )
 }

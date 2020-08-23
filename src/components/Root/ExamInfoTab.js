@@ -12,7 +12,6 @@ import HighlightOff from '@material-ui/icons/HighlightOff';
 import PropTypes from 'prop-types';
 import { Button, Modal } from "@material-ui/core";
 import Spacer from "components/commons/atoms/Spacer";
-import AboutBetMe from 'components/Root/AboutBetMe';
 import paths from "paths";
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from "hooks/Auth";

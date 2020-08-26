@@ -140,6 +140,7 @@ const Root = (props) => {
                 {frag && examTarget &&
                   <ExamTabs 
                     examTarget={examTarget} 
+                    cert={cert}
                     setEvent={setEvent}
                     event={event}
                     setEditFrag={setEditFrag}

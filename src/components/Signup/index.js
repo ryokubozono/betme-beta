@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  stepper: {
+    padding: theme.spacing(0),
+  },
 }));
 
 function getSteps() {
@@ -51,6 +54,7 @@ const Signup = (props) => {
   const [toGetMoney, setToGetMoney] = useState(false);
   const [toUseTimer, setToUseTimer] = useState(false);
   const [regPurposeRef, setRegPurposeRef] = useState([]);
+  const [agreeWithTerms, setAgreeWithTerms] = useState(false);
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -218,7 +222,10 @@ const Signup = (props) => {
           <h1>新規登録</h1>
 
           <div>
-            <Stepper activeStep={activeStep}>
+            <Stepper 
+              activeStep={activeStep}
+              className={classes.stepper}
+            >
               {steps.map((label, index) => {
                 const stepProps = {};
                 const labelProps = {};
@@ -243,6 +250,8 @@ const Signup = (props) => {
                 email={email}
                 password={password}
                 passwordConfirm={passwordConfirm}
+                agreeWithTerms={agreeWithTerms}
+                setAgreeWithTerms={setAgreeWithTerms}
               />
             </>
             }

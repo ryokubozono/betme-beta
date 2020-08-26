@@ -52,6 +52,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
     padding: theme.spacing(2),
   },
+  box: {
+    maxWidth: '500px',
+    paddingLeft: theme.spacing(2),
+    margin: 'auto',
+  },
 }));
 
 const ExamTabs = (props) => {
@@ -159,6 +164,36 @@ const ExamTabs = (props) => {
   return (
     <>
       <Paper square className={classes.root}>
+      {frag &&
+        <div
+          className={classes.box}
+        >
+          <div className={classes.dateAlign}>
+            <Button
+            　color='primary'
+              variant="contained"
+              size='small'
+              onClick={handleWhat}
+            >
+              BetMeチャレンジとは？
+            </Button>
+          </div>
+          {props.cert && props.examTarget && props.examTarget.betAmount &&
+            <p>
+              この試験のチャレンジ料金は、{props.examTarget.betAmount}円です。
+            </p>
+          }
+          {props.cert &&　props.examTarget && props.examTarget.returnAmount &&
+            <p>
+              この試験の報酬額は、{props.examTarget.returnAmount}円です。
+            </p>
+          }
+          <p>
+            ※合格体験記はBetMeチャレンジをご利用の合格者がご提出いただけます。
+          </p>
+          <br />
+        </div>
+      }
       <Tabs
         value={props.value}
         onChange={handleChange}
@@ -243,8 +278,8 @@ const ExamTabs = (props) => {
           onClick={handleWhat}
           disabled={!frag}
         >
-          { frag && 'BetMeチャレンジ' }
-          { !frag && 'BetMeチャレンジ申込済み' }
+          { frag && 'BetMeチャレンジに申し込む' }
+          { !frag && 'BetMeチャレンジ申込済' }
         </Button>
         &nbsp;
         &nbsp;

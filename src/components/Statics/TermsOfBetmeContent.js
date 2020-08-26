@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 
-const PrivacyPolicyContent = (props) => {
+const TermsOfBetmeContent = (props) => {
   return (
     <>
 <b>
@@ -303,4 +303,4 @@ d.	上記各号の他、当社が緊急性が高いと認めた場合
   )
 }
 
-export default PrivacyPolicyContent;
+export default TermsOfBetmeContent;

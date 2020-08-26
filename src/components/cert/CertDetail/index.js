@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import AppLayout from "components/commons/layout/AppLayout";
-import { Box, Button, Modal, Fade } from "@material-ui/core";
+import { Box, Button, Modal, Fade, ListItem } from "@material-ui/core";
 import { useLocation } from 'react-router-dom';
 import { CertsContext } from "hooks/Certs";
 import { CertFindFilter } from 'components/commons/filters/CertFindFilter';
@@ -24,6 +24,8 @@ import paths from 'paths';
 import { useHistory } from 'react-router-dom';
 import { ExamsContext } from "hooks/Exams";
 import { UserContext } from "hooks/User";
+import WhatIsBetMeChallenge from "components/Root/WhatIsBetMeChallenge";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -41,6 +43,14 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(4),
+  },
+  redLink: {
+    color: '#f00',
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    '&:hover': {
+      color: '#f00',
+    }
   },
 }))
 
@@ -74,6 +84,15 @@ const CertDetail = (props) => {
   const { user } = useContext(UserContext);
   const [filteredExams, setFilteredExams] = useState([])
   const [isAllMyExam, setIsAllMyExam] = useState(true);
+  const [whatIsBetMeChallenge, setWhatIsBetMeChallenge] = useState(false);
+
+  const handleAboutBetme = () => {
+    setWhatIsBetMeChallenge(true)
+  }
+
+  const handleBack = () => {
+    setWhatIsBetMeChallenge(false)
+  }
 
   useEffect(() => {
     let tmpExams = []
@@ -205,7 +224,37 @@ const CertDetail = (props) => {
               />
             </div>
           </Modal>
+          <p>
+            My試験登録後には
+            <b
+              className={classes.redLink}
+              onClick={handleAboutBetme}
+            >
+              BetMeチャレンジ
+            </b>
+            もご利用できます。
+          </p>
         </Box>      
+        {whatIsBetMeChallenge &&
+          <Box bgcolor='white' p={2} m={2}>
+            <ListItem
+              button
+              className={classes.listLink}
+              onClick={handleBack}
+            >
+              <ArrowBackIcon
+                fontSize='small'
+              />
+              &nbsp;&nbsp;
+              戻る
+            </ListItem>
+
+            <WhatIsBetMeChallenge 
+              setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+              handleBack={handleBack}
+            />
+          </Box>
+        }
         <Spacer />
         <div className={classes.root}>
           <ExpansionPanel square expanded={expanded === 'panel0'} onChange={handleChange('panel0')}>

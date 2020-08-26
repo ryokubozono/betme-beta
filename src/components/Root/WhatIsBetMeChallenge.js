@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import BetMeLogo from 'assets/betme_logo_05.png';
 import PasswordReset from "components/PasswordReset";
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import { Icon, List, ListItem } from "@material-ui/core";
+import { Icon, List, ListItem, FormControl, FormGroup, FormControlLabel, Checkbox, Box, FormLabel } from "@material-ui/core";
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import Spacer from "components/commons/atoms/Spacer";
 import paths from "paths";
@@ -12,6 +12,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { AuthContext } from "hooks/Auth";
 import Paypal from "components/Paypal";
+import TermsOfChallegeContent from "components/Statics/TermsOfChallegeContent";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   box: {
     padding: theme.spacing(1.5),
     backgroundColor: '#fff',
-    maxWidth: '400px',
+    maxWidth: '500px',
     margin: 'auto',
   }, 
   listButton: {
@@ -54,12 +55,28 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'right',
     fontSize: '0.5em',
   },
+  scrollWindow: {
+    height: '200px',
+    overflowY: 'scroll',
+    border: 'solid 1px #ddd',
+  },
 }));
 
 const WhatIsBetMeChallenge = (props) => {
   const history = useHistory();
   const classes = useStyles();
   const { currentUser } = useContext(AuthContext);
+  const [agreeWithTerms, setAgreeWithTerms] = useState(false);
+  const [frag, setFrag] = useState(false);
+  const [agreeWithNote, setAgreeWithNote] = useState(false);
+
+  useEffect(() => {
+    if (agreeWithTerms && agreeWithNote) {
+      setFrag(true)
+    } else {
+      setFrag(false)
+    }
+  }, [agreeWithTerms, agreeWithNote])
 
   return (
     <div>
@@ -111,15 +128,6 @@ const WhatIsBetMeChallenge = (props) => {
         >
           * チャレンジ料金は試験により異なります。
         </p>
-       
-        {currentUser &&
-          <Paypal 
-            exam={props.examTarget}
-            setLoading={props.setLoading}
-            handleClose={props.handleClose}
-            setWhatIsBetMeChallenge={props.setWhatIsBetMeChallenge}
-          />
-        }
       </div>
       <Spacer />
       <div
@@ -153,8 +161,78 @@ const WhatIsBetMeChallenge = (props) => {
 
       </div>
       <Spacer />
-      
 
+      {props.cert &&　props.examTarget && props.examTarget.returnAmount &&
+      <div
+        className={classes.box}
+      >
+        <p>
+          お申し込みのために下記の留意事項を読み、チェックを入れてください。
+        </p>
+        <FormControl
+          required 
+          component="fieldset" 
+          className={classes.formControl}
+        >
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name='agreeWithTerms'
+                  checked={agreeWithTerms}
+                  onChange={() => setAgreeWithTerms(!agreeWithTerms)}
+                />
+              }
+              label='BetMeチャレンジ利用規約に同意する'
+            />
+          </FormGroup>
+        </FormControl>
+        
+        <div
+          className={classes.scrollWindow}
+        >
+          <Box bgcolor='white' p={2} m={0}>
+            <TermsOfChallegeContent />
+          </Box>
+        </div>
+        <br />
+
+        <FormControl
+          required 
+          component="fieldset" 
+          className={classes.formControl}
+        >
+          <>
+            尚、今回は初回取り組みのため合格体験記の用意が非常に少なくなっております。
+            <br />
+            ご了承いただけますでしょうか。
+          </>
+
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name='agreeWithNote'
+                  checked={agreeWithNote}
+                  onChange={() => setAgreeWithNote(!agreeWithNote)}
+                />
+              }
+              label='同意する'
+            />
+          </FormGroup>
+        </FormControl>
+
+        {currentUser && frag &&
+          <Paypal 
+            exam={props.examTarget}
+            setLoading={props.setLoading}
+            handleClose={props.handleClose}
+            setWhatIsBetMeChallenge={props.setWhatIsBetMeChallenge}
+          />
+        }
+        
+      </div>
+      }
 
       <ListItem
         button
@@ -166,7 +244,7 @@ const WhatIsBetMeChallenge = (props) => {
           fontSize='small'
         />
         &nbsp;&nbsp;
-        ホームに戻る
+        戻る
       </ListItem>
     </div>
   )

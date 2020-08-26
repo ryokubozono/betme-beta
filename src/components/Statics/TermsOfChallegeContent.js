@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 
-const PrivacyPolicyContent = (props) => {
+const TermsOfChallegeContent = (props) => {
   return (
     <>
 <b>
@@ -106,4 +106,4 @@ BetMeチャレンジ利用規約で使用する用語は、BetMeチャレンジ�
   )
 }
 
-export default PrivacyPolicyContent;
+export default TermsOfChallegeContent;

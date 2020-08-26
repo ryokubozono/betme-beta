@@ -25,7 +25,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import AppAlert from 'components/commons/atoms/AppAlert';
 import { AuthContext } from "hooks/Auth";
 import { auth } from "FirebaseConfig";
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import paths from 'paths';
 import { UserContext } from 'hooks/User';
 import ExamNavList from '../card/ExamNavList';
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(4),
+    paddingBottom: theme.spacing(12),
     
     backgroundColor: blueGrey[50],
     minHeight: '100vh',
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100vw',
     },
     textAlign: 'center',
-    // borderTop: '1px solid #ccc'
+    paddingBottom: theme.spacing(1),
   },
   cursorPointer:{
     cursor: 'pointer',
@@ -298,9 +298,15 @@ const AppLayout = (props) => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={() => history.push(`${paths.myaccount}`)}>アカウント設定</MenuItem>
               { currentUser ? (
-                <MenuItem onClick={handleSignout}>ログアウト</MenuItem>
+                <>
+
+                    {nickName &&
+                      <AppLogin nickName={nickName} />
+                    }
+                  <MenuItem onClick={() => history.push(`${paths.myaccount}`)}>アカウント設定</MenuItem>
+                  <MenuItem onClick={handleSignout}>ログアウト</MenuItem>
+                </>
               ):(
                 <MenuItem onClick={() => history.push({pathname: `${paths.signin}`})}>ログイン</MenuItem>
               )
@@ -344,15 +350,46 @@ const AppLayout = (props) => {
         <div className={classes.toolbar} />
         <>
           <Container maxWidth="md">
-            {nickName &&
-              <AppLogin nickName={nickName} />
-            }
+
             {props.children}
           </Container>
         </>
         <AppAlert />
         <footer className={classes.footer} >
-          &copy; 2020 Signal & Company
+          <>
+            <Link
+              to={`${paths.privacypolicy}`}
+              target='_blank'
+            >
+              プライバシーポリシー
+            </Link>
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            <Link
+              to={`${paths.termsofbetme}`}
+              target='_blank'
+            >
+              BetMe利用規約
+            </Link>
+            <br />
+            <Link
+              to={`${paths.termsofchallenge}`}
+              target='_blank'
+            >
+              BetMeチャレンジ利用規約
+            </Link>
+            <br />
+            <Link
+              to={`${paths.commercial}`}
+              target='_blank'
+            >
+              特定商取引法に基づく表示
+            </Link>
+          </>
+          <br />
+          <>
+            &copy; 2020 Signal & Company
+          </>
         </footer>
       </main>
     </div>

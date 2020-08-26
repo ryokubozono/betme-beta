@@ -1,9 +1,22 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  nickname: {
+    padding: theme.spacing(2),
+  },
+}));
+
 
 const AppLogin = (props) => {
+  const classes = useStyles();
 
   return (
-    <p>ログイン中：{props.nickName}</p>
+    <div
+      className={classes.nickname}
+    >
+      ユーザー：{props.nickName}
+    </div>
   )
 }
 

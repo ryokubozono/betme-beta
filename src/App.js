@@ -44,6 +44,10 @@ import NoticeList from 'components/Notice';
 import { MyNoticesProvider } from 'hooks/MyNotices';
 import { StoriesProvider } from 'hooks/Stories';
 import Example from 'components/Test';
+import PrivacyPolicy from 'components/Statics/PrivacyPolicy';
+import TermsOfBetme from 'components/Statics/TermsOfBetme';
+import TermsOfChallege from 'components/Statics/TermsOfChallenge';
+import Commercial from 'components/Statics/Commercial';
 
 const theme = createMuiTheme({
   palette: {
@@ -84,6 +88,10 @@ function App() {
         <NoticesProvider>
         <MyNoticesProvider>
         <ThemeProvider theme={theme}>
+          <Route exact path={paths.commercial} component={Commercial} key='commercial' />
+          <Route exact path={paths.termsofchallenge} component={TermsOfChallege} key='termsofchallenge' /> 
+          <Route exact path={paths.termsofbetme} component={TermsOfBetme} key='termsofbetme' />
+          <Route exact path={paths.privacypolicy} component={PrivacyPolicy} key='privacypolicy' />
           <Route exact path={paths.test} component={Example} key='example' /> 
           <Route exact path={paths.noticelist} component={NoticeList} key='noticelist' />
           <Route exact path={paths.noticeedit} component={NoticeEdit} key='noticeedit' />

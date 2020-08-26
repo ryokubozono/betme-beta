@@ -39,6 +39,11 @@ const paths = {
   noticelist: '/noticelist', 
   // test
   test: '/test',
+  // privacy policy
+  privacypolicy: '/privacypolicy',
+  termsofbetme: '/termsofbetme',
+  termsofchallenge: '/termsofchallenge',
+  commercial: '/commercial',
 };
 
 export default paths;

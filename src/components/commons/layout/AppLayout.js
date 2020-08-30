@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(12),
+    paddingBottom: theme.spacing(18),
     
     backgroundColor: blueGrey[50],
     minHeight: '100vh',
@@ -357,14 +357,7 @@ const AppLayout = (props) => {
         <AppAlert />
         <footer className={classes.footer} >
           <>
-            <Link
-              to={`${paths.privacypolicy}`}
-              target='_blank'
-            >
-              プライバシーポリシー
-            </Link>
-            &nbsp;&nbsp;
-            &nbsp;&nbsp;
+
             <Link
               to={`${paths.termsofbetme}`}
               target='_blank'
@@ -380,12 +373,20 @@ const AppLayout = (props) => {
             </Link>
             <br />
             <Link
+              to={`${paths.privacypolicy}`}
+              target='_blank'
+            >
+              プライバシーポリシー
+            </Link>
+            <br />
+            <Link
               to={`${paths.commercial}`}
               target='_blank'
             >
               特定商取引法に基づく表示
             </Link>
           </>
+          <br />
           <br />
           <>
             &copy; 2020 Signal & Company

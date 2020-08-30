@@ -76,7 +76,8 @@ const SigninForm = (props) => {
           onError={errors => console.log(errors)}
         >
           <TextValidator
-            label='Email'
+            required
+            label='メールアドレス'
             id="email"
             name='email'
             color='primary'
@@ -88,7 +89,8 @@ const SigninForm = (props) => {
             errorMessages={['this field is required', 'email is not valid']}
           />
           <TextValidator
-            label='Password'
+            required
+            label='パスワード'
             id="password"
             name='password'
             type="password"

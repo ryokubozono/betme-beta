@@ -59,7 +59,9 @@ const ConfirmForm = (props) => {
         onError={errors => console.log(errors)}
       >
           <TextValidator
-            label='Email'
+            className={classes.formControl} 
+            required
+            label='メールアドレス'
             id="email"
             name='email'
             color='primary'
@@ -71,7 +73,9 @@ const ConfirmForm = (props) => {
             }}
           />
           <TextValidator
-            label='Password'
+            className={classes.formControl} 
+            required
+            label='パスワード'
             id="password"
             name='password'
             type="password"
@@ -84,7 +88,9 @@ const ConfirmForm = (props) => {
             }}
           />
           <TextValidator
-            label='nickName'
+            className={classes.formControl} 
+            required
+            label='ニックネーム'
             id='nickName'
             name='nickName'
             type="text"
@@ -96,6 +102,21 @@ const ConfirmForm = (props) => {
               readOnly: true,
             }}
           />
+          {/* <FormControl 
+            className={classes.formControl} 
+            required
+          >
+            <TextField
+              label='ニックネーム'
+              name='nickName'
+              id='nickName'
+              className={classes.textField}
+              value={props.nickName}
+              InputProps={{
+                readOnly: true,
+              }}
+            />  
+          </FormControl> */}
           <FormControl 
             className={classes.formControl} 
             noValidate
@@ -116,17 +137,23 @@ const ConfirmForm = (props) => {
             />
           </FormControl>
           <br />
-          <TextField
-            label='職業'
-            name='job'
-            id='job'
-            className={classes.textField}
-            value={props.job}
-            InputProps={{
-              readOnly: true,
-            }}
-          />
-          {props.job === '学生' &&
+          <FormControl 
+            className={classes.formControl} 
+            noValidate
+          >
+            <TextField
+              label='職業'
+              name='job'
+              id='job'
+              className={classes.textField}
+              value={props.job}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          </FormControl>
+
+          {/* {props.job === '学生' &&
             <TextField
               label='種類'
               name='school'
@@ -137,8 +164,8 @@ const ConfirmForm = (props) => {
                 readOnly: true,
               }}
             />
-          }
-          {props.job === '社会人' &&
+          } */}
+          {/* {props.job === '社会人' &&
             <TextField
               label='業界'
               name='biz'
@@ -149,30 +176,43 @@ const ConfirmForm = (props) => {
                 readOnly: true,
               }}
             />
-          }
+          } */}
           <br />
-          <TextField
-            label='性別'
-            name='gender'
-            id='gender'
-            className={classes.textField}
-            value={props.gender}
-            InputProps={{
-              readOnly: true,
-            }}
-          />  
-          <TextField
-            label='都道府県'
-            name='pref'
-            id='pref'
-            className={classes.textField}
-            value={props.pref}
-            InputProps={{
-              readOnly: true,
-            }}
-          />  
+          <FormControl 
+            className={classes.formControl} 
+            noValidate
+          >
+            <TextField
+              label='性別'
+              name='gender'
+              id='gender'
+              className={classes.textField}
+              value={props.gender}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          </FormControl>
           <br />
-          {props.job === '社会人' &&
+          <FormControl 
+            className={classes.formControl} 
+          >
+            <TextField
+              required
+              label='都道府県'
+              name='pref'
+              id='pref'
+              className={classes.textField}
+              value={props.pref}
+              InputProps={{
+                readOnly: true,
+              }}
+            />  
+          </FormControl>
+
+          <br />
+          <br />
+          {/* {props.job === '社会人' &&
           <TextField
             label='最終学歴'
             name='educ'
@@ -183,8 +223,8 @@ const ConfirmForm = (props) => {
               readOnly: true,
             }}
           />  
-          }
-          <TextValidator
+          } */}
+          {/* <TextValidator
             label='出身高校'
             id='highSchool'
             name='highSchool'
@@ -196,8 +236,8 @@ const ConfirmForm = (props) => {
             InputProps={{
               readOnly: true,
             }}
-          />
-          <TextValidator
+          /> */}
+          {/* <TextValidator
             label='出身大学・専門学校'
             id='college'
             name='college'
@@ -209,12 +249,12 @@ const ConfirmForm = (props) => {
             InputProps={{
               readOnly: true,
             }}
-          />
-          <FormLabel component="legend">BetMeを利用する目的</FormLabel>
+          /> */}
+          {/* <FormLabel component="legend">BetMeを利用する目的</FormLabel>
             {props.regPurposeRef && props.regPurposeRef.map(item => (
               <div>{handleItem(item)}</div>
             ))}
-          <Spacer />
+          <Spacer /> */}
 
         <div>
           <Button 
@@ -224,6 +264,8 @@ const ConfirmForm = (props) => {
           >
             戻る
           </Button>
+          &nbsp;
+          &nbsp;
           <Button
             type="submit"
             variant="contained"

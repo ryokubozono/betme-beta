@@ -23,6 +23,7 @@ import firebase, { db } from "FirebaseConfig";
 import paths from "paths";
 import ExamStoryTab from "components/Root/ExamStoryTab";
 import GetYearMonthDateJap from "components/commons/atoms/GetYearMonthDateJap";
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
   dateAlign: {
     textAlign: 'center',
+    width: '190px',
+    margin: 'auto',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -56,6 +59,19 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '500px',
     paddingLeft: theme.spacing(2),
     margin: 'auto',
+  },
+  redText: {
+    color: '#f00',
+    fontSize: '1.2em',
+  },
+  blackText: {
+    fontSize: '1.2em',
+  },
+  webButton: {
+    textTransform: 'none',
+  },
+  underLineFalse: {
+    textDecoration: 'none',
   },
 }));
 
@@ -82,10 +98,6 @@ const ExamTabs = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  // const handlePaypal = () => {
-  //   history.push(`/paypal/${props.examTarget.docId}`);
-  // }
   
   useEffect(() => {
     if (currentUser && props.examTarget) {
@@ -118,7 +130,7 @@ const ExamTabs = (props) => {
   }, [users, currentUser, props.examTarget])
 
   const removeMyExam = () => {
-    if (window.confirm('削除しますか？')) {
+    if (window.confirm('My試験から削除しますか？')) {
       db.collection('user').doc(currentUser.uid).update({
         myExam: firebase.firestore.FieldValue.arrayRemove(
           props.examTarget.docId
@@ -163,29 +175,46 @@ const ExamTabs = (props) => {
 
   return (
     <>
-      <Paper square className={classes.root}>
+      <Box bgcolor='white'>
       {frag &&
         <div
           className={classes.box}
         >
+          <br />
           <div className={classes.dateAlign}>
-            <Button
-            　color='primary'
-              variant="contained"
-              size='small'
-              onClick={handleWhat}
-            >
-              BetMeチャレンジとは？
-            </Button>
+            <AnchorLink href='#whatIsBetMe' offset="50" className={classes.underLineFalse}>
+              <Button
+                color='primary'
+                variant='contained'
+                size='small'
+                onClick={handleWhat}
+                fullWidth
+                disableElevation='false'
+                className={classes.webButton}
+              >
+                BetMeチャレンジに申込む
+              </Button>
+            </AnchorLink>
           </div>
+
           {props.cert && props.examTarget && props.examTarget.betAmount &&
             <p>
-              この試験のチャレンジ料金は、{props.examTarget.betAmount}円です。
+              チャレンジ料金:&nbsp;
+              <b
+                className={classes.redText}
+              >
+                {props.examTarget.betAmount.toLocaleString()}円
+              </b>
             </p>
           }
           {props.cert &&　props.examTarget && props.examTarget.returnAmount &&
             <p>
-              この試験の報酬額は、{props.examTarget.returnAmount}円です。
+              報酬額:&nbsp;
+              <b
+                className={classes.blackText}
+              >
+                {props.examTarget.returnAmount.toLocaleString()}円
+              </b>
             </p>
           }
           <p>
@@ -194,6 +223,9 @@ const ExamTabs = (props) => {
           <br />
         </div>
       }
+      </Box>
+      <br />
+      <Box bgcolor='white'>
       <Tabs
         value={props.value}
         onChange={handleChange}
@@ -225,64 +257,61 @@ const ExamTabs = (props) => {
         hidden={props.value !== 0}
       >
         {props.value === 0 && 
-          <Box p={3}>
-            <ExamInfoTab 
-              examTarget={props.examTarget} 
-            />
-          </Box>
+          <ExamInfoTab 
+            examTarget={props.examTarget} 
+          />
         }
       </div>
       <div
         hidden={props.value !== 1}
       >
         {props.value === 1 && 
-          <Box p={3}>
-            <ExamTimerTab 
-              examTarget={props.examTarget}  
-              event={props.event}
-              setEvent={props.setEvent} 
-              editFrag={props.editFrag}
-              setEditFrag={props.setEditFrag}      
-            />
-          </Box>
+          <ExamTimerTab 
+            examTarget={props.examTarget}  
+            event={props.event}
+            setEvent={props.setEvent} 
+            editFrag={props.editFrag}
+            setEditFrag={props.setEditFrag}      
+          />
         }
       </div>
       <div
         hidden={props.value !== 2}
       >
         {props.value === 2 && 
-          <Box p={3}>
-            <ExamChartTab 
-              examTarget={props.examTarget}                 
-            />            
-          </Box>
+          <ExamChartTab 
+            examTarget={props.examTarget}                 
+          />            
         }
       </div>
       <div
         hidden={props.value !== 3}
       >
         {props.value === 3 && 
-          <Box p={3}>
-            <ExamStoryTab
-              examTarget={props.examTarget}
-              setValue={props.setValue}              
-            />
-          </Box>
+          <ExamStoryTab
+            examTarget={props.examTarget}
+            setValue={props.setValue}              
+          />
         }
       </div>
+      <br />
       <div className={classes.dateAlign}>
-        <Button
-        　color='primary'
-          variant="contained"
-          size='small'
-          onClick={handleWhat}
-          disabled={!frag}
-        >
-          { frag && 'BetMeチャレンジに申し込む' }
-          { !frag && 'BetMeチャレンジ申込済' }
-        </Button>
-        &nbsp;
-        &nbsp;
+        <AnchorLink href='#whatIsBetMe' offset="50" className={classes.underLineFalse}>
+          <Button
+          　color='primary'
+            variant="contained"
+            size='small'
+            onClick={handleWhat}
+            disabled={!frag}
+            fullWidth
+            className={classes.webButton}
+          >
+            { frag && 'BetMeチャレンジに申込む' }
+            { !frag && 'BetMeチャレンジ申込済' }
+          </Button>
+        </AnchorLink>
+        <br />
+        <br />
         {frag &&
           <Button
           　color='secondary'
@@ -290,8 +319,9 @@ const ExamTabs = (props) => {
             size='small'
             onClick={removeMyExam}
             disabled={!frag}
+            fullWidth
           >
-            { frag && '削除' }
+            { frag && 'My試験から削除' }
             { !frag && '削除できません' }
           </Button>
         }
@@ -320,7 +350,7 @@ const ExamTabs = (props) => {
         }
       </div>
       <Spacer />
-    </Paper>
+      </Box>
     </>
   )
 }

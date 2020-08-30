@@ -68,10 +68,10 @@ const TakkenSummary = (props) => {
         <TableBody className={classes.tableBody}>
           <TableRow className={classes.tableRow}>
             <TableCell className={classes.tableHeader}>
-              試験案内（受験申込書）について
+              試験案内(受験申込書)について
             </TableCell>
             <TableCell className={classes.tableCell}>
-              試験案内（受験申込書）は各都道府県ごとに異なります。郵送にて受験申込みをされる場合は試験案内を入手いただく必要があります。また、インターネットにて受験申込みをされる場合は、（一財）不動産適正取引推進機構のホームペ ージに試験案内が掲載されますのでそちらでご確認いただけます。
+              試験案内(受験申込書)は各都道府県ごとに異なります。郵送にて受験申込みをされる場合は試験案内を入手いただく必要があります。また、インターネットにて受験申込みをされる場合は、(一財)不動産適正取引推進機構のホームペ ージに試験案内が掲載されますのでそちらでご確認いただけます。
             </TableCell>
           </TableRow>
 
@@ -80,7 +80,7 @@ const TakkenSummary = (props) => {
               試験案内配布期間
             </TableCell>
             <TableCell className={classes.tableCell}>
-              2020年（令和2年）7月1日（水）～7月31日（金）
+              2020年(令和2年)7月1日(水)～7月31日(金)
             </TableCell>
           </TableRow>
 
@@ -89,7 +89,7 @@ const TakkenSummary = (props) => {
               試験案内配布場所
             </TableCell>
             <TableCell className={classes.tableCell}>
-              試験案内の配布場所は各都道府県の宅地建物取引業協会など、ご受験いただく都道府県によって様々です。詳細は（一財）不動産適正取引推進機構のホームページをご確認ください。
+              試験案内の配布場所は各都道府県の宅地建物取引業協会など、ご受験いただく都道府県によって様々です。詳細は(一財)不動産適正取引推進機構のホームページをご確認ください。
             </TableCell>
           </TableRow>
           <TableRow className={classes.tableRow}>
@@ -105,7 +105,7 @@ const TakkenSummary = (props) => {
               インターネット申込
             </TableCell>
             <TableCell className={classes.tableCell}>
-              2020年（令和2年）7月1日（水）9時30分～7月15日（水）21時59分
+              2020年(令和2年)7月1日(水)9時30分～7月15日(水)21時59分
             </TableCell>
           </TableRow>
 
@@ -114,7 +114,7 @@ const TakkenSummary = (props) => {
             　郵送申込
             </TableCell>
             <TableCell className={classes.tableCell}>
-              2020年（令和2年）7月1日（水）～7月31日（金）
+              2020年(令和2年)7月1日(水)～7月31日(金)
             </TableCell>
           </TableRow>
 
@@ -139,7 +139,7 @@ const TakkenSummary = (props) => {
               名称
             </TableCell>
             <TableCell className={classes.tableCell}>
-              宅地建物取引士試験（国家資格）
+              宅地建物取引士試験(国家資格)
             </TableCell>
           </TableRow>
 
@@ -166,7 +166,7 @@ const TakkenSummary = (props) => {
               試験時間
             </TableCell>
             <TableCell className={classes.tableCell}>
-              13:00〜15:00（登録講習修了者は13：10～15：00）
+              13:00〜15:00(登録講習修了者は13：10～15：00)
             </TableCell>
           </TableRow>
 
@@ -175,7 +175,7 @@ const TakkenSummary = (props) => {
               受験資格
             </TableCell>
             <TableCell className={classes.tableCell}>
-              誰でも受験可能（受験制限なし）
+              誰でも受験可能(受験制限なし)
             </TableCell>
           </TableRow>
 
@@ -184,7 +184,7 @@ const TakkenSummary = (props) => {
               受験地
             </TableCell>
             <TableCell className={classes.tableCell}>
-              原則として、現在お住まいの試験地（当道府県）
+              原則として、現在お住まいの試験地(当道府県)
             </TableCell>
           </TableRow>
 
@@ -220,7 +220,7 @@ const TakkenSummary = (props) => {
             問い合わせ先
             </TableCell>
             <TableCell className={classes.tableCell}>
-              （財）不動産適正取引推進機構
+              (財)不動産適正取引推進機構
               <Link
                 href='http://www.retio.or.jp/'
                 target="_blank"
@@ -232,7 +232,7 @@ const TakkenSummary = (props) => {
 
           <TableRow className={classes.tableRow}>
             <TableCell className={classes.tableHeader}>
-              目安勉強時間（当社調べ）
+              目安勉強時間(当社調べ)
             </TableCell>
             <TableCell className={classes.tableCell}>
               500時間程度

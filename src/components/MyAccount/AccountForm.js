@@ -257,7 +257,7 @@ const AccountForm = (props) => {
         </FormGroup>
         <FormHelperText>Be careful</FormHelperText>
       </FormControl>
-        <p>他：流入元がわかるもの（何で知ったか？）、資格で何がしたいか？、賞金を何に使いたいか？</p>
+        <p>他：流入元がわかるもの(何で知ったか？)、資格で何がしたいか？、賞金を何に使いたいか？</p>
 
         <div className={classes.buttonAlign}>
           <Button 

@@ -125,6 +125,8 @@ const Root = (props) => {
               setEditFrag={setEditFrag}
               setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
             />
+            <br />
+            <div id='whatIsBetMe' />
             {whatIsBetMeChallenge ? (
               <WhatIsBetMeChallenge 
                 setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}

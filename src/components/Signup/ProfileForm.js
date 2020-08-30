@@ -85,7 +85,7 @@ const ProfileForm = (props) => {
         <TextValidator
           className={classes.formControl} 
           required
-          label='nickName'
+          label='ニックネーム'
           id='nickName'
           name='nickName'
           type="text"
@@ -124,15 +124,15 @@ const ProfileForm = (props) => {
             value={props.job}
             onChange={props.handleChange}
           >
-            <MenuItem value="">None</MenuItem>
+            <MenuItem value="">未回答</MenuItem>
             {jobs.map(jobOption => (
               <MenuItem value={jobOption}>{jobOption}</MenuItem>
             ))}
           </Select>
         </FormControl>
-        {props.job === '学生' &&
+        {/* {props.job === '学生' &&
           <FormControl　className={classes.formControl}>
-            <InputLabel id='schoolLabel'>種類</InputLabel>
+            <InputLabel id='schoolLabel'>種別</InputLabel>
             <Select
               labelId='schoolLabel'
               name='school'
@@ -146,8 +146,8 @@ const ProfileForm = (props) => {
               ))}
             </Select>
           </FormControl>
-        }
-        {props.job === '社会人' &&
+        } */}
+        {/* {props.job === '社会人' &&
           <FormControl　className={classes.formControl}>
             <InputLabel id='bizLabel'>業界</InputLabel>
             <Select
@@ -163,7 +163,7 @@ const ProfileForm = (props) => {
               ))}
             </Select>
           </FormControl>
-        }
+        } */}
         <br />
         <FormControl　className={classes.formControl}>
         <InputLabel id='genderLabel'>性別</InputLabel>
@@ -174,13 +174,14 @@ const ProfileForm = (props) => {
             value={props.gender}
             onChange={props.handleChange}
           >
-            <MenuItem value="">None</MenuItem>
+            <MenuItem value="">未回答</MenuItem>
             {genders.map(gender => (
               <MenuItem value={gender}>{gender}</MenuItem>
             ))}
           </Select>
         </FormControl>
-        <FormControl　
+        <br />
+        <FormControl
           required
           className={classes.formControl}
         >
@@ -192,14 +193,14 @@ const ProfileForm = (props) => {
             value={props.pref}
             onChange={props.handleChange}
           >
-            <MenuItem value="">None</MenuItem>
+            <MenuItem value="">未回答</MenuItem>
             {prefs.map(pref => (
               <MenuItem value={pref}>{pref}</MenuItem>
             ))}
           </Select>
         </FormControl>
         <br />
-        {props.job === '社会人' &&
+        {/* {props.job === '社会人' &&
           <FormControl　className={classes.formControl}>
             <InputLabel id='educLabel'>最終学歴</InputLabel>
             <Select
@@ -209,14 +210,14 @@ const ProfileForm = (props) => {
               value={props.educ}
               onChange={props.handleChange}
             >
-              <MenuItem value="">None</MenuItem>
+              <MenuItem value="">未回答</MenuItem>
               {educs.map(educ => (
                 <MenuItem value={educ}>{educ}</MenuItem>
               ))}
             </Select>
           </FormControl>
-        }
-        <TextValidator
+        } */}
+        {/* <TextValidator
           className={classes.formControl} 
           label='出身高校'
           id='highSchool'
@@ -239,11 +240,11 @@ const ProfileForm = (props) => {
           margin="normal"
           value={props.college} 
           onChange={props.handleChange} 
-        />
+        /> */}
         <br />
         {props.formType !== 'myAccount' &&
         <>
-        <FormControl
+        {/* <FormControl
           required 
           component="fieldset" 
           className={classes.formControl}
@@ -275,14 +276,14 @@ const ProfileForm = (props) => {
             
           </FormGroup>
         </FormControl>
-        <Spacer />
+        <Spacer /> */}
         <div>
           <Button 
             onClick={props.handleBack} 
             color='primary'
             variant="outlined"
           >
-            Back
+            戻る
           </Button>
           &nbsp;
           &nbsp;
@@ -291,7 +292,7 @@ const ProfileForm = (props) => {
             variant="contained"
             color="primary"
           >
-            Next
+            次へ
           </Button>
         </div>
         </>

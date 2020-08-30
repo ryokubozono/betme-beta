@@ -71,7 +71,7 @@ const AuthorStory = (props) => {
           <TableRow>
             <TableCell>
               <b>
-              休日（土・日・祝）の平均勉強時間
+              休日(土・日・祝)の平均勉強時間
               </b>
             </TableCell>
             <TableCell>

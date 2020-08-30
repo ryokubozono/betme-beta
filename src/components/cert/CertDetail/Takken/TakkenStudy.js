@@ -273,10 +273,10 @@ const TakkenStudy = (props) => {
         <ListItem className={classes.nested3}>
         正式名称による区分ではありませんが、下記４科目から構成されます。<br /><br />
 
-        ・民法等（14問）<br />
-        ・宅建業法（20問）<br />
-        ・法令上の制限（8問）<br />
-        ・税、その他関連知識（8問）<br />
+        ・民法等(14問)<br />
+        ・宅建業法(20問)<br />
+        ・法令上の制限(8問)<br />
+        ・税、その他関連知識(8問)<br />
         </ListItem>
 
         <ListItem className={classes.nested3Red}>
@@ -299,7 +299,7 @@ const TakkenStudy = (props) => {
           <ListItemText
             className={classes.subTitle}
             primary="
-            民法等（14問）
+            民法等(14問)
             "
           />
         </ListItem> 
@@ -315,7 +315,7 @@ const TakkenStudy = (props) => {
           <ListItemText
             className={classes.subTitle}
             primary="
-            宅建業法（20問）
+            宅建業法(20問)
             "
           />
         </ListItem> 
@@ -331,7 +331,7 @@ const TakkenStudy = (props) => {
           <ListItemText
             className={classes.subTitle}
             primary="
-            法令上の制限（8問）
+            法令上の制限(8問)
             "
           />
         </ListItem> 
@@ -347,14 +347,14 @@ const TakkenStudy = (props) => {
           <ListItemText
             className={classes.subTitle}
             primary="
-            税、その他関連知識（8問）
+            税、その他関連知識(8問)
             "
           />
         </ListItem> 
         <ListItem className={classes.nested3}>
         5／8点を目標にしましょう。<br />
         税金関係の問題では、不動産取得税、固定資産税、所得税、印紙税、登録免許税、贈与税などが出題されます。<br />
-        また、税金以外では主に不動産関連の最近の統計や景品表示法などが出題されます。（宅建試験では第46問から第50問までの部分）<br />
+        また、税金以外では主に不動産関連の最近の統計や景品表示法などが出題されます。(宅建試験では第46問から第50問までの部分)<br />
         「暗記」によるアプローチが基本ですが、出題範囲が広いため、頻出問題を中心に取り組みましょう。<br />
         税額計算については、繰り返し練習し、取りこぼさないようにしましょう。<br />
         なお「5問免除制度」を利用する人は、第46問から第50問までの部分が免除になります。<br />

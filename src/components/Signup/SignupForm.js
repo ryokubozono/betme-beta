@@ -33,6 +33,16 @@ const SignupForm = (props) => {
     });
   }, [props.password])
 
+  useEffect(() => {
+    ValidatorForm.addValidationRule('minLength', (value) => {
+      if (value.length < 6) {
+        return false;
+      } else {
+        return true
+      }
+    })
+  }, [props.password])
+
   return (
     <>
     {props.loading && 
@@ -52,8 +62,8 @@ const SignupForm = (props) => {
         >
           <TextValidator
             required
-            label='Email'
-            id="component-simple"
+            label='メールアドレス'
+            id="email"
             name='email'
             color='primary'
             fullWidth
@@ -65,7 +75,7 @@ const SignupForm = (props) => {
           />
           <TextValidator
             required
-            label='Password'
+            label='パスワード'
             id="password"
             name='password'
             type="password"
@@ -74,12 +84,12 @@ const SignupForm = (props) => {
             margin="normal"
             value={props.password} 
             onChange={props.handleChange} 
-            validators={['required']}
-            errorMessages={['this field is required']}
+            validators={['required', 'minLength']}
+            errorMessages={['this field is required', 'パスワードは6文字以上です']}
           />
           <TextValidator
             required
-            label='Password Confirm'
+            label='パスワード(確認)'
             id="passwordConfirm"
             name='passwordConfirm'
             type="password"
@@ -89,7 +99,7 @@ const SignupForm = (props) => {
             value={props.passwordConfirm} 
             onChange={props.handleChange} 
             validators={['required', 'isPasswordMatch']}
-            errorMessages={['this field is required', 'password mismatch']}
+            errorMessages={['this field is required', 'パスワードが一致しません']}
           />
           <Spacer />
           <FormControl
@@ -128,7 +138,7 @@ const SignupForm = (props) => {
               color='primary'
               variant="outlined"
             >
-              Back
+              戻る
             </Button>
             &nbsp;
             &nbsp;
@@ -138,7 +148,7 @@ const SignupForm = (props) => {
               color="primary"
               disabled={!props.agreeWithTerms}
             >
-              Next
+              次へ
             </Button>
           </div>
         </ValidatorForm>

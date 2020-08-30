@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ['Email & Password', 'Profile', 'Confirm'];
+  return ['ステップ1', 'ステップ2', '確認'];
 }
 
 const Signup = (props) => {

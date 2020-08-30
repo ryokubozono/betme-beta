@@ -26,6 +26,7 @@ import { ExamsContext } from "hooks/Exams";
 import { UserContext } from "hooks/User";
 import WhatIsBetMeChallenge from "components/Root/WhatIsBetMeChallenge";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -51,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: '#f00',
     }
+  },
+  underLineFalse: {
+    textDecoration: 'none',
   },
 }))
 
@@ -173,6 +177,7 @@ const CertDetail = (props) => {
   return (
     <>
       <AppLayout>
+        <div id='root' />
         <CertBread />
         <Box bgcolor='white' p={2} m={0}>
           <h2>{cert.name}</h2>
@@ -226,29 +231,33 @@ const CertDetail = (props) => {
           </Modal>
           <p>
             My試験登録後には
-            <b
-              className={classes.redLink}
-              onClick={handleAboutBetme}
-            >
-              BetMeチャレンジ
-            </b>
+            <AnchorLink href='#whatIsBetMe' offset="50" className={classes.underLineFalse}>
+              <b
+                className={classes.redLink}
+                onClick={handleAboutBetme}
+              >
+                  BetMeチャレンジ
+              </b>
+            </AnchorLink>
             もご利用できます。
           </p>
-        </Box>      
+        </Box>
+        <div id='whatIsBetMe' />
         {whatIsBetMeChallenge &&
           <Box bgcolor='white' p={2} m={2}>
-            <ListItem
-              button
-              className={classes.listLink}
-              onClick={handleBack}
-            >
-              <ArrowBackIcon
-                fontSize='small'
-              />
-              &nbsp;&nbsp;
-              戻る
-            </ListItem>
-
+            <AnchorLink href='#root' offset="50" className={classes.underLineFalse}>
+              <ListItem
+                button
+                className={classes.listLink}
+                onClick={handleBack}
+              >
+                <ArrowBackIcon
+                  fontSize='small'
+                />
+                &nbsp;&nbsp;
+                戻る
+              </ListItem>
+            </AnchorLink>
             <WhatIsBetMeChallenge 
               setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
               handleBack={handleBack}
@@ -333,6 +342,15 @@ const CertDetail = (props) => {
             </ExpansionPanelDetails>
           </ExpansionPanel>
           }
+          <Spacer />
+          <Spacer />
+          <Spacer />
+          <Spacer />
+          <Spacer />
+          <Spacer />
+          <Spacer />
+          <Spacer />
+          <Spacer />
         </div>
       </AppLayout>
     </>

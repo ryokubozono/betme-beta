@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import BetMeLogo from 'assets/betme_logo_05.png';
 import PasswordReset from "components/PasswordReset";
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import { Icon, List, ListItem, FormControl, FormGroup, FormControlLabel, Checkbox, Box, FormLabel } from "@material-ui/core";
+import { Icon, List, ListItem, FormControl, FormGroup, FormControlLabel, Checkbox, Box, FormLabel, Typography } from "@material-ui/core";
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import Spacer from "components/commons/atoms/Spacer";
 import paths from "paths";
@@ -13,6 +13,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { AuthContext } from "hooks/Auth";
 import Paypal from "components/Paypal";
 import TermsOfChallegeContent from "components/Statics/TermsOfChallegeContent";
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0.5),
     margin: theme.spacing(1),
     textAlign: 'center',
-    fontSize: '0.8em'
+    fontSize: '0.8em',
   },
   img: {
     verticalAlign: 'middle',
@@ -52,13 +53,29 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
   },
   note: {
-    textAlign: 'right',
+    textAlign: 'left',
     fontSize: '0.5em',
   },
   scrollWindow: {
     height: '200px',
     overflowY: 'scroll',
     border: 'solid 1px #ddd',
+  },
+  text: {
+    fontSize: '0.95em',
+  },
+  redText: {
+    color: '#f00',
+    fontSize: '1.2em',
+  },
+  blackText: {
+    fontSize: '1.2em',
+  },
+  webButton: {
+    textTransform: 'none',
+  },
+  underLineFalse: {
+    textDecoration: 'none',
   },
 }));
 
@@ -113,13 +130,20 @@ const WhatIsBetMeChallenge = (props) => {
         >
           過去合格者の体験記を閲覧し放題！
         </b>
-        <p>
+        <p
+          className={classes.text}
+        >
           チャレンジ料金 * をお支払いただくことで、過去の合格者による体験記を閲覧できるようになります。
         </p>
         {props.cert && props.examTarget && props.examTarget.betAmount &&
           <>
             <p>
-              {props.cert.name}({props.examTarget.examName}) のチャレンジ料金は、{props.examTarget.betAmount}円です。
+              チャレンジ料金:&nbsp;
+              <b
+                className={classes.redText}
+              >
+                {props.examTarget.betAmount.toLocaleString()}円
+              </b>
             </p>
           </>
         }
@@ -142,20 +166,29 @@ const WhatIsBetMeChallenge = (props) => {
         <b
           className={classes.subTitle}
         >
-          合格後、体験記を書くと、チャレンジ料金を上回る報酬 ** をお支払！
+          合格後、合格の証明 ** を提出し、体験記を書くと、チャレンジ料金を上回る報酬 * をお支払！
         </b>
-        <p>
-          無事、合格された方は、所定のフォームにしたがって合格体験記をご提出ただたくと、チャレンジ料金を上回る報酬 ** をお支払いします！
+        <p
+          className={classes.text}
+        >
+          無事、合格された方は、合格証明書 * を提出し、所定のフォームにしたがって合格体験記をご提出ただたくと、チャレンジ料金を上回る報酬 ** をお支払いします！
         </p>
         {props.cert &&　props.examTarget && props.examTarget.returnAmount &&
           <p>
-            {props.cert.name}({props.examTarget.examName})の報酬額は、{props.examTarget.returnAmount}円です。
+            報酬額:&nbsp;
+            <b
+                className={classes.blackText}
+            >
+              {props.examTarget.returnAmount.toLocaleString()}円
+            </b>
           </p>
 
         }
         <p
           className={classes.note}
         >
+          * 合格証明書、またはそれに類する物を試験ごとに指定します。
+          <br />
           ** 報酬は試験により異なります。
         </p>
 
@@ -183,7 +216,13 @@ const WhatIsBetMeChallenge = (props) => {
                   onChange={() => setAgreeWithTerms(!agreeWithTerms)}
                 />
               }
-              label='BetMeチャレンジ利用規約に同意する'
+              label={
+                <Typography
+                  variant="body2"
+                >
+                  BetMeチャレンジ利用規約に同意する
+                </Typography>
+              }
             />
           </FormGroup>
         </FormControl>
@@ -217,7 +256,13 @@ const WhatIsBetMeChallenge = (props) => {
                   onChange={() => setAgreeWithNote(!agreeWithNote)}
                 />
               }
-              label='同意する'
+              label={
+                <Typography
+                  variant="body2"
+                >
+                  同意する
+                </Typography>
+              }
             />
           </FormGroup>
         </FormControl>
@@ -233,19 +278,21 @@ const WhatIsBetMeChallenge = (props) => {
         
       </div>
       }
+      <AnchorLink href='#root' offset="50" className={classes.underLineFalse}>
+        <ListItem
+          button
+          className={classes.listLink}
+          // onClick={() => history.go(0)}
+          onClick={props.handleBack}
+        >
+          <ArrowBackIcon
+            fontSize='small'
+          />
+          &nbsp;&nbsp;
+          戻る
+        </ListItem>
+      </AnchorLink>
 
-      <ListItem
-        button
-        className={classes.listLink}
-        // onClick={() => history.go(0)}
-        onClick={props.handleBack}
-      >
-        <ArrowBackIcon
-          fontSize='small'
-        />
-        &nbsp;&nbsp;
-        戻る
-      </ListItem>
     </div>
   )
 }

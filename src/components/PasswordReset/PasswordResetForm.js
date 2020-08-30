@@ -79,7 +79,7 @@ const PasswordResetForm = (props) => {
           onError={errors => console.log(errors)}
         >
           <TextValidator
-            label='Email'
+            label='メールアドレス'
             id="component-simple"
             name='email'
             color='primary'

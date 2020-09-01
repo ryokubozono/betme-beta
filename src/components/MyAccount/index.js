@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState } from "react";
 import firebase, { auth, db } from "FirebaseConfig";
 import AppLayout from 'components/commons/layout/AppLayout';
-import { Button, Box } from '@material-ui/core';
+import { Button, Box, Dialog, CircularProgress } from '@material-ui/core';
 import { withStyles } from "@material-ui/styles";
 import paths from 'paths';
 import { useHistory } from 'react-router-dom';
@@ -47,6 +47,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const MyAccount = (props) => {
+
+  let domain = document.domain;
+  const actionCodeSettings = (domain === 'localhost')? 
+  {
+    url: `http://localhost:3000/myaccount`
+  }:{
+    url: `https://${domain}/myaccount`
+  }
+  
   const history = useHistory();
   const classes = useStyles();
   const [twitter, setTwitter] = useState(false)
@@ -72,6 +81,55 @@ const MyAccount = (props) => {
   const [regPurposeRef, setRegPurposeRef] = useState([]);
   const [user, setUser] = useState('');
   const { users } = useContext(UsersContext);
+  const [emailVarified, setEmailVarified] = useState(true);
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        setEmail(user.email)
+        if (user.emailVerified) {
+          setEmailVarified(true)
+        } else {
+          setEmailVarified(false)
+        }
+      } 
+    })
+  }, [])
+
+  const sendValidEmail = () => {
+    if (window.confirm('認証メールを送信しますか？')) {
+      setLoading(true)
+      auth.onAuthStateChanged(function(user) {
+        if (user) {
+          user.sendEmailVerification(actionCodeSettings)
+          .then(()=>{
+            setLoading(false)
+            history.push({
+              state: {
+                text: `${user.email}宛に確認メールを送信しました`,
+                type: 'success',
+              }
+            })
+          })
+          .catch((error)=>{
+            setLoading(false)
+            history.push({
+              state: {
+                text: `${user.email}宛に確認メールを送信できませんでした。, ${error}`,
+                type: 'error'
+              }
+            })
+          });
+        }
+      })
+    }
+  }
+
+  const handleClose = () => {
+    setLoading(false);
+  };
 
   let provider = new firebase.auth.TwitterAuthProvider();
 
@@ -111,10 +169,14 @@ const MyAccount = (props) => {
             console.log('key not found')
         }
       })
-    } else {
-      history.push(`${paths.signin}`)
     }
   }, [currentUser])
+
+  useEffect(() => {
+    if (!currentUser) {
+      history.push(`${paths.signin}`)
+    }
+  })
 
   useEffect(() => {
     if (currentUser) {
@@ -203,7 +265,7 @@ const MyAccount = (props) => {
     const index = regPurposeRef.indexOf(String(item))
     if (index  !== -1) {
       regPurposeRef.splice(index, 1)
-    } 
+    }
   }
 
   const handleRegPurpose = (event) => {
@@ -232,38 +294,40 @@ const MyAccount = (props) => {
   const handleNext = () => {
 
     let time = firebase.firestore.Timestamp.fromDate(GetTimestamp(birthdayRef));
-
-      if (currentUser) {
-        db.collection('user').doc(currentUser.uid).set({
-          nickName: nickName,
-          birthday: time,
-          job: job,
-          school: school,
-          biz: biz,
-          gender: gender,
-          pref: pref,
-          educ: educ,
-          highSchool: highSchool,
-          college: college,
-          regPurpose: regPurposeRef,
-        }, {merge: true})
-        .then(() => {
-          history.push({
-            state: {
-              text: 'プロフィールを保存しました。',
-              type: 'success',
-            }
-          })
+    setLoading(true)
+    if (currentUser) {
+      db.collection('user').doc(currentUser.uid).set({
+        nickName: nickName,
+        birthday: time,
+        job: job,
+        school: school,
+        biz: biz,
+        gender: gender,
+        pref: pref,
+        educ: educ,
+        highSchool: highSchool,
+        college: college,
+        regPurpose: regPurposeRef,
+      }, {merge: true})
+      .then(() => {
+        setLoading(false)
+        history.push({
+          state: {
+            text: 'プロフィールを保存しました。',
+            type: 'success',
+          }
         })
-        .catch((error) => {
-          history.push({
-            state: {
-              text: error.message,
-              type: 'error'        
-            }
-          });
-        })
-      }
+      })
+      .catch((error) => {
+        setLoading(false)
+        history.push({
+          state: {
+            text: error.message,
+            type: 'error'        
+          }
+        });
+      })
+    }
 
   }
 
@@ -294,9 +358,67 @@ const MyAccount = (props) => {
     }
   }
 
+  // const sendValidEmail = () => {
+  //   console.log('send valid email')
+  // }
+  
+  const handleEmail = () => {
+    console.log('handle email')
+    history.push(`${paths.emailreset}`)
+  }
+
+  const handlePassword = () => {
+    console.log('handle password')
+    history.push(`${paths.passwordreset}`)
+  }
+
+
   return (
     <>
+      {loading && 
+        <Dialog
+          open={loading}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <CircularProgress />
+        </Dialog>
+      }
       <AppLayout>
+        <Box bgcolor='white' p={2} m={0}>
+          <p>メール認証: <b>{ emailVarified ? ('完了'):('未完了') }</b></p>
+          {!emailVarified &&
+            <Button
+              color='primary'
+              variant='outlined'
+              onClick={sendValidEmail}
+            >
+              認証メールを送信する
+            </Button>
+          }
+        </Box>
+        <br />
+        <Box bgcolor='white' p={2} m={0}>
+          <p>メールアドレス: <b>{email}</b></p>
+          <Button
+            color='primary'
+            variant='outlined'
+            onClick={handleEmail}
+          >
+            メールアドレス変更
+          </Button>
+          <br /><br />
+          <Button
+            color='primary'
+            variant='outlined'
+            onClick={handlePassword}
+          >
+            パスワード変更
+          </Button>
+
+        </Box>
+        <br />
         {!true &&
         <Box bgcolor='white' p={2} m={0}>
           <p>認証</p>

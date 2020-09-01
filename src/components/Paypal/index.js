@@ -50,6 +50,20 @@ const Paypal = (props) => {
   const [address, setAddress] = useState('');
   const [tel, setTel] = useState('');
   const classes = useStyles();
+  const [emailVarified, setEmailVarified] = useState(true);
+
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        if (user.emailVerified) {
+          setEmailVarified(true)
+        } else {
+          setEmailVarified(false)
+        }
+      } 
+    })
+  }, [])
 
   useEffect(() => {
     if (currentUser) {
@@ -170,7 +184,20 @@ const Paypal = (props) => {
           </>
         }
 
-        { currentUser && frag && !filledFrag &&
+        { currentUser && frag && !emailVarified &&
+          <>
+            <p>お申し込み頂くにはメールアドレスの認証を完了させてください。</p>
+            <Button
+              color='primary'
+              variant='contained'
+              onClick={() => history.push(`${paths.myaccount}`)}
+            >
+              アカウント設定
+            </Button>
+          </>
+        }
+
+        { currentUser && frag && !filledFrag && emailVarified &&
           <>
             <p>お申し込みのために受験者さまの情報を入力してください。</p>
             <BasicForm
@@ -185,7 +212,7 @@ const Paypal = (props) => {
           </>
         }
 
-        {currentUser && frag && filledFrag &&
+        {currentUser && frag && filledFrag && emailVarified &&
         <>
           <p>下記ボタンからチャレンジ料金をお支払いただけます。</p>
           <PayPalButton

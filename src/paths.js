@@ -3,6 +3,7 @@ const paths = {
   signin: '/signin',
   signup: '/signup',
   passwordreset: '/passwordreset',
+  emailreset: '/emailreset',
   // 404
   nopagefound: '/404',
   // root

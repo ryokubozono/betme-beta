@@ -6,7 +6,7 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Spacer from 'components/commons/atoms/Spacer';
 import paths from 'paths';
 
-const PasswordResetForm = (props) => {
+const EmailResetForm = (props) => {
 
   let domain = document.domain;
   const actionCodeSettings = (domain === 'localhost')? 
@@ -32,30 +32,27 @@ const PasswordResetForm = (props) => {
     }
   };
 
-  const clickSendResetPasswordMail = () => {
-    setLoading(true)
-    console.log('click send reset password mail')
-    auth.sendPasswordResetEmail(email, actionCodeSettings).then(function() {
-      // Email sent.
-      setLoading(false)
-      history.push({
-        pathname: `${paths.signin}`,
-        state: {
-          text: `${email}宛にパスワード変更メールを送信しました`,
-          type: 'success'
-        }
+  const clickSendResetEmail = () => {
+    auth.onAuthStateChanged(user => {
+      user.updateEmail(email)
+      .then(() => {
+        history.push({
+          pathname: `${paths.myaccount}`,
+          state: {
+            text: 'メールアドレスを更新しました',
+            type: 'success'
+          }
+        })
       })
-    }).catch(function(error) {
-      // An error happened.
-      setLoading(false)
-      history.go(0)
-      history.push({
-        state: {
-          text: `${email}宛にパスワード変更メールを送信できませんでした[${error}]`,
-          type: 'error'
-        }
+      .catch((error) => {
+        history.push({
+          state: {
+            text: error.message,
+            type: 'error'        
+          }
+        });
       })
-    });
+    })
   }
 
   const handleClose = () => {
@@ -76,7 +73,7 @@ const PasswordResetForm = (props) => {
       }
         <ValidatorForm
           useRef="form"
-          onSubmit={clickSendResetPasswordMail}
+          onSubmit={clickSendResetEmail}
           onError={errors => console.log(errors)}
         >
           <TextValidator
@@ -104,4 +101,4 @@ const PasswordResetForm = (props) => {
   )
 }
 
-export default PasswordResetForm;
+export default EmailResetForm;

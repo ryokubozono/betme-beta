@@ -48,6 +48,7 @@ import PrivacyPolicy from 'components/Statics/PrivacyPolicy';
 import TermsOfBetme from 'components/Statics/TermsOfBetme';
 import TermsOfChallege from 'components/Statics/TermsOfChallenge';
 import Commercial from 'components/Statics/Commercial';
+import EmailReset from 'components/EmailReset';
 
 const theme = createMuiTheme({
   palette: {
@@ -88,6 +89,7 @@ function App() {
         <NoticesProvider>
         <MyNoticesProvider>
         <ThemeProvider theme={theme}>
+          <Route exact path={paths.emailreset} component={EmailReset} key='emailreset' />
           <Route exact path={paths.commercial} component={Commercial} key='commercial' />
           <Route exact path={paths.termsofchallenge} component={TermsOfChallege} key='termsofchallenge' /> 
           <Route exact path={paths.termsofbetme} component={TermsOfBetme} key='termsofbetme' />

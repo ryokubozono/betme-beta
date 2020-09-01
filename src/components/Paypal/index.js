@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '250px',
     margin: 'auto',
   },
+  textRed: {
+    color: '#f00',
+  },
 }));
 
 
@@ -186,7 +189,11 @@ const Paypal = (props) => {
 
         { currentUser && frag && !emailVarified &&
           <>
-            <p>お申し込み頂くにはメールアドレスの認証を完了させてください。</p>
+            <p
+              className={classes.textRed}
+            >
+              お申し込み頂くにはメールアドレスの認証を完了させてください。
+            </p>
             <Button
               color='primary'
               variant='contained'
@@ -199,7 +206,11 @@ const Paypal = (props) => {
 
         { currentUser && frag && !filledFrag && emailVarified &&
           <>
-            <p>お申し込みのために受験者さまの情報を入力してください。</p>
+            <p
+              className={classes.textRed}
+            >
+              お申し込みのために受験者さまの情報を入力してください。
+            </p>
             <BasicForm
               firstName={firstName}
               lastName={lastName}

@@ -1,7 +1,7 @@
 import React from 'react';
 import AppLayout from 'components/commons/layout/AppLayout';
 import PasswordResetForm from 'components/PasswordReset/PasswordResetForm';
-import { Box, Link } from '@material-ui/core';
+import { Box, Link, Typography } from '@material-ui/core';
 import Spacer from 'components/commons/atoms/Spacer';
 import { useHistory } from 'react-router-dom';
 import paths from 'paths';
@@ -13,7 +13,11 @@ const PasswordReset = (props) => {
     <>
       <AppLayout>
         <Box bgcolor='white' p={2} m={0}>
-          <h1>パスワードリセット</h1>
+          <Typography
+            component='h1'
+          >
+            <p><b>パスワードリセット</b></p>
+          </Typography>
           <PasswordResetForm />
           <Spacer />
           <Link 

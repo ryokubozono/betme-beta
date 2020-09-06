@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { Link, Table, TableCell, TableBody, TableRow } from "@material-ui/core";
+import { Link, Table, TableCell, TableBody, TableRow, Typography } from "@material-ui/core";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -81,17 +81,25 @@ const TakkenStudy = (props) => {
         <ListItem>
           <ListItemText
             className={classes.title}
-            primary="
-              試験の基本情報
-            "
+            primary={
+              <Typography
+                component='h3'
+              >
+                試験の基本情報
+              </Typography>
+            }
           />
         </ListItem>
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.subTitle}
-            primary="
-              試験方式
-            "
+            primary={
+              <Typography
+                component='h4'
+              >
+                試験方式
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested3}>
@@ -100,9 +108,13 @@ const TakkenStudy = (props) => {
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.subTitle}
-            primary="
-            問題数・配点
-            "
+            primary={
+              <Typography
+                component='h4'
+              >
+                問題数・配点
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested3}>
@@ -111,9 +123,13 @@ const TakkenStudy = (props) => {
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.subTitle}
-            primary="
-            合格条件
-            "
+            primary={
+              <Typography
+                component='h4'
+              >
+                合格条件
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested3}>
@@ -236,17 +252,25 @@ const TakkenStudy = (props) => {
         <ListItem>
           <ListItemText
             className={classes.title}
-            primary="
-              試験範囲、科目、構成等について
-            "
+            primary={
+              <Typography
+                component='h3'
+              >
+                試験範囲、科目、構成等について
+              </Typography>
+            }
           />
         </ListItem>
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.subTitle}
-            primary="
-              試験範囲
-            "
+            primary={
+              <Typography
+                component='h4'
+              >
+                試験範囲
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested3}>
@@ -265,9 +289,14 @@ const TakkenStudy = (props) => {
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.subTitle}
-            primary="
+            primary={
+              <Typography
+                component='h4'
+              >
               科目
-            "
+
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested3}>
@@ -290,17 +319,25 @@ const TakkenStudy = (props) => {
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.title}
-            primary="
-            各科目についての說明
-            "
+            primary={
+              <Typography
+                component='h3'
+              >
+                各科目についての說明
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.subTitle}
-            primary="
-            民法等(14問)
-            "
+            primary={
+              <Typography
+                component='h4'
+              >
+                民法等(14問)
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested3}>
@@ -314,9 +351,13 @@ const TakkenStudy = (props) => {
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.subTitle}
-            primary="
-            宅建業法(20問)
-            "
+            primary={
+              <Typography
+                component='h4'
+              >
+                宅建業法(20問)
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested3}>
@@ -330,9 +371,13 @@ const TakkenStudy = (props) => {
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.subTitle}
-            primary="
-            法令上の制限(8問)
-            "
+            primary={
+              <Typography
+                component='h4'
+              >
+                法令上の制限(8問)
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested3}>
@@ -346,9 +391,13 @@ const TakkenStudy = (props) => {
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.subTitle}
-            primary="
-            税、その他関連知識(8問)
-            "
+            primary={
+              <Typography
+                component='h4'
+              >
+                税、その他関連知識(8問)
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested3}>
@@ -364,9 +413,13 @@ const TakkenStudy = (props) => {
         <ListItem className={classes.nested2}>
           <ListItemText
             className={classes.title}
-            primary="
-            独学で合格できるか
-            "
+            primary={
+              <Typography
+                component='h3'
+              >
+                独学で合格できるか
+              </Typography>
+            }
           />
         </ListItem> 
         <ListItem className={classes.nested3}>

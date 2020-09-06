@@ -173,6 +173,7 @@ const AppLayout = (props) => {
           button 
           key={'Home'}
           onClick={clickHome}
+          component='li'
         >
           <ListItemIcon><HomeIcon /></ListItemIcon>
           <ListItemText primary={'ホーム'} />
@@ -181,6 +182,7 @@ const AppLayout = (props) => {
           button 
           onClick={handleClick}
           key={'MyExam'}
+          component='li'
         >
           <ListItemIcon>
             <InboxIcon />
@@ -199,6 +201,7 @@ const AppLayout = (props) => {
           button 
           key={'MyAccount'}
           onClick={() => history.push(`${paths.myaccount}`)}
+          component='li'
         >
           <ListItemIcon>
             <AccountCircle />
@@ -209,6 +212,7 @@ const AppLayout = (props) => {
           button 
           key={'通知'}
           onClick={() => history.push(`${paths.noticelist}`)}
+          component='li'
         >
           <ListItemIcon>
             <NotificationsIcon />

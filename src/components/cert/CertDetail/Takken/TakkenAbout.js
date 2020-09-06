@@ -51,9 +51,13 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested1}>
         <ListItemText
           className={classes.title}
-          primary="
-            どんな資格か
-          "
+          primary={
+            <Typography
+              component='h3'
+            >
+              どんな資格か
+            </Typography>
+          }
         />
       </ListItem>
       <ListItem className={classes.nested3}>
@@ -63,18 +67,26 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested1}>
         <ListItemText
           className={classes.title}
-          primary="
-            資格の魅力・取得メリット
-          "
+          primary={
+            <Typography
+              component='h3'
+            >
+              資格の魅力・取得メリット
+            </Typography>
+          }
         />
       </ListItem>
       <ListItem className={classes.nested2}>
         <CheckIcon fontSize='small' color='primary' />
         <ListItemText
           className={classes.fontColorRed}
-          primary="
-            誰でも受験できる価値ある国家資格
-          "
+          primary={
+            <Typography
+              component='h4'
+            >
+              誰でも受験できる価値ある国家資格
+            </Typography>
+          }
         />
       </ListItem>
       <ListItem className={classes.nested3}>
@@ -85,9 +97,13 @@ const TakkenAbout = (props) => {
         <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           className={classes.fontColorRed}
-          primary="
-            不動産取引のプロとして認められる
-          "
+          primary={
+            <Typography
+              component='h4'
+            >
+              不動産取引のプロとして認められる
+            </Typography>
+          }
         />
       </ListItem>
       <ListItem className={classes.nested3}>
@@ -98,9 +114,13 @@ const TakkenAbout = (props) => {
         <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           className={classes.fontColorRed}
-          primary="
-            就職・転職・独立等のステップアップに有効
-          "
+          primary={
+            <Typography
+              component='h4'
+            >
+              就職・転職・独立等のステップアップに有効
+            </Typography>
+          }
         />
       </ListItem>
       <ListItem className={classes.nested3}>
@@ -110,18 +130,26 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested1}>
         <ListItemText
           className={classes.title}
-          primary="
-          将来性・活躍シーン
-          "
+          primary={
+            <Typography
+              component='h3' 
+            >
+              将来性・活躍シーン
+            </Typography>
+          }
         />
       </ListItem>
       <ListItem className={classes.nested2}>
         <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           className={classes.fontColorRed}
-          primary="
-          将来性
-          "
+          primary={
+            <Typography
+              component='h4'
+            >
+              将来性
+            </Typography>
+          }
         />
       </ListItem>
       <ListItem className={classes.nested3}>
@@ -132,18 +160,26 @@ const TakkenAbout = (props) => {
         <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           className={classes.fontColorRed}
-          primary="
-          活躍シーン
-          "
+          primary={
+            <Typography
+              component='h4'
+            >
+              活躍シーン
+            </Typography>
+          }
         />
       </ListItem>
 
       <ListItem className={classes.nested2}>
         <ListItemText
           className={classes.subTitle}
-          primary="
-            不動産業界
-          "
+          primary={
+            <Typography
+              component='h5'
+            >
+              不動産業界
+            </Typography>
+          }
         />
       </ListItem> 
       <ListItem className={classes.nested3}>
@@ -152,9 +188,13 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested2}>
         <ListItemText
           className={classes.subTitle}
-          primary="
-          金融業界
-          "
+          primary={
+            <Typography
+              component='h5'
+            >
+              金融業界
+            </Typography>
+          }
         />
       </ListItem> 
       <ListItem className={classes.nested3}>
@@ -163,9 +203,13 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested2}>
         <ListItemText
           className={classes.subTitle}
-          primary="
-          その他一般企業
-          "
+          primary={
+            <Typography
+              component='h5'
+            >
+              その他一般企業
+            </Typography>
+          }
         />
       </ListItem> 
       <ListItem className={classes.nested3}>
@@ -174,9 +218,13 @@ const TakkenAbout = (props) => {
       <ListItem className={classes.nested2}>
         <ListItemText
           className={classes.subTitle}
-          primary="
-          独立開業、不動産投資など
-          "
+          primary={
+            <Typography
+              component='h5'
+            >
+              独立開業、不動産投資など
+            </Typography>
+          }
         />
       </ListItem>
       <ListItem className={classes.nested3}>

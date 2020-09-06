@@ -56,6 +56,10 @@ const useStyles = makeStyles((theme) => ({
   underLineFalse: {
     textDecoration: 'none',
   },
+  list: {
+    listStyle: 'none',
+    paddingLeft: 0,
+  },
 }))
 
 const ExpansionPanel = withStyles({
@@ -179,179 +183,208 @@ const CertDetail = (props) => {
       <AppLayout>
         <div id='root' />
         <CertBread />
-        <Box bgcolor='white' p={2} m={0}>
-          <h2>{cert.name}</h2>
-          <p>{cert.desc}</p>
-          { currentUser && isAllMyExam &&
-            <Button
-              color='primary'
-              fullWidth
-              variant="contained"
-              onClick={() => history.push(`/`)}
+        <section id='cert-top'>
+          <Box bgcolor='white' p={2} m={0}>
+            <Typography
+              component='h1'
             >
-              MY試験に移動
-            </Button>
-          }
-          { currentUser && !isAllMyExam &&
-            <Button
-              color='primary'
-              fullWidth
-              variant="contained"
-              onClick={handleOpen}
-            >
-              MY試験に登録する
-            </Button>
-          }
-          { !currentUser &&
-            <Button
-              color='primary'
-              fullWidth
-              variant="contained"
-              onClick={handleSignIn}
-            >
-              ログインしてMY試験に登録する
-            </Button>
-          }
+              <p>
+                <b>
+                  {cert.name}
+                </b>
+              </p>
+            </Typography>
+            <p>{cert.desc}</p>
+            { currentUser && isAllMyExam &&
+              <Button
+                color='primary'
+                fullWidth
+                variant="contained"
+                onClick={() => history.push(`/`)}
+              >
+                MY試験に移動
+              </Button>
+            }
+            { currentUser && !isAllMyExam &&
+              <Button
+                color='primary'
+                fullWidth
+                variant="contained"
+                onClick={handleOpen}
+              >
+                MY試験に登録する
+              </Button>
+            }
+            { !currentUser &&
+              <Button
+                color='primary'
+                fullWidth
+                variant="contained"
+                onClick={handleSignIn}
+              >
+                ログインしてMY試験に登録する
+              </Button>
+            }
 
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-          >
-            <div className={classes.paper}>
-              <h2 id="transition-modal-title">受験する資格試験に登録する</h2>
-              <p id="transition-modal-description">選択可能な試験は以下です。</p>
-              <CertSelectExam 
-                cert={cert} 
-                filteredExams={filteredExams}
-              />
-            </div>
-          </Modal>
-          <p>
-            My試験登録後には
-            <AnchorLink href='#whatIsBetMe' offset="50" className={classes.underLineFalse}>
-              <b
-                className={classes.redLink}
-                onClick={handleAboutBetme}
-              >
-                  BetMeチャレンジ
-              </b>
-            </AnchorLink>
-            もご利用できます。
-          </p>
-        </Box>
-        <div id='whatIsBetMe' />
-        {whatIsBetMeChallenge &&
-          <Box bgcolor='white' p={2} m={2}>
-            <AnchorLink href='#root' offset="50" className={classes.underLineFalse}>
-              <ListItem
-                button
-                className={classes.listLink}
-                onClick={handleBack}
-              >
-                <ArrowBackIcon
-                  fontSize='small'
+            <Modal
+              aria-labelledby="transition-modal-title"
+              aria-describedby="transition-modal-description"
+              className={classes.modal}
+              open={open}
+              onClose={handleClose}
+            >
+              <div className={classes.paper}>
+                <h2 id="transition-modal-title">受験する資格試験に登録する</h2>
+                <p id="transition-modal-description">選択可能な試験は以下です。</p>
+                <CertSelectExam 
+                  cert={cert} 
+                  filteredExams={filteredExams}
                 />
-                &nbsp;&nbsp;
-                戻る
-              </ListItem>
-            </AnchorLink>
-            <WhatIsBetMeChallenge 
-              setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
-              handleBack={handleBack}
-            />
+              </div>
+            </Modal>
+            <p>
+              My試験登録後には
+              <AnchorLink href='#whatIsBetMe' offset="50" className={classes.underLineFalse}>
+                <b
+                  className={classes.redLink}
+                  onClick={handleAboutBetme}
+                >
+                    BetMeチャレンジ
+                </b>
+              </AnchorLink>
+              もご利用できます。
+            </p>
           </Box>
-        }
+        </section>
+        <div id='whatIsBetMe' />
+        <section id='cert-whatisbetme'>
+          {whatIsBetMeChallenge &&
+            <Box bgcolor='white' p={2} m={2}>
+              <AnchorLink href='#root' offset="50" className={classes.underLineFalse}>
+                <ListItem
+                  button
+                  className={classes.listLink}
+                  onClick={handleBack}
+                >
+                  <ArrowBackIcon
+                    fontSize='small'
+                  />
+                  &nbsp;&nbsp;
+                  戻る
+                </ListItem>
+              </AnchorLink>
+              <WhatIsBetMeChallenge 
+                setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+                handleBack={handleBack}
+              />
+            </Box>
+          }
+        </section>
         <Spacer />
-        <div className={classes.root}>
-          <ExpansionPanel square expanded={expanded === 'panel0'} onChange={handleChange('panel0')}>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panelCertAbout"
-            >
-              <Typography className={classes.heading}>{cert.name}とは</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <div className={classes.fullWidthTable}>
-                <CertAbout cert={cert} />                
-              </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-          <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panelCertSummary"
-            >
-              <Typography className={classes.heading}>{cert.name}の概要</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <div className={classes.fullWidthTable}>
-                <CertSummary cert={cert} />                
-              </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-          <ExpansionPanel square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panelCertAboutStudy"
-            >
-              <Typography className={classes.heading}>攻略方法</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <div>
-                <CertAboutStudy cert={cert} />                
-              </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+        <section id='cert-content'>
+          <ul className={classes.list}>
+            <ExpansionPanel square expanded={expanded === 'panel0'} onChange={handleChange('panel0')} component='li'>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panelCertAbout"
+              >
+                <Typography 
+                  className={classes.heading}
+                  component='h2'
+                >
+                  {cert.name}とは
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div className={classes.fullWidthTable}>
+                  <CertAbout cert={cert} />                
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')} component='li'>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panelCertSummary"
+              >
+                <Typography 
+                  className={classes.heading}
+                  component='h2'
+                >
+                  {cert.name}の概要
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div className={classes.fullWidthTable}>
+                  <CertSummary cert={cert} />                
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel square expanded={expanded === 'panel2'} onChange={handleChange('panel2')} component='li'>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panelCertAboutStudy"
+              >
+                <Typography 
+                  className={classes.heading}
+                  component='h2'
+                >
+                  攻略方法
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div>
+                  <CertAboutStudy cert={cert} />                
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
 
-          {!true &&
-          <ExpansionPanel square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panelAfterPass"
-            >
-              <Typography className={classes.heading}>合格後について</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <div>
-                <CertAfterPass cert={cert} />                
-              </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-          }
-          
-          {!true &&
-          <ExpansionPanel square expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panelCertNews"
-            >
-              <Typography className={classes.heading}>{cert.name}についての記事を読む</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <div>
-                <CertNews cert={cert} />                
-              </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-          }
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-        </div>
+            {!true &&
+            <ExpansionPanel square expanded={expanded === 'panel3'} onChange={handleChange('panel3')} component='li'>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panelAfterPass"
+              >
+                <Typography className={classes.heading}>合格後について</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div>
+                  <CertAfterPass cert={cert} />                
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            }
+            
+            {!true &&
+            <ExpansionPanel square expanded={expanded === 'panel4'} onChange={handleChange('panel4')} component='li'>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panelCertNews"
+              >
+                <Typography className={classes.heading}>{cert.name}についての記事を読む</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div>
+                  <CertNews cert={cert} />                
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            }
+            <Spacer />
+            <Spacer />
+            <Spacer />
+            <Spacer />
+            <Spacer />
+            <Spacer />
+            <Spacer />
+            <Spacer />
+            <Spacer />
+          </ul>
+        </section>
       </AppLayout>
     </>
   )

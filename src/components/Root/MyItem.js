@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import { Box } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import { UserContext } from 'hooks/User';
 import List from '@material-ui/core/List';
 import ExamList from "components/commons/card/ExamList";
@@ -11,7 +11,11 @@ const MyItem = (props) => {
   return (
     <>
       <Box bgcolor='white' p={2} m={0}>
-        <p>My試験</p>
+        <Typography
+          component='h2'
+        >
+          <p>My試験</p>
+        </Typography>
         <List>
           {props.frag && user.myExam.map(examId => (
             <ExamList 

@@ -1,11 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Typography } from '@material-ui/core';
 
 const TermsOfBetmeContent = (props) => {
   return (
     <>
+<Typography
+  component='h1'
+>
 <b>
 BetMe利用規約
 </b>
+</Typography>
+
 <br />
 <br />
 BetMe利用規約(以下「本規約」といいます。)は、Signal&Company株式会社(以下「当社」といいます。)が提供する学習モチベーション維持サービスBetMe(以下「本サービス」といいます。)をユーザーが利用する際に適用されます。

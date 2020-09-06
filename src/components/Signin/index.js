@@ -7,7 +7,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase, { auth } from "FirebaseConfig";
 import { AuthContext } from "hooks/Auth";
 import SigninForm from './SigninForm';
-import { Box, Link, Button } from '@material-ui/core';
+import { Box, Link, Button, Typography } from '@material-ui/core';
 
 // const uiConfig = {
 //   signInFlow: 'popup',
@@ -33,7 +33,11 @@ const Signin = (props) => {
       <AppLayout>
         <Box bgcolor='white' p={2} m={0}>
           {/* <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} /> */}
-          <h1>ログイン</h1>
+          <Typography
+            component='h1'
+          >
+            <p><b>ログイン</b></p>
+          </Typography>
           <SigninForm />
           <Spacer />
           <Link 
@@ -42,13 +46,11 @@ const Signin = (props) => {
             パスワードリセット
           </Link>
           <Spacer />
-          <Button
-            color='primary'
-            variant="outlined"
+          <Link
             onClick={() => history.push(`${paths.signup}`)} 
           >
             新規登録
-          </Button> 
+          </Link> 
           <Spacer />
         </Box>
       </AppLayout>

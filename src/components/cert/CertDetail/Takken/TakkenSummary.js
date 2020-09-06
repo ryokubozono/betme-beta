@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { Link, Table, TableCell, TableBody, TableRow } from "@material-ui/core";
+import { Link, Table, TableCell, TableBody, TableRow, Typography } from "@material-ui/core";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -58,9 +58,13 @@ const TakkenSummary = (props) => {
         <ListItem>
           <ListItemText
             className={classes.title}
-            primary="
-              受験申込みについて
-            "
+            primary={
+              <Typography
+                component='h3'
+              >
+                受験申込みについて
+              </Typography>
+            }
           />
         </ListItem>
       </List>
@@ -125,9 +129,13 @@ const TakkenSummary = (props) => {
         <ListItem>
           <ListItemText
             className={classes.title}
-            primary="
-              試験実施日程・概要
-            "
+            primary={
+              <Typography
+                component='h3'
+              >
+                試験実施日程・概要
+              </Typography>
+            }
           />
         </ListItem>
       </List>

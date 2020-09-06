@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState } from "react";
 import firebase, { auth, db } from "FirebaseConfig";
 import AppLayout from 'components/commons/layout/AppLayout';
-import { Button, Box, Dialog, CircularProgress } from '@material-ui/core';
+import { Button, Box, Dialog, CircularProgress, Typography } from '@material-ui/core';
 import { withStyles } from "@material-ui/styles";
 import paths from 'paths';
 import { useHistory } from 'react-router-dom';
@@ -386,38 +386,51 @@ const MyAccount = (props) => {
         </Dialog>
       }
       <AppLayout>
-        <Box bgcolor='white' p={2} m={0}>
-          <p>メール認証: <b>{ emailVarified ? ('完了'):('未完了') }</b></p>
-          {!emailVarified &&
+        <Typography
+        component='h1'
+        >
+          <p>
+            <b>
+              アカウント設定
+            </b>
+          </p>
+        </Typography>
+        <section>
+          <Box bgcolor='white' p={2} m={0}>
+            <p>メール認証: <b>{ emailVarified ? ('完了'):('未完了') }</b></p>
+            {!emailVarified &&
+              <Button
+                color='primary'
+                variant='outlined'
+                onClick={sendValidEmail}
+              >
+                認証メールを送信する
+              </Button>
+            }
+          </Box>
+        </section>
+        <br />
+        <section>
+          <Box bgcolor='white' p={2} m={0}>
+            <p>メールアドレス: <b>{email}</b></p>
             <Button
               color='primary'
               variant='outlined'
-              onClick={sendValidEmail}
+              onClick={handleEmail}
             >
-              認証メールを送信する
+              メールアドレス変更
             </Button>
-          }
-        </Box>
-        <br />
-        <Box bgcolor='white' p={2} m={0}>
-          <p>メールアドレス: <b>{email}</b></p>
-          <Button
-            color='primary'
-            variant='outlined'
-            onClick={handleEmail}
-          >
-            メールアドレス変更
-          </Button>
-          <br /><br />
-          <Button
-            color='primary'
-            variant='outlined'
-            onClick={handlePassword}
-          >
-            パスワード変更
-          </Button>
+            <br /><br />
+            <Button
+              color='primary'
+              variant='outlined'
+              onClick={handlePassword}
+            >
+              パスワード変更
+            </Button>
 
-        </Box>
+          </Box>
+        </section>
         <br />
         {!true &&
         <Box bgcolor='white' p={2} m={0}>
@@ -466,30 +479,30 @@ const MyAccount = (props) => {
             formType='myAccount'
           />
         </Box> */}
-        
-        <Box bgcolor='white' p={2} m={0}>
-          <p>プロフィール</p>
-          <ProfileForm 
-            handleChange={handleChange}
-            nickName={nickName}
-            birthdayRef={birthdayRef}
-            job={job}
-            school={school}
-            biz={biz}
-            gender={gender}
-            pref={pref}
-            educ={educ}
-            highSchool={highSchool}
-            college={college}
-            toGetMoney={toGetMoney}
-            toUseTimer={toUseTimer}
-            regPurposeRef={regPurposeRef}
-            handleRegPurpose={handleRegPurpose}
-            formType='myAccount'
-            handleNext={handleNext}
-          />
-        </Box>
-
+        <section>
+          <Box bgcolor='white' p={2} m={0}>
+            <p>プロフィール</p>
+            <ProfileForm 
+              handleChange={handleChange}
+              nickName={nickName}
+              birthdayRef={birthdayRef}
+              job={job}
+              school={school}
+              biz={biz}
+              gender={gender}
+              pref={pref}
+              educ={educ}
+              highSchool={highSchool}
+              college={college}
+              toGetMoney={toGetMoney}
+              toUseTimer={toUseTimer}
+              regPurposeRef={regPurposeRef}
+              handleRegPurpose={handleRegPurpose}
+              formType='myAccount'
+              handleNext={handleNext}
+            />
+          </Box>
+        </section>
       </AppLayout>
     </>
   )

@@ -1,11 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Typography } from '@material-ui/core';
 
 const PrivacyPolicyContent = (props) => {
   return (
     <>
-      <b>
-        プライバシーポリシー
-      </b>
+      <Typography
+        component='h1'
+      >
+        <b>
+          プライバシーポリシー
+        </b>
+      </Typography>
       <br />
       <p>
         Signal & Company株式会社(以下、「当社」)は、当社が運営するWebによる資格試験における学習モチベーション維持サービス「BetMe(以下、「本サービス」)」において取得されたユーザーの個人情報を、利用目的を明確にした上で、誠実かつ責任ある対応をもって適切に取り扱い、ユーザーのプライバシーの保護に努めます。

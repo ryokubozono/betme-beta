@@ -219,7 +219,12 @@ const Signup = (props) => {
     }
       <AppLayout>
         <Box bgcolor='white' p={2} m={0}>
-          <h1>新規登録</h1>
+          <Typography
+            component='h1'
+          >
+            <p><b>新規登録</b></p>
+            
+          </Typography>
 
           <div>
             <Stepper 
@@ -301,13 +306,11 @@ const Signup = (props) => {
             </div>
           </div>
           <Spacer />
-          <Button
-            color='primary'
-            variant="outlined"
+          <Link
             onClick={() => history.push(`${paths.signin}`)} 
           >
             ログイン
-          </Button>
+          </Link>
           <Spacer />
         </Box>
       </AppLayout>

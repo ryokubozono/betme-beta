@@ -1,7 +1,7 @@
 import React from "react";
 import study_image from 'assets/study_1.jpg';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Button, List, ListItem } from "@material-ui/core";
+import { Button, List, ListItem, Typography } from "@material-ui/core";
 import { useHistory } from 'react-router-dom';
 import paths from 'paths';
 import BetMeLogo from 'assets/betme_logo_04.png';
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header3: {
     position: 'absolute',
-    top: '2em',
+    top: '2.0em',
     fontSize: '2.0em',
     left: '50%',
     transform: 'translateX(-50%)',
@@ -80,11 +80,16 @@ const TopSlider = (props) => {
         ベットミー
       </div>
       <div className={classes.header3}>
+        <Typography 
+          component='h1'
+        >
           <img
             src={BetMeLogo}
             height='40'
             className={classes.white}
+            alt='BetMe'
           />
+        </Typography>
 
       </div>
       <div className={classes.sliderButton} >

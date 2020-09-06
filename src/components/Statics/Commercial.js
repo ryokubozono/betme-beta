@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link, Table, TableCell, TableBody, TableRow } from "@material-ui/core";
+import { Link, Table, TableCell, TableBody, TableRow, Typography } from "@material-ui/core";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import AppLayout from 'components/commons/layout/AppLayout';
 import { Box } from "@material-ui/core";
@@ -51,9 +51,13 @@ const Commercial = (props) => {
     <>
       <AppLayout>
         <Box bgcolor='white' p={2} m={0}>
-          <b>
-            特定商取引法に基づく表示
-          </b>
+          <Typography
+            component='h1'
+          >
+            <b>
+              特定商取引法に基づく表示
+            </b>
+          </Typography>
           <br />
           <br />
           <Table>

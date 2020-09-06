@@ -1,11 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Typography } from '@material-ui/core';
 
 const TermsOfChallegeContent = (props) => {
   return (
     <>
+<Typography
+  component='h1'
+>
 <b>
 BetMeチャレンジ利用規約
 </b>
+</Typography>
 <br />
 <br />
 BetMeチャレンジ利用規約は、Signal&Company株式会社が提供する学習モチベーション維持に関する有料サービスのご利用に関する事項を定めております。

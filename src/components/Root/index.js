@@ -98,18 +98,22 @@ const Root = (props) => {
 
         {!currentUser &&
           <>
-            <TopSlider />
-            {!whatIsBetMeChallenge &&
-              <WhatIsBetMe 
-                setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
-              />
-            }
-            {whatIsBetMeChallenge &&
-              <WhatIsBetMeChallenge 
-                setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
-                handleBack={handleBack}
-              />
-            }
+            <section id='root-topslider'>
+              <TopSlider />
+            </section>
+            <section id='root-whatisbetme'>
+              {!whatIsBetMeChallenge &&
+                <WhatIsBetMe 
+                  setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+                />
+              }
+              {whatIsBetMeChallenge &&
+                <WhatIsBetMeChallenge 
+                  setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+                  handleBack={handleBack}
+                />
+              }
+            </section>
             <Spacer />
           </>
         }
@@ -117,28 +121,33 @@ const Root = (props) => {
         {currentUser &&
           <>
             <TopBread />
-            <MyItem
-              examTarget={examTarget} 
-              setExamTarget={setExamTarget} 
-              setEvent={setEvent}
-              frag={frag}
-              setEditFrag={setEditFrag}
-              setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
-            />
+            <section id='root-myitem'>
+              <MyItem
+                examTarget={examTarget} 
+                setExamTarget={setExamTarget} 
+                setEvent={setEvent}
+                frag={frag}
+                setEditFrag={setEditFrag}
+                setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+              />
+            </section>
             <br />
             <div id='whatIsBetMe' />
+
             {whatIsBetMeChallenge ? (
-              <WhatIsBetMeChallenge 
-                setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
-                handleBack={handleBack}
-                handlePaypal={handlePaypal}
-                examTarget={examTarget}
-                cert={cert}
-                setLoading={setLoading}
-                handleClose={handleClose}
-              />
+              <section id='root-whatisbetmechallenge'>
+                <WhatIsBetMeChallenge 
+                  setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
+                  handleBack={handleBack}
+                  handlePaypal={handlePaypal}
+                  examTarget={examTarget}
+                  cert={cert}
+                  setLoading={setLoading}
+                  handleClose={handleClose}
+                />
+              </section>
             ):(
-              <>
+              <section id='root-examtabs'>
                 {frag && examTarget &&
                   <ExamTabs 
                     examTarget={examTarget} 
@@ -152,14 +161,16 @@ const Root = (props) => {
                     setWhatIsBetMeChallenge={setWhatIsBetMeChallenge}
                   />
                 }
-              </>
+              </section>
             )}
           </>
         }
 
         {!examTarget &&
           <>
-            <SearchItem />
+            <section id='root-search'>
+              <SearchItem />
+            </section>
           </>
         }
       </AppLayout>

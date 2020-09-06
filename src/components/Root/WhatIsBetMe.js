@@ -100,9 +100,13 @@ const WhatIsBetMe = (props) => {
       className={classes.align}
     >
       <Container maxWidth="sm">
-        <p className={classes.title}>
-          BetMeとは？
-        </p>
+        <Typography
+          component='h2'
+        >
+          <p className={classes.title}>
+            BetMeとは？
+          </p>
+        </Typography>
         <p className={classes.body}>
           資格試験におけるあなたのモチベーション管理サービスです。
         </p>

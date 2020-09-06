@@ -17,7 +17,7 @@ import AnchorLink from 'react-anchor-link-smooth-scroll';
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    fontSize: '1.5em',
+    fontSize: '1.2em',
     fontWeight: 'bold',
     verticalAlign: 'middle',
   },
@@ -98,14 +98,18 @@ const WhatIsBetMeChallenge = (props) => {
   return (
     <div>
       <br />
-      <>
-        <img src={BetMeLogo} height='30' className={classes.img} />
-      </>
-      <b
-        className={classes.title}
+      <Typography
+        component='h2'
       >
-        BetMeチャレンジとは？
-      </b>
+        <>
+          <img src={BetMeLogo} height='30' className={classes.img} />
+        </>
+        <b
+          className={classes.title}
+        >
+          BetMeチャレンジとは？
+        </b>
+      </Typography>
       <div
         className={classes.label}
       >
@@ -116,8 +120,9 @@ const WhatIsBetMeChallenge = (props) => {
         資格試験における、もう1ランク上のモチベーション管理サービスです。
       </p>
 
-      <div
+      <section
         className={classes.box}
+        id='what-1'
       >
         <Icon
           className={classes.img}
@@ -152,10 +157,11 @@ const WhatIsBetMeChallenge = (props) => {
         >
           * チャレンジ料金は試験により異なります。
         </p>
-      </div>
+      </section>
       <Spacer />
-      <div
+      <section
         className={classes.box}
+        id='what-2'
       >
         <Icon
           className={classes.img}
@@ -192,12 +198,13 @@ const WhatIsBetMeChallenge = (props) => {
           ** 報酬は試験により異なります。
         </p>
 
-      </div>
+      </section>
       <Spacer />
 
       {props.cert &&　props.examTarget && props.examTarget.returnAmount &&
-      <div
+      <section
         className={classes.box}
+        id='what-3'
       >
         <p>
           お申し込みのために下記の留意事項を読み、チェックを入れてください。
@@ -276,7 +283,7 @@ const WhatIsBetMeChallenge = (props) => {
           />
         }
         
-      </div>
+      </section>
       }
       <AnchorLink href='#root' offset="50" className={classes.underLineFalse}>
         <ListItem

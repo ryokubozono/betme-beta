@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import AppLayout from 'components/commons/layout/AppLayout';
 import SignupForm from 'components/Signup/SignupForm';
 import { Box, Link, Button, Dialog, CircularProgress } from '@material-ui/core';
@@ -15,6 +15,7 @@ import ProfileForm from 'components/Signup/ProfileForm';
 import ConfirmForm from 'components/Signup/ConfirmForm';
 import { regPurposes } from 'components/commons/consts/regPurposes';
 import { GetTimestamp } from 'components/commons/atoms/GetTimestamp';
+import ReactGA from 'react-ga';
 
 const useStyles = makeStyles((theme) => ({
   instructions: {
@@ -186,6 +187,17 @@ const Signup = (props) => {
         }
       })
 
+      ReactGA.event({
+        category: 'signup',
+        action: 'submit',
+        nonInteraction: false
+      })
+      // ReactGA.ga('send', {
+      //   hitType: 'event',
+      //   eventCategory: 'signup',
+      //   eventAction: 'submit',
+      // })
+
       history.push({
         pathname: `${paths.root}`,
         state: {
@@ -204,6 +216,11 @@ const Signup = (props) => {
       });
     })
   }
+
+  useEffect(() => {
+    ReactGA.initialize('UA-175878570-1')
+    // console.log(ReactGA)
+  }, [])
 
   return (
     <>

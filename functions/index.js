@@ -1,8 +1,16 @@
-const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+const functions = {
+  sendMail: './src/sendMail',
+};
+
+loadFunctions = (funcs) => {
+  for (let name in funcs) {
+    if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === name) {
+      exports[name] = require(funcs[name]);
+    }
+  }
+};
+
+loadFunctions(functions);

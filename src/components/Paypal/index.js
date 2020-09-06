@@ -19,6 +19,7 @@ import BasicForm from "components/MyAccount/BasicForm";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Icon, List, ListItem } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import ReactGA from 'react-ga';
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -154,6 +155,18 @@ const Paypal = (props) => {
         betmeExam: firebase.firestore.FieldValue.arrayUnion(props.exam.docId)
       }, {merge: true})
       .then(() => {
+
+        ReactGA.event({
+          category: 'betme',
+          action: 'submit',
+          nonInteraction: false
+        })
+        // ReactGA.ga('send', {
+        //   hitType: 'event',
+        //   eventCategory: 'betme',
+        //   eventAction: 'submit',
+        // })
+
         props.setLoading(false);
         props.setWhatIsBetMeChallenge(false)
         history.push({
@@ -176,6 +189,11 @@ const Paypal = (props) => {
       })
     }
   }
+
+  useEffect(() => {
+    ReactGA.initialize('UA-175878570-1')
+    // console.log(ReactGA)
+  }, [])
 
   return (
     <>

@@ -48,6 +48,13 @@ const AdminNav = (props) => {
           onClick={() => history.push(`${paths.noticeindex}`)}
         >
           <ListItemText primary={'Notice'} />
+        </ListItem>   
+        <ListItem
+          button 
+          key={'Story'}
+          onClick={() => history.push(`${paths.storyindex}`)}
+        >
+          <ListItemText primary={'Story'} />
         </ListItem>        
       </List>
     </>

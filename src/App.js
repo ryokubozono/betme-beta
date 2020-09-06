@@ -49,6 +49,10 @@ import TermsOfBetme from 'components/Statics/TermsOfBetme';
 import TermsOfChallege from 'components/Statics/TermsOfChallenge';
 import Commercial from 'components/Statics/Commercial';
 import EmailReset from 'components/EmailReset';
+import ContactPage from 'components/ContactPage';
+import StoryIndex from 'components/admin/story';
+import StoryEdit from 'components/admin/story/StoryEdit';
+import StoryNew from 'components/admin/story/StoryNew';
 
 const theme = createMuiTheme({
   palette: {
@@ -89,6 +93,10 @@ function App() {
         <NoticesProvider>
         <MyNoticesProvider>
         <ThemeProvider theme={theme}>
+          <Route exact path={paths.storynew} component={StoryNew} key='storynew' />
+          <Route exact path={paths.storyedit} component={StoryEdit} key='storyedit' />
+          <Route exact path={paths.storyindex} component={StoryIndex} key='storyindex' />
+          <Route exact path={paths.contactpage} component={ContactPage} key='contactpage' />
           <Route exact path={paths.emailreset} component={EmailReset} key='emailreset' />
           <Route exact path={paths.commercial} component={Commercial} key='commercial' />
           <Route exact path={paths.termsofchallenge} component={TermsOfChallege} key='termsofchallenge' /> 

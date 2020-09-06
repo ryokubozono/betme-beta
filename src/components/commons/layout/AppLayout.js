@@ -36,6 +36,7 @@ import AdminNav from './AdminNav';
 import BetMeLogo from 'assets/betme_logo_02.png';
 import { MyNoticesContext } from 'hooks/MyNotices';
 import AppLogin from './AppLogin';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
 
 const drawerWidth = 240;
 
@@ -218,6 +219,17 @@ const AppLayout = (props) => {
             <NotificationsIcon />
           </ListItemIcon>
           <ListItemText primary={'通知'} />
+        </ListItem>
+        <ListItem
+          button 
+          key={'お問い合わせ'}
+          onClick={() => history.push(`${paths.contactpage}`)}
+          component='li'
+        >
+          <ListItemIcon>
+            <ContactMailIcon />
+          </ListItemIcon>
+          <ListItemText primary={'お問い合わせ'} />
         </ListItem>
       </List>
       <Divider />

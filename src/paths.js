@@ -6,6 +6,8 @@ const paths = {
   emailreset: '/emailreset',
   // 404
   nopagefound: '/404',
+  // contact
+  contactpage: '/contact',
   // root
   root: '/',
   // my account
@@ -27,6 +29,10 @@ const paths = {
   bookindex: '/admin/book/index',
   booknew: '/admin/book/new',
   bookedit: '/admin/book/edit/:uid',
+  // admin story
+  storyindex: '/admin/story/index',
+  storynew: '/admin/story/new',
+  storyedit: '/admin/story/edit/:uid',
   // admin user
   userindex: '/admin/user/index',
   useredit: '/admin/user/edit/:uid',
@@ -45,6 +51,7 @@ const paths = {
   termsofbetme: '/termsofbetme',
   termsofchallenge: '/termsofchallenge',
   commercial: '/commercial',
+
 };
 
 export default paths;

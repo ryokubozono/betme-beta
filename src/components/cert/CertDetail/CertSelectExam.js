@@ -14,6 +14,7 @@ import { AuthContext } from "hooks/Auth";
 import { useHistory } from 'react-router-dom';
 import { UserContext } from 'hooks/User';
 import paths from 'paths';
+import ReactGA from 'react-ga';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -71,6 +72,16 @@ const CertSelectExam = (props) => {
         myExam: firebase.firestore.FieldValue.arrayUnion(exam.uid)
       }, {merge: true})
       .then(() => {
+        ReactGA.event({
+          category: 'myexam',
+          action: 'add',
+          nonInteraction: false
+        })
+        // ReactGA.ga('send', {
+        //   hitType: 'event',
+        //   eventCategory: 'myexam',
+        //   eventAction: 'add',
+        // })
         history.push({
           pathname: '/',
           search: `examId=${exam.uid}`,
@@ -92,6 +103,11 @@ const CertSelectExam = (props) => {
       })
     }
   }
+
+  useEffect(() => {
+    ReactGA.initialize('UA-175878570-1')
+    // console.log(ReactGA)
+  }, [])
 
   return (
     <TableContainer component={Paper}>

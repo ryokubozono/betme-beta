@@ -7,6 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import NoImage from 'assets/no_image.jpg';
 import takken from 'components/cert/CertDetail/Takken/takken_top.jpg';
+import gyosei from 'components/cert/CertDetail/Gyosei/gyosei_top.jpg';
 import { useHistory } from 'react-router-dom';
 
 
@@ -55,6 +56,13 @@ const CertCard = (props) => {
           <CardMedia
             className={classes.media}
             image={takken}
+            title="Contemplative Reptile"
+          />
+        }
+        {props.cert.url === 'gyosei' &&
+          <CardMedia
+            className={classes.media}
+            image={gyosei}
             title="Contemplative Reptile"
           />
         }

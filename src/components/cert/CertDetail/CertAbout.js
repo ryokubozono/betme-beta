@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import TakkenAbout from "./Takken/TakkenAbout";
+import GyoseiAbout from "./Gyosei/GyoseiAbout";
 
 const CertAbout = (props) => {
 
@@ -7,6 +8,9 @@ const CertAbout = (props) => {
     <>
       {props.cert.url === 'takken' &&
         <TakkenAbout />
+      }
+      {props.cert.url === 'gyosei' &&
+        <GyoseiAbout />
       }
     </>
   )

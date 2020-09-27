@@ -5,6 +5,7 @@ import { Dialog, CircularProgress, Box, Typography } from "@material-ui/core";
 import {auth, db} from "FirebaseConfig";
 import { useHistory } from 'react-router-dom';
 import ReactGA from 'react-ga';
+import paths from "paths";
 
 
 const firebase = require("firebase");
@@ -59,22 +60,11 @@ const ContactPage = (props) => {
         action: 'submit',
         nonInteraction: false
       })
-      // ReactGA.ga('send', {
-      //   hitType: 'event',
-      //   eventCategory: 'contact',
-      //   eventAction: 'submit',
-      // })
-      // console.log(ReactGA)
-      // .catch((error) => {
-      //   setLoading(false)
-      //   history.push({
-      //     state: {
-      //       text: error.message,
-      //       type: 'error'        
-      //     }
-      //   });
-      // })
+      
       setLoading(false)
+      setEmail('')
+      setSubject('')
+      setContent('')
       history.push({
         state: {
           text: 'お問い合わせを送信しました',

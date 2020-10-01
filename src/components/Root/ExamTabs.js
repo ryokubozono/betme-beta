@@ -176,7 +176,7 @@ const ExamTabs = (props) => {
   return (
     <>
       <Box bgcolor='white'>
-      {frag &&
+      {frag && props.cert && props.examTarget && props.examTarget.betAmount &&
         <div
           className={classes.box}
         >
@@ -215,11 +215,11 @@ const ExamTabs = (props) => {
               >
                 {props.examTarget.returnAmount.toLocaleString()}円
               </b>
+              <br />
+              ※合格体験記はBetMeチャレンジをご利用の合格者がご提出いただけます。
             </p>
           }
-          <p>
-            ※合格体験記はBetMeチャレンジをご利用の合格者がご提出いただけます。
-          </p>
+
           <br />
         </div>
       }
@@ -296,20 +296,22 @@ const ExamTabs = (props) => {
       </div>
       <br />
       <div className={classes.dateAlign}>
-        <AnchorLink href='#whatIsBetMe' offset="50" className={classes.underLineFalse}>
-          <Button
-          　color='primary'
-            variant="contained"
-            size='small'
-            onClick={handleWhat}
-            disabled={!frag}
-            fullWidth
-            className={classes.webButton}
-          >
-            { frag && 'BetMeチャレンジに申込む' }
-            { !frag && 'BetMeチャレンジ申込済' }
-          </Button>
-        </AnchorLink>
+        { props.cert && props.examTarget && props.examTarget.betAmount &&
+          <AnchorLink href='#whatIsBetMe' offset="50" className={classes.underLineFalse}>
+            <Button
+            　color='primary'
+              variant="contained"
+              size='small'
+              onClick={handleWhat}
+              disabled={!frag}
+              fullWidth
+              className={classes.webButton}
+            >
+              { frag && 'BetMeチャレンジに申込む' }
+              { !frag && 'BetMeチャレンジ申込済' }
+            </Button>
+          </AnchorLink>
+        }
         <br />
         <br />
         {frag &&

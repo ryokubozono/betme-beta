@@ -34,7 +34,7 @@ const StoryNew = (props) => {
   const [start, setStart] = useState('');
   const [hours, setHours] = useState('');
   const [aveHoursDays, setAveHoursDays] = useState('');
-  const [avehoursHols, setAveHoursHols] = useState('');
+  const [aveHoursHols, setAveHoursHols] = useState('');
   const [studyType, setStudyType] = useState('');
   const [books, setBooks] = useState([]);
   const [schools, setSchools] = useState([]);
@@ -46,6 +46,7 @@ const StoryNew = (props) => {
   const [impBetme, setImpBetme] = useState('');
   const [expBetme, setExpBetme] = useState('');
   const [income, setIncome] = useState('');
+  const [certId, setCertId] = useState('');
 
   const history = useHistory();
 
@@ -117,6 +118,9 @@ const StoryNew = (props) => {
       case 'schools':
         setSchools(event.target.value)
         break;
+      case 'certId':
+        setCertId(event.target.value)
+        break;
       default:
         console.log('no key match')
     }
@@ -137,7 +141,7 @@ const StoryNew = (props) => {
       start: start,
       hours: hours,
       aveHoursDays: aveHoursDays,
-      avehoursHols: avehoursHols,
+      aveHoursHols: aveHoursHols,
       studyType: studyType,
       books: books,
       schools: schools,
@@ -149,6 +153,7 @@ const StoryNew = (props) => {
       impBetme: impBetme,
       expBetme: expBetme,
       income: income,
+      certId: certId,
     })
     .then(() => {
       history.push({
@@ -187,7 +192,7 @@ const StoryNew = (props) => {
             start={start}
             hours={hours}
             aveHoursDays={aveHoursDays}
-            avehoursHols={avehoursHols}
+            aveHoursHols={aveHoursHols}
             studyType={studyType}
             books={books}
             schools={schools}
@@ -199,6 +204,7 @@ const StoryNew = (props) => {
             impBetme={impBetme}
             expBetme={expBetme}
             income={income}
+            certId={certId}
           />
           <Spacer/>
           <div className={classes.buttonAlign}>

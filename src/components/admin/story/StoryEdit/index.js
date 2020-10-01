@@ -45,6 +45,7 @@ const StoryEdit = (props) => {
   const [impBetme, setImpBetme] = useState('');
   const [expBetme, setExpBetme] = useState('');
   const [income, setIncome] = useState('');
+  const [certId, setCertId] = useState('');
 
   const history = useHistory();
 
@@ -116,6 +117,9 @@ const StoryEdit = (props) => {
       case 'schools':
         setSchools(event.target.value)
         break;
+      case 'certId':
+        setCertId(event.target.value)
+        break;
       default:
         console.log('no key match')
     }
@@ -148,6 +152,7 @@ const StoryEdit = (props) => {
         setImpBetme(storyRef.impBetme)
         setExpBetme(storyRef.expBetme)
         setIncome(storyRef.income)
+        setCertId(storyRef.certId)
       }
     }
   }, [stories, location.pathname])
@@ -192,6 +197,7 @@ const StoryEdit = (props) => {
       impBetme: impBetme,
       expBetme: expBetme,
       income: income,
+      certId: certId,
     }, {merge: true})
     .then(() => {
       history.push({
@@ -241,6 +247,7 @@ const StoryEdit = (props) => {
             impBetme={impBetme}
             expBetme={expBetme}
             income={income}
+            certId={certId}
           />
           <Spacer/>
           <div className={classes.buttonAlign}>

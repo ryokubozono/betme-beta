@@ -6,6 +6,9 @@ import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import { CertsContext } from "hooks/Certs";
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
   textFeild: {
@@ -18,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StoryForm = (props) => {
   const classes = useStyles();
+  const { certs } = useContext(CertsContext); 
 
   return (
     <>
@@ -26,6 +30,20 @@ const StoryForm = (props) => {
         onSubmit={props.handleSubmit}
         onError={errors => console.log(errors)}
       >
+        <Select
+          label="資格"
+          id="certId"
+          name='certId'
+          value={props.certId}
+          onChange={props.handleChange}
+        >
+          {certs.map(cert => (
+            <MenuItem value={cert.docId}>{cert.name}</MenuItem>
+          ))}
+        </Select>
+
+        <br />
+
         <TextValidator
           label='年齢'
           id="age"

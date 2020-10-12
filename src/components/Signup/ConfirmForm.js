@@ -61,6 +61,7 @@ const ConfirmForm = (props) => {
           <TextValidator
             className={classes.formControl} 
             required
+            disabled
             label='メールアドレス'
             id="email"
             name='email'
@@ -75,6 +76,7 @@ const ConfirmForm = (props) => {
           <TextValidator
             className={classes.formControl} 
             required
+            disabled
             label='パスワード'
             id="password"
             name='password'
@@ -90,6 +92,7 @@ const ConfirmForm = (props) => {
           <TextValidator
             className={classes.formControl} 
             required
+            disabled
             label='ニックネーム'
             id='nickName'
             name='nickName'
@@ -126,6 +129,7 @@ const ConfirmForm = (props) => {
               name='birthdayRef'
               label="生年月日"
               type="date"
+              disabled
               className={classes.textField}
               value={props.birthdayRef}
               InputLabelProps={{
@@ -145,6 +149,7 @@ const ConfirmForm = (props) => {
               label='職業'
               name='job'
               id='job'
+              disabled
               className={classes.textField}
               value={props.job}
               InputProps={{
@@ -186,6 +191,7 @@ const ConfirmForm = (props) => {
               label='性別'
               name='gender'
               id='gender'
+              disabled
               className={classes.textField}
               value={props.gender}
               InputProps={{
@@ -202,6 +208,7 @@ const ConfirmForm = (props) => {
               label='都道府県'
               name='pref'
               id='pref'
+              disabled
               className={classes.textField}
               value={props.pref}
               InputProps={{

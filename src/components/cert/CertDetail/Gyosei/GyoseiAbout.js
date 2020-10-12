@@ -183,64 +183,16 @@ const GyoseiAbout = (props) => {
         />
       </ListItem> 
       <ListItem className={classes.nested3}>
-      
-      </ListItem> 
-      <ListItem className={classes.nested2}>
-        <ListItemText
-          className={classes.subTitle}
-          primary={
-            <Typography
-              component='h5'
-            >
-              遺言・相続
-            </Typography>
-          }
-        />
+        ・遺言・相続
       </ListItem> 
       <ListItem className={classes.nested3}>
-      
-      </ListItem> 
-      <ListItem className={classes.nested2}>
-        <ListItemText
-          className={classes.subTitle}
-          primary={
-            <Typography
-              component='h5'
-            >
-              契約書関係
-            </Typography>
-          }
-        />
+        ・契約書関係
       </ListItem> 
       <ListItem className={classes.nested3}>
-      
-      </ListItem> 
-      <ListItem className={classes.nested2}>
-        <ListItemText
-          className={classes.subTitle}
-          primary={
-            <Typography
-              component='h5'
-            >
-              成年後見
-            </Typography>
-          }
-        />
+        ・成年後見
       </ListItem>
       <ListItem className={classes.nested3}>
-      
-      </ListItem> 
-      <ListItem className={classes.nested2}>
-        <ListItemText
-          className={classes.subTitle}
-          primary={
-            <Typography
-              component='h5'
-            >
-              その他（民亊法務、車庫証明など）
-            </Typography>
-          }
-        />
+        ・その他（民亊法務、車庫証明など）
       </ListItem>
       <ListItem className={classes.nested2}>
         <ListItemText
@@ -254,53 +206,17 @@ const GyoseiAbout = (props) => {
           }
         />
       </ListItem>
-      <ListItem className={classes.nested2}>
-        <ListItemText
-          className={classes.subTitle}
-          primary={
-            <Typography
-              component='h5'
-            >
-              会社設立
-            </Typography>
-          }
-        />
+      <ListItem className={classes.nested3}>
+        ・会社設立
       </ListItem>
-      <ListItem className={classes.nested2}>
-        <ListItemText
-          className={classes.subTitle}
-          primary={
-            <Typography
-              component='h5'
-            >
-              許認可申請
-            </Typography>
-          }
-        />
+      <ListItem className={classes.nested3}>
+        ・許認可申請
       </ListItem>
-      <ListItem className={classes.nested2}>
-        <ListItemText
-          className={classes.subTitle}
-          primary={
-            <Typography
-              component='h5'
-            >
-              各種書類作成代行
-            </Typography>
-          }
-        />
+      <ListItem className={classes.nested3}>
+        ・各種書類作成代行
       </ListItem>
-      <ListItem className={classes.nested2}>
-        <ListItemText
-          className={classes.subTitle}
-          primary={
-            <Typography
-              component='h5'
-            >
-              その他（法務コンサルティング、著作権登録など）
-            </Typography>
-          }
-        />
+      <ListItem className={classes.nested3}>
+        ・その他（法務コンサルティング、著作権登録など）
       </ListItem>
     </>
   )

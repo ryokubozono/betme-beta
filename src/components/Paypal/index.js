@@ -2,14 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import AppLayout from 'components/commons/layout/AppLayout';
 import { PayPalButton } from "react-paypal-button-v2";
 import { AuthContext } from "hooks/Auth";
-import { Box } from '@material-ui/core';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase, { auth, db } from "FirebaseConfig";
 import Spacer from 'components/commons/atoms/Spacer';
 import { ExamsContext } from 'hooks/Exams';
 import { useLocation } from 'react-router-dom';
 import { ExamFindFilter } from 'components/commons/filters/ExamFindFilter';
-import { Button, CircularProgress } from '@material-ui/core';
+import { Box, Dialog, CircularProgress } from '@material-ui/core';
 import paths from 'paths';
 import { useHistory } from 'react-router-dom';
 import AccountForm from "components/MyAccount/AccountForm";
@@ -17,9 +16,9 @@ import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
 import { UsersContext } from "hooks/Users";
 import BasicForm from "components/MyAccount/BasicForm";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Icon, List, ListItem } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import ReactGA from 'react-ga';
+import EmailSendForm2 from "components/MyAccount/EmailSendForm2";
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -55,7 +54,7 @@ const Paypal = (props) => {
   const [tel, setTel] = useState('');
   const classes = useStyles();
   const [emailVarified, setEmailVarified] = useState(true);
-
+  const [loading, setLoading] = useState('');
 
   useEffect(() => {
     auth.onAuthStateChanged(user => {
@@ -195,8 +194,22 @@ const Paypal = (props) => {
     // console.log(ReactGA)
   }, [])
 
+  const handleClose = () => {
+    setLoading(false);
+  };
+
   return (
     <>
+      {loading && 
+        <Dialog
+          open={loading}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <CircularProgress />
+        </Dialog>
+      }
         { currentUser && !frag &&
           <>
             <p>
@@ -212,13 +225,10 @@ const Paypal = (props) => {
             >
               お申し込み頂くにはメールアドレスの認証を完了させてください。
             </p>
-            <Button
-              color='primary'
-              variant='contained'
-              onClick={() => history.push(`${paths.myaccount}`)}
-            >
-              アカウント設定
-            </Button>
+            <EmailSendForm2 
+              setLoading={setLoading}
+              exam={props.exam}
+            />
           </>
         }
 

@@ -249,7 +249,7 @@ const WhatIsBetMeChallenge = (props) => {
           className={classes.formControl}
         >
           <>
-            尚、今回は初回取り組みのため合格体験記の用意が非常に少なくなっております。
+            尚、合格体験記は現在収集中のため、数が非常に少なくなっております。
             <br />
             ご了承いただけますでしょうか。
           </>

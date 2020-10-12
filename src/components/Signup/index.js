@@ -32,6 +32,15 @@ function getSteps() {
 }
 
 const Signup = (props) => {
+  
+  let domain = document.domain;
+  const actionCodeSettings = (domain === 'localhost')? 
+  {
+    url: `http://localhost:3000/myaccount`
+  }:{
+    url: `https://${domain}/myaccount`
+  }
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
@@ -184,6 +193,25 @@ const Signup = (props) => {
             college: college,
             regPurpose: regPurposeRef,
           })
+          user.sendEmailVerification(actionCodeSettings)
+          .then(()=>{
+            setLoading(false)
+            history.push({
+              state: {
+                text: `${user.email}宛に確認メールを送信しました`,
+                type: 'success',
+              }
+            })
+          })
+          .catch((error)=>{
+            setLoading(false)
+            history.push({
+              state: {
+                text: `${user.email}宛に確認メールを送信できませんでした。, ${error}`,
+                type: 'error'
+              }
+            })
+          });
         }
       })
 

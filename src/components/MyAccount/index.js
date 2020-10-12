@@ -15,6 +15,9 @@ import { UserFindFilter } from 'components/commons/filters/UserFindFilter';
 import { UsersContext } from "hooks/Users";
 import { GetDefaultDate } from "components/commons/atoms/GetDefaultDate";
 import { GetTimestamp } from 'components/commons/atoms/GetTimestamp';
+import EmailSendForm from "./EmailSendForm";
+import { setLogLevel } from "firebase";
+import BasicForm2 from "./BasicForm2";
 
 const TwitterButton = withStyles((theme) => ({
   root: {
@@ -396,7 +399,10 @@ const MyAccount = (props) => {
           </p>
         </Typography>
         <section>
-          <Box bgcolor='white' p={2} m={0}>
+          <EmailSendForm 
+            setLoading={setLoading}
+          />
+          {/* <Box bgcolor='white' p={2} m={0}>
             <p>メール認証: <b>{ emailVarified ? ('完了'):('未完了') }</b></p>
             {!emailVarified &&
               <Button
@@ -407,7 +413,7 @@ const MyAccount = (props) => {
                 認証メールを送信する
               </Button>
             }
-          </Box>
+          </Box> */}
         </section>
         <br />
         <section>
@@ -467,9 +473,9 @@ const MyAccount = (props) => {
           </div>
         </Box>
         }
-        {/* <Box bgcolor='white' p={2} m={0}>
-          <p>基本情報</p>
-          <BasicForm
+        <Box bgcolor='white' p={2} m={0}>
+          <p>基本情報(変更できません)</p>
+          <BasicForm2
             firstName={firstName}
             lastName={lastName}
             address={address}
@@ -478,7 +484,7 @@ const MyAccount = (props) => {
             submitBasic={submitBasic}
             formType='myAccount'
           />
-        </Box> */}
+        </Box>
         <section>
           <Box bgcolor='white' p={2} m={0}>
             <p>プロフィール</p>

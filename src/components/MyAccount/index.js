@@ -473,18 +473,20 @@ const MyAccount = (props) => {
           </div>
         </Box>
         }
-        <Box bgcolor='white' p={2} m={0}>
-          <p>基本情報(変更できません)</p>
-          <BasicForm2
-            firstName={firstName}
-            lastName={lastName}
-            address={address}
-            tel={tel}
-            handleChange={handleChange}
-            submitBasic={submitBasic}
-            formType='myAccount'
-          />
-        </Box>
+        { firstName && lastName &&
+          <Box bgcolor='white' p={2} m={0}>
+            <p>基本情報(変更できません)</p>
+            <BasicForm2
+              firstName={firstName}
+              lastName={lastName}
+              address={address}
+              tel={tel}
+              handleChange={handleChange}
+              submitBasic={submitBasic}
+              formType='myAccount'
+            />
+          </Box>
+        }
         <section>
           <Box bgcolor='white' p={2} m={0}>
             <p>プロフィール</p>

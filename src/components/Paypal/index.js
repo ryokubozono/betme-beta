@@ -237,7 +237,8 @@ const Paypal = (props) => {
             <p
               className={classes.textRed}
             >
-              お申し込みのために受験者さまの情報を入力してください。
+              お申し込みのために受験者さま本人の情報を入力してください。<br />
+              ※申込み後の変更はできません。
             </p>
             <BasicForm
               firstName={firstName}

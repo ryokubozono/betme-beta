@@ -1,184 +1,179 @@
 import React, { useContext, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import HomeIcon from '@material-ui/icons/Home';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import grey from '@material-ui/core/colors/grey';
-import blueGrey from '@material-ui/core/colors/blueGrey';
-import { Container, Menu, MenuItem, Badge } from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import { Container } from '@material-ui/core';
 import AppAlert from 'components/commons/atoms/AppAlert';
-import { AuthContext } from "hooks/Auth";
-import { auth } from "FirebaseConfig";
-import { useHistory, Link } from 'react-router-dom';
 import paths from 'paths';
-import { UserContext } from 'hooks/User';
-import ExamNavList from '../card/ExamNavList';
-import Collapse from '@material-ui/core/Collapse';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { useHistory, Link } from 'react-router-dom';
+import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import TopImage from 'components/commons/layout/TopImage';
+import TopTabs from './TopTabs';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import AdminNav from './AdminNav';
-import BetMeLogo from 'assets/betme_logo_02.png';
-import { MyNoticesContext } from 'hooks/MyNotices';
-import AppLogin from './AppLogin';
+import Collapse from '@material-ui/core/Collapse';
+import { UserContext } from 'hooks/User';
+import ExamNavList from '../card/ExamNavList';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
-
-const drawerWidth = 240;
+import { AuthContext } from "hooks/Auth";
+import AdminNav from './AdminNav';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    position: 'relative',
+  list: {
+    width: 250,
   },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-    backgroundColor: grey[50],
-    color: grey[900],
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
+  fullList: {
+    width: 'auto',
   },
   content: {
+    position: 'relative',
     flexGrow: 1,
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(18),
-    
     backgroundColor: blueGrey[50],
-    minHeight: '100vh',
-  },
-  menuButtonRight: {
-    position: 'absolute',
-    right: 0,
   },
   footer: {
-    position: 'absolute',
     bottom: '0',
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: '100vw',
-    },
+    width: '100vw',
     textAlign: 'center',
     paddingBottom: theme.spacing(1),
   },
-  cursorPointer:{
-    cursor: 'pointer',
-    '&:hover': {
-      backgroundColor: '#eee',
-    },
+  atag: {
+    color: '#000',
+    margin: 0,
+    padding: 0,
+    textDecorationLine: 'none',
   },
-  logoImg: {
-    cursor: 'pointer',
-  },
+  footerbar: {
+    // [theme.breakpoints.up('sm')]: {
+    //   display: 'none',
+    // },
+    borderTop: '1px solid #E60114', 
+    width: '100vw',
+    position: 'fixed',
+    bottom: '0',
+  }
 }));
 
 const AppLayout = (props) => {
-
-  const { currentUser } = useContext(AuthContext);
-  const { window } = props;
   const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const history = useHistory();
-  const { user } = useContext(UserContext);
+  const {value, setValue} = useState('');
   const [openList, setOpenList] = useState(false);
+  const { user } = useContext(UserContext);
+  const { currentUser } = useContext(AuthContext);
   const [adminFrag, setAdminFrag] = useState(false);
-  const [countNotice, setCountNotice] = useState(0);
-  const { myNotices } = useContext(MyNoticesContext);
-  const [ nickName, setNickName ] = useState('');
 
-  useEffect(() => {
-    if (user) {
-      if (user.admin) {
-        setAdminFrag(true)
-      } else {
-        setAdminFrag(false)
-      }
-      setNickName(user.nickName)
-    } else {
-      setNickName('')
+  const history = useHistory();
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
     }
-  }, [user])
 
-  const handleSignout = () => {
-    // console.log('click logout')
-    // logout button
-    // すぐにログアウトしないため/loginに遷移させることができない。
-    setNickName('')
-    auth.signOut()
-    .then(() => {
-      history.push({
-        pathname: '/',
-        state: {
-          text: 'ログアウトしました',
-          type: 'success',
-        }
-      })
-    })
-  }
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+    setState({ ...state, [anchor]: open });
   };
 
   const handleClick = () => {
     setOpenList(!openList);
   };
 
-  const clickHome = () => {
-    if (props.setWhatIsBetMeChallenge) {
-      props.setWhatIsBetMeChallenge(false)
-    }
-    history.push(`${paths.root}`)
-  }
-
-  const drawer = (
-    <div>
-      <div className={classes.toolbar} />
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+      })}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        <a
+          className={classes.atag}
+          href='https://wp.betme.biz'
+        >
+          <ListItem
+            button 
+            key={'Home'}
+            component='li'
+          >
+            <ListItemText primary={'ホーム'} />
+          </ListItem>
+        </a>
+        <a
+          className={classes.atag}
+          href='https://wp.betme.biz/riyou/'
+        >
+          <ListItem
+            button 
+            key={'Riyou'}
+            component='li'
+          >
+            <ListItemText primary={'利用方法'} />
+          </ListItem>
+        </a>
+        <a
+          className={classes.atag}
+          href='https://wp.betme.biz/ryoukin/'
+        >
+          <ListItem
+            button 
+            key={'Ryoukin'}
+            component='li'
+          >
+            <ListItemText primary={'料金'} />
+          </ListItem>
+        </a>
+        <a
+          className={classes.atag}
+          href='https://wp.betme.biz/posts/'
+        >
+          <ListItem
+            button 
+            key={'Posts'}
+            component='li'
+          >
+            <ListItemText primary={'投稿'} />
+          </ListItem>
+        </a>
+        <a
+          className={classes.atag}
+          href='/'
+        >
+          <ListItem
+            button 
+            key={'BetMe'}
+            component='li'
+          >
+            <ListItemText primary={'BetMe'} />
+          </ListItem>
+        </a>
+      </List>
       <Divider />
       <List>
-        <ListItem
-          button 
-          key={'Home'}
-          onClick={clickHome}
-          component='li'
-        >
-          <ListItemIcon><HomeIcon /></ListItemIcon>
-          <ListItemText primary={'ホーム'} />
-        </ListItem>
         <ListItem 
           button 
           onClick={handleClick}
@@ -189,15 +184,15 @@ const AppLayout = (props) => {
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="My試験" />
-            {openList ? <ExpandLess /> : <ExpandMore />}
+            {/* {openList ? <ExpandLess /> : <ExpandMore />} */}
         </ListItem>
-        <Collapse in={openList} timeout="auto" unmountOnExit>
+        {/* <Collapse in={openList} timeout="auto" unmountOnExit> */}
           <List component="div" disablePadding>
             {user.myExam && user.myExam.length && user.myExam.map(examId => (
               <ExamNavList examId={examId} />
             ))}
           </List>
-        </Collapse>
+        {/* </Collapse> */}
         <ListItem
           button 
           key={'MyAccount'}
@@ -239,129 +234,16 @@ const AppLayout = (props) => {
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
+  const ScrollBottom = () => {
+    const target = document.getElementById("topTarget");
+    target.scrollIntoView({ behavior: "smooth", block: "end" });
   };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  useEffect(() => {
-    if (myNotices) {
-      let tmpCount = myNotices.filter(function(x){return x.beforeOpen}).length;
-      setCountNotice(tmpCount)
-    }
-  }, [myNotices])
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <div
-            className={classes.cursorPointer}
-          >
-            <img
-              onClick={clickHome} 
-              src={BetMeLogo} 
-              height='40' 
-              className={classes.logoImg}
-            />
-          </div>
-          {/* </Typography> */}
-          <div className={classes.menuButtonRight}>
-            <IconButton aria-label="show 17 new notifications" color="inherit"
-              onClick={() => history.push(`${paths.noticelist}`)}
-            >
-              <Badge badgeContent={countNotice} color="primary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              { currentUser ? (
-                <>
-
-                    {nickName &&
-                      <AppLogin nickName={nickName} />
-                    }
-                  <MenuItem onClick={() => history.push(`${paths.myaccount}`)}>アカウント設定</MenuItem>
-                  <MenuItem onClick={handleSignout}>ログアウト</MenuItem>
-                </>
-              ):(
-                <MenuItem onClick={() => history.push({pathname: `${paths.signin}`})}>ログイン</MenuItem>
-              )
-              }
-            </Menu>
-          </div>
-        </Toolbar>
-      </AppBar>
-      <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
+    <div>
+      <div id='topTarget' />
+      <TopImage />
+      <TopTabs />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <>
@@ -408,18 +290,38 @@ const AppLayout = (props) => {
             &copy; 2020 Signal & Company
           </>
         </footer>
+        <BottomNavigation
+          showLabels
+          className={classes.footerbar}
+        >
+          <BottomNavigationAction 
+            label="メニュー" 
+            icon={<MenuIcon />} 
+            onClick={toggleDrawer('left', true)}
+          />
+          <SwipeableDrawer
+            anchor={'left'}
+            open={state['left']}
+            onClose={toggleDrawer('left', false)}
+            onOpen={toggleDrawer('left', true)}
+          >
+            {list('left')}
+          </SwipeableDrawer>
+          <BottomNavigationAction 
+            label="ホーム" 
+            icon={<HomeIcon />} 
+            onClick={() => history.push(`${paths.root}`)}
+          />
+          <BottomNavigationAction 
+            label="トップ" 
+            icon={<ArrowUpwardIcon />} 
+            onClick={ScrollBottom}
+          />
+
+        </BottomNavigation>
       </main>
     </div>
-  )
+  );
 }
-
-AppLayout.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
-
 
 export default AppLayout;

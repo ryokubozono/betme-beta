@@ -218,7 +218,7 @@ const Paypal = (props) => {
           </>
         }
 
-        { currentUser && frag && !emailVarified &&
+        {/* { currentUser && frag && !emailVarified &&
           <>
             <p
               className={classes.textRed}
@@ -230,9 +230,12 @@ const Paypal = (props) => {
               exam={props.exam}
             />
           </>
-        }
+        } */}
 
-        { currentUser && frag && !filledFrag && emailVarified &&
+        { currentUser &&
+         frag && 
+         !filledFrag && 
+        //  emailVarified &&
           <>
             <p
               className={classes.textRed}
@@ -252,7 +255,10 @@ const Paypal = (props) => {
           </>
         }
 
-        {currentUser && frag && filledFrag && emailVarified &&
+        {currentUser && 
+        frag && 
+        filledFrag && 
+        // emailVarified &&
         <>
           <p>下記ボタンからチャレンジ料金をお支払いただけます。</p>
           <PayPalButton

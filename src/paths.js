@@ -52,6 +52,8 @@ const paths = {
   termsofchallenge: '/termsofchallenge',
   commercial: '/commercial',
 
+  // wp
+
 };
 
 export default paths;

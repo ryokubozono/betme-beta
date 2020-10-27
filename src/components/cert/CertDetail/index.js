@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
+    // backgroundColor: '#e60114',
   },
   fullWidthTable: {
     margin: 'auto',
@@ -60,6 +61,10 @@ const useStyles = makeStyles((theme) => ({
     listStyle: 'none',
     paddingLeft: 0,
   },
+  panel: {
+    backgroundColor: '#e60114',
+    color: '#fff',
+  }
 }))
 
 const ExpansionPanel = withStyles({
@@ -249,7 +254,7 @@ const CertDetail = (props) => {
                   className={classes.redLink}
                   onClick={handleAboutBetme}
                 >
-                    BetMeチャレンジ
+                  BetMeチャレンジ
                 </b>
               </AnchorLink>
               もご利用できます。
@@ -283,11 +288,17 @@ const CertDetail = (props) => {
         <Spacer />
         <section id='cert-content'>
           <ul className={classes.list}>
-            <ExpansionPanel square expanded={expanded === 'panel0'} onChange={handleChange('panel0')} component='li'>
+            <ExpansionPanel 
+              square 
+              expanded={expanded === 'panel0'} 
+              onChange={handleChange('panel0')} 
+              component='li'
+            >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panelCertAbout"
+                className={classes.panel}
               >
                 <Typography 
                   className={classes.heading}
@@ -302,11 +313,17 @@ const CertDetail = (props) => {
                 </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-            <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')} component='li'>
+            <ExpansionPanel 
+              square 
+              expanded={expanded === 'panel1'} 
+              onChange={handleChange('panel1')} 
+              component='li'
+            >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panelCertSummary"
+                className={classes.panel}
               >
                 <Typography 
                   className={classes.heading}
@@ -321,11 +338,17 @@ const CertDetail = (props) => {
                 </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-            <ExpansionPanel square expanded={expanded === 'panel2'} onChange={handleChange('panel2')} component='li'>
+            <ExpansionPanel 
+              square 
+              expanded={expanded === 'panel2'} 
+              onChange={handleChange('panel2')} 
+              component='li'
+            >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panelCertAboutStudy"
+                className={classes.panel}
               >
                 <Typography 
                   className={classes.heading}
@@ -347,6 +370,7 @@ const CertDetail = (props) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panelAfterPass"
+                className={classes.panel}
               >
                 <Typography className={classes.heading}>合格後について</Typography>
               </ExpansionPanelSummary>
@@ -364,6 +388,7 @@ const CertDetail = (props) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panelCertNews"
+                className={classes.panel}
               >
                 <Typography className={classes.heading}>{cert.name}についての記事を読む</Typography>
               </ExpansionPanelSummary>

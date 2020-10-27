@@ -14,18 +14,17 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(0),
   },
   nested2: {
-    paddingLeft: theme.spacing(4),
+    paddingLeft: theme.spacing(0),
   },
   nested3: {
-    paddingLeft: theme.spacing(8),
+    paddingLeft: theme.spacing(1),
   },
   title: {
-    backgroundColor: '#ffd7db',
+    backgroundColor: '#c21318',
     padding: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    // margin: theme.spacing(1),
     borderLeft: '4px solid #E60114', 
     fontWeight: 'bold',
+    color: '#fff',
   },
   tableCell: {
     borderRight: '1px solid #000',
@@ -58,15 +57,13 @@ const useStyles = makeStyles((theme) => ({
   },
   subTitle: {
     padding: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    fontWeight: 'bolder',
-    backgroundColor: '#ffffcc',
+    fontWeight: '900',
   },
   table: {
     maxWidth: '100%',
   },
   nested3Red: {
-    paddingLeft: theme.spacing(8),
+    paddingLeft: theme.spacing(1),
     color: '#f00',
   },
 }));

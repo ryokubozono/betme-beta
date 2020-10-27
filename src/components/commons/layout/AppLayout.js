@@ -47,14 +47,14 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     flexGrow: 1,
     paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(18),
+    paddingBottom: theme.spacing(10),
     backgroundColor: blueGrey[50],
   },
   footer: {
     bottom: '0',
     width: '100vw',
     textAlign: 'center',
-    paddingBottom: theme.spacing(1),
+    // paddingBottom: theme.spacing(1),
   },
   atag: {
     color: '#000',

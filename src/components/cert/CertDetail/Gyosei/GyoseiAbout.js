@@ -18,27 +18,26 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bolder',
   },
   nested2: {
-    paddingLeft: theme.spacing(4),
+    paddingLeft: theme.spacing(0),
   },
   nested3: {
-    paddingLeft: theme.spacing(8),
+    paddingLeft: theme.spacing(1),
   },
   title: {
-    backgroundColor: '#ffd7db',
+    backgroundColor: '#c21318',
     padding: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    margin: theme.spacing(1),
     borderLeft: '4px solid #E60114', 
     fontWeight: 'bold',
+    color: '#fff',
   },
   subTitle: {
     padding: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    fontWeight: 'bolder',
-    backgroundColor: '#ffffcc',
+    fontWeight: '900',
   },
   fontColorRed: {
-    color: '#E60114',
+    borderTop: '1px solid #E60114',
+    borderBottom: '1px solid #E60114',
+    padding: theme.spacing(1),
   },
 }));
 
@@ -77,7 +76,6 @@ const GyoseiAbout = (props) => {
         />
       </ListItem>
       <ListItem className={classes.nested2}>
-        <CheckIcon fontSize='small' color='primary' />
         <ListItemText
           className={classes.fontColorRed}
           primary={
@@ -94,7 +92,6 @@ const GyoseiAbout = (props) => {
       </ListItem>
       
       <ListItem className={classes.nested2}>
-        <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           className={classes.fontColorRed}
           primary={
@@ -111,7 +108,6 @@ const GyoseiAbout = (props) => {
       </ListItem>  
 
       <ListItem className={classes.nested2}>
-        <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           className={classes.fontColorRed}
           primary={
@@ -140,7 +136,6 @@ const GyoseiAbout = (props) => {
         />
       </ListItem>
       <ListItem className={classes.nested2}>
-        <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           className={classes.fontColorRed}
           primary={
@@ -157,7 +152,6 @@ const GyoseiAbout = (props) => {
       </ListItem> 
 
       <ListItem className={classes.nested2}>
-        <CheckIcon fontSize='small' color="primary" />
         <ListItemText
           className={classes.fontColorRed}
           primary={
